@@ -5,9 +5,7 @@ import android.graphics.drawable.shapes.Shape
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
@@ -40,6 +38,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.tp3_hci.components.RoutineCard
 import com.example.tp3_hci.ui.theme.TP3HCITheme
 import dev.leonardom.loginjetpackcompose.presentation.components.RoundedButton
 import dev.leonardom.loginjetpackcompose.presentation.components.TransparentTextField
@@ -49,7 +48,19 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TP3HCITheme {
-                LogInScreen()
+                //LogInScreen(),
+                Column(
+                    modifier = Modifier
+                        .padding(horizontal = 25.dp)
+                        .verticalScroll(enabled = true, state = ScrollState(0)),
+                    verticalArrangement = Arrangement.spacedBy(25.dp),
+                ) {
+                    RoutineCard("Rutina 1", "Esta es la descripción de la rutina 1")
+                    RoutineCard("Rutina 2", "Esta es la descripción de la rutina 2")
+                    RoutineCard("Rutina 3", "Esta es la descripción de la rutina 3")
+                    RoutineCard("Messi chiquito", "AAAAAAAAA")
+                }
+
             }
         }
     }

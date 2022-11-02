@@ -8,5 +8,6 @@ val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
 val MotionOrange = Color(0xFFFF8000)
 val MotionGrey = Color(0xFF313131)
+val LightGrey = Color(0xFFD9D9D9)
 //primary: "#313131",
 //secondary: "#ff8000",
