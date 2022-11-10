@@ -20,16 +20,13 @@ import com.example.tp3_hci.R
 import dev.leonardom.loginjetpackcompose.presentation.components.RoundedButton
 
 @Composable
-@Preview
 fun RoutineCard(
     name: String,
     description: String,
 ){
     Card(
-        modifier = Modifier
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(7)
-
+        modifier = Modifier,
+        shape = RoundedCornerShape(7),
     ) {
         Column(
             modifier = Modifier.background(color = MaterialTheme.colors.surface)
@@ -38,12 +35,13 @@ fun RoutineCard(
                 painter = painterResource(id = R.drawable.routine_placeholder),
                 contentDescription = "Routine image",
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .height(150.dp),
                 contentScale = ContentScale.FillWidth
             )
             Text(
                 name,
-                modifier = Modifier.padding(12.dp),
+                modifier = Modifier.padding(start = 12.dp, top = 12.dp),
                 style = MaterialTheme.typography.h5
             )
             Text(
@@ -58,11 +56,12 @@ fun RoutineCard(
                 Button(
                     onClick = { TODO("Go to routine") },
                     modifier = Modifier
-                        .padding(10.dp),
+                        .padding(end = 15.dp, bottom = 5.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+                    shape = RoundedCornerShape(50);
                 ){
                     Text(
-                        text = "Start routine",
+                        text = "START ROUTINE",
                         color = Color.White
                     )
                 }
