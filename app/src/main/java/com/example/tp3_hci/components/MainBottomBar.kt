@@ -7,16 +7,19 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.tp3_hci.Model.BottomIcon
 import com.example.tp3_hci.R
 
 @Composable
-fun MainBottomBar() {
-    var selectedItem by remember { mutableStateOf(0) }
+fun MainBottomBar(navController: NavController) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
     val items = listOf(
-        BottomIcon(Icons.Default.Home, stringResource(id = R.string.home_top_text)),
-        BottomIcon(Icons.Default.FitnessCenter, stringResource(id = R.string.routines_top_text)),
-        BottomIcon(Icons.Default.Public, stringResource(id = R.string.explore_top_text))
+        BottomIcon(Icons.Default.Home, stringResource(id = R.string.home_top_text),"home"),
+        BottomIcon(Icons.Default.FitnessCenter, stringResource(id = R.string.routines_top_text),"routines"),
+        BottomIcon(Icons.Default.Public, stringResource(id = R.string.explore_top_text),"explore")
     )
 
     BottomNavigation (
@@ -26,8 +29,18 @@ fun MainBottomBar() {
             BottomNavigationItem(
                 icon = { Icon(item.imageVector, contentDescription = null) },
                 label = { Text(item.label) },
-                selected = selectedItem == index,
-                onClick = { selectedItem = index }
+                selected = currentRoute == item.route,
+                onClick = {
+                    navController.navigate(item.route) {
+                        navController.graph.startDestinationRoute?.let { screenRoute ->
+                            popUpTo(screenRoute) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                }
             )
         }
     }

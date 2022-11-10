@@ -28,9 +28,6 @@ fun HomeScreen() {
         topBar = {
             MainAppBar(title = stringResource(id = R.string.home_top_text))
         },
-        bottomBar = {
-            MainBottomBar()
-        }
     ) {
         //
     }

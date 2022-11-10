@@ -40,8 +40,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.compose.rememberNavController
 import com.example.tp3_hci.Screens.HomeScreen
+import com.example.tp3_hci.components.MainAppBar
+import com.example.tp3_hci.components.MainBottomBar
 import com.example.tp3_hci.components.RoutineCard
+import com.example.tp3_hci.navigation.MyAppNavHost
 import com.example.tp3_hci.ui.theme.TP3HCITheme
 import dev.leonardom.loginjetpackcompose.presentation.components.RoundedButton
 import dev.leonardom.loginjetpackcompose.presentation.components.TransparentTextField
@@ -51,10 +55,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TP3HCITheme {
+                val navController = rememberNavController()
                 Surface(
                     color = MaterialTheme.colors.background
                 ) {
-                    HomeScreen()
+                    Scaffold (
+                        bottomBar = {
+                            MainBottomBar(navController)
+                        }
+                    ) {
+                        MyAppNavHost(navController)
+                    }
                 }
             }
         }
