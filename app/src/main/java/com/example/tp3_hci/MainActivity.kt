@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
                     Scaffold (
                         bottomBar = {
                             MainBottomBar(navController)
-                        }
+                        },
                     ) {
                         MyAppNavHost(navController)
                     }

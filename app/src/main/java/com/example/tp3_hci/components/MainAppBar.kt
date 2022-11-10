@@ -8,16 +8,20 @@ import androidx.compose.ui.res.stringResource
 import com.example.tp3_hci.R
 
 @Composable
-fun MainAppBar(title: String) {
+fun MainAppBar(title: String, hasAvatar: Boolean, hasSearch: Boolean) {
     TopAppBar(
         title = { Text(text = title) },
         backgroundColor = MaterialTheme.colors.primary,
         actions = {
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = null
-                )
+            if (hasSearch) {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = null
+                    )
+                }
+            } else if (hasAvatar) {
+                //Avatar
             }
         }
     )

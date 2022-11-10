@@ -3,9 +3,9 @@ package com.example.tp3_hci.Screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,7 +20,7 @@ import com.example.tp3_hci.components.MainAppBar
 fun RoutinesScreen() {
     Scaffold (
         topBar = {
-            MainAppBar(title = stringResource(id = R.string.routines_top_text))
+            MainAppBar(title = stringResource(id = R.string.routines_top_text), hasAvatar = false, hasSearch = true)
         }
     ) {
         //

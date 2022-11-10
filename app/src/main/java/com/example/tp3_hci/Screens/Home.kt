@@ -26,7 +26,7 @@ import com.example.tp3_hci.ui.theme.TP3HCITheme
 fun HomeScreen() {
     Scaffold (
         topBar = {
-            MainAppBar(title = stringResource(id = R.string.home_top_text))
+            MainAppBar(title = stringResource(id = R.string.home_top_text), hasAvatar = true, hasSearch = false)
         },
     ) {
         //
