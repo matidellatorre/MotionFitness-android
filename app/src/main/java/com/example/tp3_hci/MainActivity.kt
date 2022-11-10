@@ -68,7 +68,6 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun LogInScreen() {
-
     val emailValue = rememberSaveable{ mutableStateOf("") }
     val passwordValue = rememberSaveable{ mutableStateOf("") }
     var passwordVisibility by remember { mutableStateOf(false) }
