@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Motion</string>
+    <string name="home_top_text">Home</string>
+    <string name="details_top_text">Details</string>
+    <string name="explore_top_text">Explore</string>
+    <string name="routines_top_text">Routines</string>
 </resources>
