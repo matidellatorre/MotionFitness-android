@@ -43,22 +43,36 @@ fun HomeScreen() {
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp)
             ) {
-
                 RoutineCard(name = "Piernas", description = "Beast Mode")
-            }
-            Text(
-                text = "Suggested trainings",
-                modifier = Modifier
-                    .padding(12.dp),
-                style = MaterialTheme.typography.h6.copy(
-                    fontWeight = FontWeight(500)
+                Text(
+                    text = "Suggested trainings",
+                    modifier = Modifier
+                        .padding(12.dp),
+                    style = MaterialTheme.typography.h6.copy(
+                        fontWeight = FontWeight(500)
+                    )
                 )
-            )
-            LazyRow (
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
-            ) {
-                items(10) {
-                    LittleCard(name = "Tetee")
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    items(10) {
+                        LittleCard(name = "Tetee")
+                    }
+                }
+                Text(
+                    text = "Favourite trainings",
+                    modifier = Modifier
+                        .padding(12.dp),
+                    style = MaterialTheme.typography.h6.copy(
+                        fontWeight = FontWeight(500)
+                    )
+                )
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
+                    items(10) {
+                        LittleCard(name = "Tetee")
+                    }
                 }
             }
         }
