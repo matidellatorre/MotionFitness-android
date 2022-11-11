@@ -65,8 +65,7 @@ class MainActivity : ComponentActivity() {
                             MainBottomBar(navController)
                         },
                     ) {
-                        //MyAppNavHost(navController)
-                        DetailsScreen(id = 5)
+                        MyAppNavHost(navController)
                     }
                 }
             }

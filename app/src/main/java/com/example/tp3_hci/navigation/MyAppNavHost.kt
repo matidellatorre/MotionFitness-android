@@ -13,7 +13,7 @@ import com.example.tp3_hci.Screens.RoutinesScreen
 fun MyAppNavHost(navController: NavHostController){
     NavHost(
         navController = navController,
-        startDestination = "home"
+        startDestination = "routines/details"
     ){
         composable("home") {
             HomeScreen()
@@ -24,8 +24,8 @@ fun MyAppNavHost(navController: NavHostController){
         composable("explore") {
             ExploreScreen()
         }
-        composable("routines/${id}") {
-            DetailsScreen(id)
+        composable("routines/details") {
+            DetailsScreen()
         }
     }
 

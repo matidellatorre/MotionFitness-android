@@ -58,7 +58,7 @@ fun RoutineCard(
                     modifier = Modifier
                         .padding(end = 15.dp, bottom = 5.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
-                    shape = RoundedCornerShape(50)
+                    shape = RoundedCornerShape(35.dp)
                 ){
                     Text(
                         text = "START ROUTINE",

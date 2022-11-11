@@ -16,7 +16,7 @@ import com.example.tp3_hci.components.CicleEntry
 import com.example.tp3_hci.components.MainAppBar
 
 @Composable
-fun DetailsScreen(id: Int) {
+fun DetailsScreen() {
     Scaffold (
         topBar = {
             MainAppBar(title = stringResource(id = R.string.details_top_text), hasAvatar = false, hasSearch = false)
@@ -35,8 +35,7 @@ fun DetailsScreen(id: Int) {
                     .fillMaxWidth()
             ) {
                 items(100) {
-                    CicleEntry(title = "Ciclo 1", exerciseCount = 5)
-                    //Divider(thickness = 2.dp)
+                    CicleEntry(title = "Ciclo 1", exerciseCount = 5, rounds = 3)
                 }
             }
         }

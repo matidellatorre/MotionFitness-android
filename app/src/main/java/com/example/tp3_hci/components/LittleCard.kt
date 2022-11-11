@@ -25,7 +25,7 @@ fun LittleCard(
         modifier = Modifier
             .width(175.dp)
             .height(125.dp),
-        shape = RoundedCornerShape(7)
+        shape = RoundedCornerShape(10.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.routine_placeholder),
