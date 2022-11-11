@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.compose.rememberNavController
+import com.example.tp3_hci.Screens.DetailsScreen
 import com.example.tp3_hci.Screens.HomeScreen
 import com.example.tp3_hci.components.MainAppBar
 import com.example.tp3_hci.components.MainBottomBar
@@ -64,7 +65,8 @@ class MainActivity : ComponentActivity() {
                             MainBottomBar(navController)
                         },
                     ) {
-                        MyAppNavHost(navController)
+                        //MyAppNavHost(navController)
+                        DetailsScreen(id = 5)
                     }
                 }
             }
