@@ -25,25 +25,19 @@ import com.example.tp3_hci.components.RoutineCard
 fun RoutinesScreen(
     onNavigateToRoutineDetails: (id:Int) -> Unit
 ) {
-    Scaffold (
-        topBar = {
-            MainAppBar(title = stringResource(id = R.string.routines_top_text), hasAvatar = false, hasSearch = true)
-        }
-    ) {
-        Column() {
-            Text(
-                text="Your routines",
-                fontWeight = FontWeight.Bold,
-                fontSize = 28.sp,
-                modifier = Modifier.padding(horizontal = 15.dp, vertical = 20.dp))
-            LazyColumn (
-                verticalArrangement = Arrangement.spacedBy(15.dp),
-                modifier = Modifier
-                    .padding(horizontal = 15.dp)
-            ) {
-                items(10) {
-                    RoutineCard(name = "Piernas lunes", description = "Placeholder", id=1, onNavigateToRoutineDetails = onNavigateToRoutineDetails)
-                }
+    Column() {
+        Text(
+            text="Your routines",
+            fontWeight = FontWeight.Bold,
+            fontSize = 28.sp,
+            modifier = Modifier.padding(horizontal = 15.dp, vertical = 20.dp))
+        LazyColumn (
+            verticalArrangement = Arrangement.spacedBy(15.dp),
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
+        ) {
+            items(10) {
+                RoutineCard(name = "Piernas lunes", description = "Placeholder", id=1, onNavigateToRoutineDetails = onNavigateToRoutineDetails)
             }
         }
     }

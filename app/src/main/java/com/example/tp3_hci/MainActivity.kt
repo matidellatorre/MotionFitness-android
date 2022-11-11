@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.tp3_hci.Screens.DetailsScreen
 import com.example.tp3_hci.Screens.HomeScreen
@@ -61,6 +62,9 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     Scaffold (
+                        topBar = {
+                            MainAppBar(navController)
+                        },
                         bottomBar = {
                             MainBottomBar(navController)
                         },

@@ -18,13 +18,6 @@ import com.example.tp3_hci.components.MainAppBar
 
 @Composable
 fun ExploreScreen() {
-    Scaffold (
-        topBar = {
-            MainAppBar(title = stringResource(id = R.string.explore_top_text), hasAvatar = false, hasSearch = true)
-        },
-    ) {
-        //
-    }
 }
 
 @Composable

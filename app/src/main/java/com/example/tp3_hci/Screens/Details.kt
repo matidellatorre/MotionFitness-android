@@ -17,28 +17,21 @@ import com.example.tp3_hci.components.MainAppBar
 
 @Composable
 fun DetailsScreen() {
-    Scaffold (
-        topBar = {
-            MainAppBar(title = stringResource(id = R.string.details_top_text), hasAvatar = false, hasSearch = false)
-        }
-    ) {
-        Column() {
-            Text(
-                text = "This are your cycles",
-                fontSize = 22.sp,
-                fontWeight = FontWeight(500),
-                modifier = Modifier.padding(8.dp),
-            )
-            LazyColumn (
-                verticalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                items(100) {
-                    CicleEntry(title = "Ciclo 1", exerciseCount = 5, rounds = 3)
-                }
+    Column() {
+        Text(
+            text = "This are your cycles",
+            fontSize = 22.sp,
+            fontWeight = FontWeight(500),
+            modifier = Modifier.padding(8.dp),
+        )
+        LazyColumn (
+            verticalArrangement = Arrangement.SpaceEvenly,
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            items(100) {
+                CicleEntry(title = "Ciclo 1", exerciseCount = 5, rounds = 3)
             }
         }
-
     }
 }

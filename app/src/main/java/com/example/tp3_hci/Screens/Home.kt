@@ -26,55 +26,49 @@ import com.example.tp3_hci.ui.theme.TP3HCITheme
 fun HomeScreen(
     onNavigateToRoutineDetails: (id:Int) -> Unit
 ) {
-    Scaffold (
-        topBar = {
-            MainAppBar(title = stringResource(id = R.string.home_top_text), hasAvatar = true, hasSearch = false)
-        },
-    ) {
-        Column() {
+    Column() {
+        Text(
+            text = "Today's training",
+            modifier = Modifier
+                .padding(12.dp),
+            style = MaterialTheme.typography.h6.copy(
+                fontWeight = FontWeight(500)
+            )
+        )
+        Column (
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp)
+        ) {
+            RoutineCard(name = "Piernas", description = "Beast Mode", id=1, onNavigateToRoutineDetails = onNavigateToRoutineDetails )
             Text(
-                text = "Today's training",
+                text = "Suggested trainings",
                 modifier = Modifier
                     .padding(12.dp),
                 style = MaterialTheme.typography.h6.copy(
                     fontWeight = FontWeight(500)
                 )
             )
-            Column (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp)
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                RoutineCard(name = "Piernas", description = "Beast Mode", id=1, onNavigateToRoutineDetails = onNavigateToRoutineDetails )
-                Text(
-                    text = "Suggested trainings",
-                    modifier = Modifier
-                        .padding(12.dp),
-                    style = MaterialTheme.typography.h6.copy(
-                        fontWeight = FontWeight(500)
-                    )
-                )
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    items(10) {
-                        LittleCard(name = "Tetee", id=1, onNavigateToRoutineDetails)
-                    }
+                items(10) {
+                    LittleCard(name = "Tetee", id=1, onNavigateToRoutineDetails)
                 }
-                Text(
-                    text = "Favourite trainings",
-                    modifier = Modifier
-                        .padding(12.dp),
-                    style = MaterialTheme.typography.h6.copy(
-                        fontWeight = FontWeight(500)
-                    )
+            }
+            Text(
+                text = "Favourite trainings",
+                modifier = Modifier
+                    .padding(12.dp),
+                style = MaterialTheme.typography.h6.copy(
+                    fontWeight = FontWeight(500)
                 )
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
-                ) {
-                    items(10) {
-                        LittleCard(name = "Tetee", id=1, onNavigateToRoutineDetails)
-                    }
+            )
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+            ) {
+                items(10) {
+                    LittleCard(name = "Tetee", id=1, onNavigateToRoutineDetails)
                 }
             }
         }
