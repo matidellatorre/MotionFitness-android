@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.media.Image
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -23,9 +24,11 @@ import dev.leonardom.loginjetpackcompose.presentation.components.RoundedButton
 fun RoutineCard(
     name: String,
     description: String,
+    id: Int,
+    onNavigateToRoutineDetails: (id:Int) -> Unit
 ){
     Card(
-        modifier = Modifier,
+        modifier = Modifier.clickable { onNavigateToRoutineDetails(id) },
         shape = RoundedCornerShape(7),
     ) {
         Column(

@@ -2,6 +2,7 @@ package com.example.tp3_hci.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -19,12 +20,15 @@ import com.example.tp3_hci.R
 @Composable
 fun LittleCard(
     name: String,
+    id: Int,
     //description: String,
+    onNavigateToRoutineDetails: (id:Int) -> Unit
 ){
     Card(
         modifier = Modifier
             .width(175.dp)
-            .height(125.dp),
+            .height(125.dp)
+            .clickable { onNavigateToRoutineDetails(id) },
         shape = RoundedCornerShape(10.dp)
     ) {
         Image(

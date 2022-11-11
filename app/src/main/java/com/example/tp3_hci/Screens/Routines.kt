@@ -22,7 +22,9 @@ import com.example.tp3_hci.components.MainAppBar
 import com.example.tp3_hci.components.RoutineCard
 
 @Composable
-fun RoutinesScreen() {
+fun RoutinesScreen(
+    onNavigateToRoutineDetails: (id:Int) -> Unit
+) {
     Scaffold (
         topBar = {
             MainAppBar(title = stringResource(id = R.string.routines_top_text), hasAvatar = false, hasSearch = true)
@@ -40,15 +42,15 @@ fun RoutinesScreen() {
                     .padding(horizontal = 15.dp)
             ) {
                 items(10) {
-                    RoutineCard(name = "Piernas lunes", description = "Placeholder")
+                    RoutineCard(name = "Piernas lunes", description = "Placeholder", id=1, onNavigateToRoutineDetails = onNavigateToRoutineDetails)
                 }
             }
         }
     }
 }
 
-@Composable
-@Preview
-fun RoutinesScreenPreview() {
-    RoutinesScreen()
-}
+//@Composable
+//@Preview
+//fun RoutinesScreenPreview() {
+//    RoutinesScreen()
+//}

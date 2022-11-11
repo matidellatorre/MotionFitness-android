@@ -23,7 +23,9 @@ import com.example.tp3_hci.components.RoutineCard
 import com.example.tp3_hci.ui.theme.TP3HCITheme
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onNavigateToRoutineDetails: (id:Int) -> Unit
+) {
     Scaffold (
         topBar = {
             MainAppBar(title = stringResource(id = R.string.home_top_text), hasAvatar = true, hasSearch = false)
@@ -43,7 +45,7 @@ fun HomeScreen() {
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp)
             ) {
-                RoutineCard(name = "Piernas", description = "Beast Mode")
+                RoutineCard(name = "Piernas", description = "Beast Mode", id=1, onNavigateToRoutineDetails = onNavigateToRoutineDetails )
                 Text(
                     text = "Suggested trainings",
                     modifier = Modifier
@@ -56,7 +58,7 @@ fun HomeScreen() {
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     items(10) {
-                        LittleCard(name = "Tetee")
+                        LittleCard(name = "Tetee", id=1, onNavigateToRoutineDetails)
                     }
                 }
                 Text(
@@ -71,16 +73,10 @@ fun HomeScreen() {
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
                     items(10) {
-                        LittleCard(name = "Tetee")
+                        LittleCard(name = "Tetee", id=1, onNavigateToRoutineDetails)
                     }
                 }
             }
         }
     }
-}
-
-@Composable
-@Preview
-fun HomeScreenPreview() {
-    HomeScreen()
 }
