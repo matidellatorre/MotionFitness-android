@@ -22,7 +22,7 @@ fun DetailsScreen() {
             text = stringResource(R.string.details_subtitle),
             fontSize = 22.sp,
             fontWeight = FontWeight(500),
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.padding(horizontal = 15.dp, vertical = 20.dp),
         )
         LazyColumn (
             verticalArrangement = Arrangement.SpaceEvenly,

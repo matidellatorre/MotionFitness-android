@@ -5,6 +5,7 @@
     <string name="explore_top_text">Explore</string>
     <string name="routines_top_text">Routines</string>
     <string name="routines_subtitle">Your routines</string>
+    <string name="explore_subtitle">Routines from the community</string>
     <string name="details_subtitle">Routine cycles</string>
     <string name="home_subtitle">Todays training</string>
     <string name="home_suggested">Suggested trainings</string>

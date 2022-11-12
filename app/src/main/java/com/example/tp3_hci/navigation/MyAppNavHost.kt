@@ -23,7 +23,9 @@ fun MyAppNavHost(navController: NavHostController){
             )
         }
         composable("explore") {
-            ExploreScreen()
+            ExploreScreen(
+                onNavigateToRoutineDetails = { id -> navController.navigate("details/$id")}
+            )
         }
         composable("details/1") {
             DetailsScreen()

@@ -14,6 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.tp3_hci.Model.BottomIcon
 import com.example.tp3_hci.R
 import com.example.tp3_hci.components.LittleCard
@@ -29,8 +30,10 @@ fun HomeScreen(
     Column() {
         Text(
             text = stringResource(R.string.home_subtitle),
+            fontWeight = FontWeight.Bold,
+            fontSize = 28.sp,
             modifier = Modifier
-                .padding(12.dp),
+                .padding(horizontal = 15.dp, vertical = 20.dp),
             style = MaterialTheme.typography.h6.copy(
                 fontWeight = FontWeight(500)
             )
