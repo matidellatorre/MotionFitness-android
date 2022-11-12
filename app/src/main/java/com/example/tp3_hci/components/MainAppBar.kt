@@ -40,7 +40,8 @@ fun MainAppBar(navController: NavHostController) {
         "home" to TopBarInfo("Home", true, false, false),
         "routines" to TopBarInfo("Routines", false, true, false),
         "explore" to TopBarInfo("Explore", false, false, false),
-        "details/1" to TopBarInfo("Details", false, true, true),
+        "details/1" to TopBarInfo("Details", false, false, true),
+        "details-cycle/1" to TopBarInfo("Details", false, false, true),
             )
         )
     }

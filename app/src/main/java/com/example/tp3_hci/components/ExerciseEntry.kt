@@ -24,15 +24,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.tp3_hci.navigation.MyAppNavHost
 
 @Composable
-fun CicleEntry (
+fun ExerciseEntry (
     title: String,
-    exerciseCount : Int,
-    rounds: Int,
-    onNavigateToCycleDetails: (id:Int) -> Unit
+    reps : Int,
+    time: Int,
     ) {
     Card(modifier = Modifier
-        .padding(horizontal = 8.dp, vertical = 4.dp)
-        .clickable { onNavigateToCycleDetails(1) },
+        .padding(horizontal = 8.dp, vertical = 4.dp),
         backgroundColor = MaterialTheme.colors.background,
         elevation = 5.dp,
         shape = RoundedCornerShape(12.dp)
@@ -52,25 +50,14 @@ fun CicleEntry (
                     fontSize = 22.sp
                 )
                 Text(
-                    text = "$exerciseCount Exercises",
+                    text = "$reps repetitions",
                     fontSize = 18.sp,
                     color = Color.Gray
                 )
                 Text(
-                    text = "$rounds Rounds",
+                    text = "$time seconds",
                     fontSize = 18.sp,
                     color = Color.Gray
-                )
-            }
-            Column (
-                horizontalAlignment = Alignment.End,
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowForwardIos,
-                    contentDescription = null,
-                    tint = Color.Gray,
-                    modifier = Modifier
-                        .size(18.dp),
                 )
             }
         }

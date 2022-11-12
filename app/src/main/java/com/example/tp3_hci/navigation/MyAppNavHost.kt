@@ -10,7 +10,7 @@ import com.example.tp3_hci.Screens.*
 fun MyAppNavHost(navController: NavHostController){
     NavHost(
         navController = navController,
-        startDestination = "execution"
+        startDestination = "home"
     ){
         composable("home") {
             HomeScreen(
@@ -28,10 +28,15 @@ fun MyAppNavHost(navController: NavHostController){
             )
         }
         composable("details/1") {
-            DetailsScreen()
+            DetailsScreen(
+                onNavigateToCycleDetails = { id -> navController.navigate("details-cycle/$id") }
+            )
         }
         composable("execution") {
             ExecutionScreen()
+        }
+        composable("details-cycle/1") {
+            CycleDetailsScreen()
         }
     }
 
