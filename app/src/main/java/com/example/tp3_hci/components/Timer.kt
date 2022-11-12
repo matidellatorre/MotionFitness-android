@@ -31,6 +31,7 @@ import kotlinx.coroutines.delay
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun Timer(
@@ -56,8 +57,8 @@ fun Timer(
     }
     LaunchedEffect(key1 = currentTime, key2 = isTimerRunning) {
         if(currentTime > 0 && isTimerRunning) {
-            delay(100L)
-            currentTime -= 100L
+            delay(1000L)
+            currentTime -= 1000L
             value = currentTime / totalTime.toFloat()
         }
     }

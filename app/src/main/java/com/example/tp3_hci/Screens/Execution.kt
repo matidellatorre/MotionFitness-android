@@ -72,7 +72,7 @@ fun ExecutionScreen() {
                 inactiveBarColor = GreyGrey,
                 activeBarColor = MaterialTheme.colors.primary,
                 modifier = Modifier
-                    .size(280.dp),
+                    .size(280.dp)
             )
         }
         Box(
