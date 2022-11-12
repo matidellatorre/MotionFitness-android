@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -112,28 +113,50 @@ fun Timer(
                 )
             }
         }
-        Button(
-            onClick = {
-                if(currentTime <= 0L) {
-                    currentTime = totalTime
-                    isTimerRunning = true
-                } else {
-                    isTimerRunning = !isTimerRunning
-                }
-            },
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = if (!isTimerRunning || currentTime <= 0L) {
-                    Color.Green
-                } else {
-                    Color.Red
-                }
-            )
+        Row(
+            horizontalArrangement = Arrangement.SpaceAround,
+            modifier = Modifier
+                .fillMaxWidth()
         ) {
-            Text(
-                text = if (isTimerRunning && currentTime >= 0L) "Stop"
-                else if (!isTimerRunning && currentTime >= 0L) "Start"
-                else "Restart"
-            )
+            Button(
+                onClick = { /*TODO*/ },
+                colors = ButtonDefaults.buttonColors(MaterialTheme.colors.secondary),
+                shape = RoundedCornerShape(35.dp)
+            ) {
+                Text(text = "PREV", color = Color.White)
+            }
+            Button(
+                onClick = {
+                    if (currentTime <= 0L) {
+                        currentTime = totalTime
+                        isTimerRunning = true
+                    } else {
+                        isTimerRunning = !isTimerRunning
+                    }
+                },
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = if (!isTimerRunning || currentTime <= 0L) {
+                        MaterialTheme.colors.secondary
+                    } else {
+                        Color.Red
+                    }
+                ),
+                shape = RoundedCornerShape(35.dp)
+            ) {
+                Text(
+                    text = if (isTimerRunning && currentTime >= 0L) "PAUSE"
+                    else if (!isTimerRunning && currentTime >= 0L) "START"
+                    else "RESTART",
+                    color = Color.White
+                )
+            }
+            Button(
+                onClick = { /*TODO*/ },
+                colors = ButtonDefaults.buttonColors(MaterialTheme.colors.secondary),
+                shape = RoundedCornerShape(35.dp)
+            ) {
+                Text(text = "NEXT", color = Color.White)
+            }
         }
     }
 }

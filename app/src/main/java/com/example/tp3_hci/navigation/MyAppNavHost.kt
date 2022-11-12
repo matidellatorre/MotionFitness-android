@@ -36,7 +36,9 @@ fun MyAppNavHost(navController: NavHostController){
             )
         }
         composable("execution/1") {
-            ExecutionScreen()
+            ExecutionScreen(
+                onNavigateBack = { navController.navigateUp() }
+            )
         }
         composable("details-cycle/1") {
             CycleDetailsScreen()

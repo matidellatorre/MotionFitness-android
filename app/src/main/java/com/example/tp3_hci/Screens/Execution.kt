@@ -1,5 +1,6 @@
 package com.example.tp3_hci.Screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -18,7 +19,9 @@ import com.example.tp3_hci.ui.theme.Grey2
 import com.example.tp3_hci.ui.theme.GreyGrey
 
 @Composable
-fun ExecutionScreen() {
+fun ExecutionScreen(
+    onNavigateBack: () -> Unit
+) {
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -40,7 +43,8 @@ fun ExecutionScreen() {
                     imageVector = Icons.Default.Cancel,
                     contentDescription = null,
                     modifier = Modifier
-                        .size(35.dp),
+                        .size(35.dp)
+                        .clickable { onNavigateBack() },
                     tint = Grey2
                 )
             }
