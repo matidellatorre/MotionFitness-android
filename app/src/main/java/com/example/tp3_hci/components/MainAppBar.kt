@@ -26,10 +26,11 @@ fun MainAppBar(navController: NavHostController) {
         )
     }
 
-    TopAppBar(
-        title = { Text(text = topBarInfoMap.get(currentRoute)!!.title, fontSize = 28.sp) },
-        backgroundColor = MaterialTheme.colors.primary,
-        actions = {
+    if(topBarInfoMap.get(currentRoute) != null){
+        TopAppBar(
+            title = { Text(text = topBarInfoMap.get(currentRoute)!!.title, fontSize = 28.sp) },
+            backgroundColor = MaterialTheme.colors.primary,
+            actions = {
 //            if (hasSearch) {
 //                IconButton(onClick = { /*TODO*/ }) {
 //                    Icon(
@@ -40,16 +41,17 @@ fun MainAppBar(navController: NavHostController) {
 //            } else if (hasAvatar) {
 //                //Avatar
 //            }
-        },
-        navigationIcon = if (topBarInfoMap.get(currentRoute)!!.hasBackArrow) {
-            {
-                IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "Back"
-                    )
+            },
+            navigationIcon = if (topBarInfoMap.get(currentRoute)!!.hasBackArrow) {
+                {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
                 }
-            }
-        } else {null},
-    )
+            } else {null},
+        )
+    }
 }
