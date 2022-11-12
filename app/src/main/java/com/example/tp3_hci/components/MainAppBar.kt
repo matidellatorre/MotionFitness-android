@@ -8,6 +8,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -62,15 +63,17 @@ fun MainAppBar(navController: NavHostController) {
                     )
                 }
             } else if (currentTopBarInfo.hasAvatar) {
-                Image(
-                    painter = painterResource(R.drawable.bg),
-                    contentDescription = "profile picture",
-                    contentScale = ContentScale.Crop,            // crop the image if it's not a square
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .clickable { showPopUp = !showPopUp }
-                )
+                Box(modifier = Modifier.padding(end=6.dp)){
+                    Image(
+                        painter = painterResource(R.drawable.bg),
+                        contentDescription = "profile picture",
+                        contentScale = ContentScale.Crop,            // crop the image if it's not a square
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clip(CircleShape)
+                            .clickable { showPopUp = !showPopUp }
+                    )
+                }
                 DropdownMenu(
                     expanded = showPopUp,
                     onDismissRequest = { showPopUp = false },
