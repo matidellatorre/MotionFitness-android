@@ -4,10 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -62,58 +59,58 @@ fun Timer(
             value = currentTime / totalTime.toFloat()
         }
     }
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-            .onSizeChanged {
-                size = it
-            }
-    ) {
-        Canvas(modifier = modifier) {
-            drawArc(
-                color = inactiveBarColor,
-                startAngle = -215f,
-                sweepAngle = 250f,
-                useCenter = false,
-                size = Size(size.width.toFloat(), size.height.toFloat()),
-                style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round)
-            )
-            drawArc(
-                color = activeBarColor,
-                startAngle = -215f,
-                sweepAngle = 250f * value,
-                useCenter = false,
-                size = Size(size.width.toFloat(), size.height.toFloat()),
-                style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round)
-            )
-            val center = Offset(size.width / 2f, size.height / 2f)
-            val beta = (250f * value + 145f) * (PI / 180f).toFloat()
-            val r = size.width / 2f
-            val a = cos(beta) * r
-            val b = sin(beta) * r
-            drawPoints(
-                listOf(Offset(center.x + a, center.y + b)),
-                pointMode = PointMode.Points,
-                color = handleColor,
-                strokeWidth = (strokeWidth * 3f).toPx(),
-                cap = StrokeCap.Round
-            )
-        }
-        Row(
-            verticalAlignment = Alignment.CenterVertically
+    Column (
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceAround
+            ) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = modifier
+                .onSizeChanged {
+                    size = it
+                }
         ) {
-            Text(
-                text = (currentTime / 1000L).toString(),
-                fontSize = 80.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.onBackground
-            )
-            Text(
-                text = " s",
-                fontSize = 50.sp,
-                fontWeight = FontWeight.Bold,
-                color = Grey2
-            )
+            Canvas(modifier = modifier) {
+                drawArc(
+                    color = inactiveBarColor,
+                    startAngle = -90f,
+                    sweepAngle = 360f,
+                    useCenter = false,
+                    size = Size(size.width.toFloat(), size.height.toFloat()),
+                    style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round)
+                )
+                drawArc(
+                    color = activeBarColor,
+                    startAngle = -90f,
+                    sweepAngle = 360f * value,
+                    useCenter = false,
+                    size = Size(size.width.toFloat(), size.height.toFloat()),
+                    style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round)
+                )
+                val center = Offset(size.width / 2f, size.height / 2f)
+                val beta = (250f * value + 145f) * (PI / 180f).toFloat()
+                val r = size.width / 2f
+                val a = cos(beta) * r
+                val b = sin(beta) * r
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = (currentTime / 1000L).toString(),
+                    fontSize = 80.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colors.onBackground
+                )
+                Text(
+                    text = " s",
+                    fontSize = 50.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Grey2
+                )
+            }
         }
         Button(
             onClick = {
@@ -124,7 +121,6 @@ fun Timer(
                     isTimerRunning = !isTimerRunning
                 }
             },
-            modifier = Modifier.align(Alignment.BottomCenter),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = if (!isTimerRunning || currentTime <= 0L) {
                     Color.Green
