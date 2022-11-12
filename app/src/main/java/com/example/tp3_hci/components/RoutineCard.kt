@@ -26,7 +26,8 @@ fun RoutineCard(
     name: String,
     description: String,
     id: Int,
-    onNavigateToRoutineDetails: (id:Int) -> Unit
+    onNavigateToRoutineDetails: (id:Int) -> Unit,
+    onNavigateToExecution: (id:Int) -> Unit,
 ){
     Card(
         modifier = Modifier.clickable { onNavigateToRoutineDetails(id) },
@@ -58,7 +59,7 @@ fun RoutineCard(
                 horizontalAlignment = Alignment.End,
             ) {
                 Button(
-                    onClick = { TODO("Go to routine") },
+                    onClick = { onNavigateToExecution(1) },
                     modifier = Modifier
                         .padding(end = 15.dp, bottom = 5.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),

@@ -25,7 +25,8 @@ import com.example.tp3_hci.ui.theme.TP3HCITheme
 
 @Composable
 fun HomeScreen(
-    onNavigateToRoutineDetails: (id:Int) -> Unit
+    onNavigateToRoutineDetails: (id:Int) -> Unit,
+    onNavigateToExecution: (id:Int) -> Unit,
 ) {
     Column() {
         Text(
@@ -43,7 +44,7 @@ fun HomeScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 12.dp)
         ) {
-            RoutineCard(name = "Piernas", description = "Beast Mode", id=1, onNavigateToRoutineDetails = onNavigateToRoutineDetails )
+            RoutineCard(name = "Piernas", description = "Beast Mode", id=1, onNavigateToRoutineDetails = onNavigateToRoutineDetails, onNavigateToExecution = onNavigateToExecution )
             Text(
                 text = stringResource(R.string.home_favourites),
                 modifier = Modifier

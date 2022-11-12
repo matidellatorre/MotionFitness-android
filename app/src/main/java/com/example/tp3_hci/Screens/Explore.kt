@@ -21,7 +21,8 @@ import com.example.tp3_hci.components.RoutineCard
 
 @Composable
 fun ExploreScreen(
-    onNavigateToRoutineDetails: (id:Int) -> Unit
+    onNavigateToRoutineDetails: (id:Int) -> Unit,
+    onNavigateToExecution: (id:Int) -> Unit,
 ) {
     Column() {
         Text(
@@ -35,7 +36,7 @@ fun ExploreScreen(
                 .padding(horizontal = 15.dp)
         ) {
             items(10) {
-                RoutineCard(name = "Piernas lunes", description = "Placeholder", id=1, onNavigateToRoutineDetails = onNavigateToRoutineDetails)
+                RoutineCard(name = "Piernas lunes", description = "Placeholder", id=1, onNavigateToRoutineDetails = onNavigateToRoutineDetails, onNavigateToExecution = onNavigateToExecution )
             }
         }
     }

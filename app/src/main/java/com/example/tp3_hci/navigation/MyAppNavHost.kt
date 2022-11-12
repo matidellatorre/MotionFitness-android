@@ -14,17 +14,20 @@ fun MyAppNavHost(navController: NavHostController){
     ){
         composable("home") {
             HomeScreen(
-                onNavigateToRoutineDetails = { id -> navController.navigate("details/$id")}
+                onNavigateToRoutineDetails = { id -> navController.navigate("details/$id")},
+                onNavigateToExecution = { id -> navController.navigate("execution/$id")}
             )
         }
         composable("routines") {
             RoutinesScreen(
-                onNavigateToRoutineDetails = { id -> navController.navigate("details/$id")}
+                onNavigateToRoutineDetails = { id -> navController.navigate("details/$id")},
+                onNavigateToExecution = { id -> navController.navigate("execution/$id")}
             )
         }
         composable("explore") {
             ExploreScreen(
-                onNavigateToRoutineDetails = { id -> navController.navigate("details/$id")}
+                onNavigateToRoutineDetails = { id -> navController.navigate("details/$id")},
+                onNavigateToExecution = { id -> navController.navigate("execution/$id")}
             )
         }
         composable("details/1") {
@@ -32,7 +35,7 @@ fun MyAppNavHost(navController: NavHostController){
                 onNavigateToCycleDetails = { id -> navController.navigate("details-cycle/$id") }
             )
         }
-        composable("execution") {
+        composable("execution/1") {
             ExecutionScreen()
         }
         composable("details-cycle/1") {
