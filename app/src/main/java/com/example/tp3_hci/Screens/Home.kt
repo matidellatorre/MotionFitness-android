@@ -28,7 +28,7 @@ fun HomeScreen(
 ) {
     Column() {
         Text(
-            text = "Today's training",
+            text = stringResource(R.string.home_subtitle),
             modifier = Modifier
                 .padding(12.dp),
             style = MaterialTheme.typography.h6.copy(
@@ -42,7 +42,7 @@ fun HomeScreen(
         ) {
             RoutineCard(name = "Piernas", description = "Beast Mode", id=1, onNavigateToRoutineDetails = onNavigateToRoutineDetails )
             Text(
-                text = "Suggested trainings",
+                text = stringResource(R.string.home_favourites),
                 modifier = Modifier
                     .padding(12.dp),
                 style = MaterialTheme.typography.h6.copy(
@@ -57,7 +57,7 @@ fun HomeScreen(
                 }
             }
             Text(
-                text = "Favourite trainings",
+                text = stringResource(R.string.home_suggested),
                 modifier = Modifier
                     .padding(12.dp),
                 style = MaterialTheme.typography.h6.copy(

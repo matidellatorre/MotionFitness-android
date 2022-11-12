@@ -4,4 +4,10 @@
     <string name="details_top_text">Details</string>
     <string name="explore_top_text">Explore</string>
     <string name="routines_top_text">Routines</string>
+    <string name="routines_subtitle">Your routines</string>
+    <string name="details_subtitle">Routine cycles</string>
+    <string name="home_subtitle">Todays training</string>
+    <string name="home_suggested">Suggested trainings</string>
+    <string name="home_favourites">Favourite trainings</string>
+    <string name="start_routine">START ROUTINE</string>
 </resources>

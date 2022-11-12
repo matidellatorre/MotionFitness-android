@@ -27,7 +27,7 @@ fun RoutinesScreen(
 ) {
     Column() {
         Text(
-            text="Your routines",
+            text= stringResource(R.string.routines_subtitle),
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp,
             modifier = Modifier.padding(horizontal = 15.dp, vertical = 20.dp))

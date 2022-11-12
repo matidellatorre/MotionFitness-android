@@ -19,7 +19,7 @@ import com.example.tp3_hci.components.MainAppBar
 fun DetailsScreen() {
     Column() {
         Text(
-            text = "This are your cycles",
+            text = stringResource(R.string.details_subtitle),
             fontSize = 22.sp,
             fontWeight = FontWeight(500),
             modifier = Modifier.padding(8.dp),
