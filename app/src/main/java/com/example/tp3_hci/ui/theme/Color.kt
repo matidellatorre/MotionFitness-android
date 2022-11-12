@@ -10,5 +10,6 @@ val MotionOrange = Color(0xFFFF8000)
 val MotionGrey = Color(0xFF313131)
 val LightGrey = Color(0xFFD9D9D9)
 val GreyGrey = Color(0x32000000)
+val Grey2 = Color(0xA5000000)
 //primary: "#313131",
 //secondary: "#ff8000",
