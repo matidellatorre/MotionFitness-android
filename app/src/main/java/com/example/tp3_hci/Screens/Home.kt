@@ -3,6 +3,7 @@ package com.example.tp3_hci.Screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -42,9 +43,13 @@ fun HomeScreen(
         Column (
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 12.dp)
         ) {
-            RoutineCard(name = "Piernas", description = "Beast Mode", id=1, onNavigateToRoutineDetails = onNavigateToRoutineDetails, onNavigateToExecution = onNavigateToExecution )
+            Box(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+            ){
+                RoutineCard(name = "Piernas", description = "Beast Mode", id=1, onNavigateToRoutineDetails = onNavigateToRoutineDetails, onNavigateToExecution = onNavigateToExecution )
+            }
             Text(
                 text = stringResource(R.string.home_favourites),
                 modifier = Modifier
@@ -54,11 +59,13 @@ fun HomeScreen(
                 )
             )
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
+                item { Spacer(modifier = Modifier.padding(4.dp)) }
                 items(10) {
                     LittleCard(name = "Tetee", id=1, onNavigateToRoutineDetails)
                 }
+                item { Spacer(modifier = Modifier.padding(4.dp)) }
             }
             Text(
                 text = stringResource(R.string.home_suggested),
@@ -69,11 +76,13 @@ fun HomeScreen(
                 )
             )
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
             ) {
+                item { Spacer(modifier = Modifier.padding(4.dp)) }
                 items(10) {
                     LittleCard(name = "Tetee", id=1, onNavigateToRoutineDetails)
                 }
+                item { Spacer(modifier = Modifier.padding(4.dp)) }
             }
         }
     }
