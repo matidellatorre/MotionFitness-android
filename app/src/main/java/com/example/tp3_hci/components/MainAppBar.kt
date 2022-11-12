@@ -1,11 +1,30 @@
 package com.example.tp3_hci.components
 
 import android.content.Context
+import android.graphics.Color
+import android.media.Image
+import android.widget.Toast
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color.Companion.Gray
+import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role.Companion.Image
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -25,22 +44,47 @@ fun MainAppBar(navController: NavHostController) {
             )
         )
     }
+    var currentTopBarInfo = topBarInfoMap.get(currentRoute)
+    var showPopUp by remember { mutableStateOf(false) }
+    var context = LocalContext.current
 
-    if(topBarInfoMap.get(currentRoute) != null){
+    if(currentTopBarInfo != null){
         TopAppBar(
-            title = { Text(text = topBarInfoMap.get(currentRoute)!!.title, fontSize = 28.sp) },
+            title = { Text(text = currentTopBarInfo!!.title, fontSize = 28.sp) },
             backgroundColor = MaterialTheme.colors.primary,
             actions = {
-//            if (hasSearch) {
-//                IconButton(onClick = { /*TODO*/ }) {
-//                    Icon(
-//                        imageVector = Icons.Default.Search,
-//                        contentDescription = null
-//                    )
-//                }
-//            } else if (hasAvatar) {
-//                //Avatar
-//            }
+            if (currentTopBarInfo.hasSearch) {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = null
+                    )
+                }
+            } else if (currentTopBarInfo.hasAvatar) {
+                Image(
+                    painter = painterResource(R.drawable.bg),
+                    contentDescription = "profile picture",
+                    contentScale = ContentScale.Crop,            // crop the image if it's not a square
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .clickable { showPopUp = !showPopUp }
+                )
+                DropdownMenu(
+                    expanded = showPopUp,
+                    onDismissRequest = { showPopUp = false },
+                    modifier = Modifier.background(MaterialTheme.colors.background)
+                ) {
+                    DropdownMenuItem(onClick = { Toast.makeText(context, "Settings", Toast.LENGTH_SHORT).show() }) {
+                        Text(text = "Settings")
+                        Icon(imageVector = Icons.Default.Settings, contentDescription = "settings")
+                    }
+                    DropdownMenuItem(onClick = { Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show() }) {
+                        Text(text = "Logout")
+                        Icon(imageVector = Icons.Default.Logout, contentDescription = "logout", tint = Red)
+                    }
+                }
+            }
             },
             navigationIcon = if (topBarInfoMap.get(currentRoute)!!.hasBackArrow) {
                 {
