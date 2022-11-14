@@ -12,7 +12,7 @@ import com.example.tp3_hci.ui.main.MainScreen
 fun MyAppNavHost(navController: NavHostController){
     NavHost(
         navController = navController,
-        startDestination = "home"
+        startDestination = "login"
     ){
         composable("home") {
             HomeScreen(
@@ -47,6 +47,9 @@ fun MyAppNavHost(navController: NavHostController){
         }
         composable("main") {
             MainScreen()
+        }
+        composable("login") {
+            LogInScreen()
         }
     }
 

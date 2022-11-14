@@ -21,11 +21,13 @@ fun MainBottomBar(navController: NavController) {
         BottomIcon(Icons.Default.FitnessCenter, stringResource(id = R.string.routines_top_text),"routines"),
         BottomIcon(Icons.Default.Public, stringResource(id = R.string.explore_top_text),"explore"),
     )
-    val screensBlocked = listOf(
-        "execution/1"
+    val screensToShow = listOf(
+        "home",
+        "routines",
+        "explore",
     )
 
-    if(!screensBlocked.contains(currentRoute)) {
+    if(screensToShow.contains(currentRoute)) {
         BottomNavigation (
             backgroundColor = MaterialTheme.colors.primary
         ) {
