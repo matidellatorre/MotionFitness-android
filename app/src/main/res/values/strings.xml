@@ -12,4 +12,13 @@
     <string name="home_suggested">Suggested trainings</string>
     <string name="home_favourites">Favourite trainings</string>
     <string name="start_routine">START ROUTINE</string>
+
+    <string name="login">LOGIN</string>
+    <string name="logout">LOGOUT</string>
+    <string name="get_current_user">GET CURRENT USER</string>
+    <string name="get_all_sports">GET ALL SPORTS</string>
+    <string name="get_current_sport">GET CURRENT SPORT</string>
+    <string name="add_sport">ADD SPORT</string>
+    <string name="modify_sport">MODIFY SPORT</string>
+    <string name="delete_sport">DELETE SPORT</string>
 </resources>
