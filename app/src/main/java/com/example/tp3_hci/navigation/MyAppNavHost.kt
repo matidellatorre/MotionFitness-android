@@ -50,7 +50,9 @@ fun MyAppNavHost(navController: NavHostController){
             MainScreen()
         }
         composable("login") {
-            LogInScreen()
+            LogInScreen(
+                onNavigateToHomeScreen = { navController.navigate("home") }
+            )
         }
     }
 

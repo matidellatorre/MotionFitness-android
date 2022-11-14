@@ -34,6 +34,7 @@ import dev.leonardom.loginjetpackcompose.presentation.components.TransparentText
 
 @Composable
 fun LogInScreen(
+    onNavigateToHomeScreen: () -> Unit,
     viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
 ) {
     val usernameValue = rememberSaveable{ mutableStateOf("") }
@@ -153,8 +154,9 @@ fun LogInScreen(
                                 displayProgressBar = false,
                                 onClick = {
                                     viewModel.login(usernameValue.value, passwordValue.value)
-                                    if(uiState.isAuthenticated){
-                                        //Saltar a la HOME
+                                    //Falta chequeo para que solo vaya a la home si termino de logearse
+                                    if (uiState.isAuthenticated){
+                                        onNavigateToHomeScreen()
                                     }
                                 }
                             )
