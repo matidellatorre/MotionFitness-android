@@ -1,5 +1,6 @@
 package com.example.tp3_hci
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.shapes.Shape
 import android.os.Bundle
@@ -44,6 +45,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.tp3_hci.Screens.DetailsScreen
 import com.example.tp3_hci.Screens.HomeScreen
+import com.example.tp3_hci.Screens.MainScreen
 import com.example.tp3_hci.components.MainAppBar
 import com.example.tp3_hci.components.MainBottomBar
 import com.example.tp3_hci.components.RoutineCard
@@ -53,6 +55,7 @@ import dev.leonardom.loginjetpackcompose.presentation.components.RoundedButton
 import dev.leonardom.loginjetpackcompose.presentation.components.TransparentTextField
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -70,6 +73,7 @@ class MainActivity : ComponentActivity() {
                         },
                     ) {
                         MyAppNavHost(navController)
+                        //MainScreen()
                     }
                 }
             }
