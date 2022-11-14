@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.tp3_hci.Screens.*
+import com.example.tp3_hci.ui.login.LogInScreen
 import com.example.tp3_hci.ui.main.MainScreen
 
 @Composable

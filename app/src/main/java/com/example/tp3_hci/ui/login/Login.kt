@@ -1,5 +1,6 @@
-package com.example.tp3_hci.Screens
+package com.example.tp3_hci.ui.login
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -26,15 +27,20 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.tp3_hci.R
+import com.example.tp3_hci.ui.main.MainViewModel
+import com.example.tp3_hci.util.getViewModelFactory
 import dev.leonardom.loginjetpackcompose.presentation.components.RoundedButton
 import dev.leonardom.loginjetpackcompose.presentation.components.TransparentTextField
 
 @Composable
-fun LogInScreen() {
-    val emailValue = rememberSaveable{ mutableStateOf("") }
+fun LogInScreen(
+    viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
+) {
+    val usernameValue = rememberSaveable{ mutableStateOf("") }
     val passwordValue = rememberSaveable{ mutableStateOf("") }
     var passwordVisibility by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
+    val uiState = viewModel.uiState
 
     Box(
         modifier = Modifier
@@ -93,9 +99,9 @@ fun LogInScreen() {
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             TransparentTextField(
-                                textFieldValue = emailValue,
-                                textLabel = "Email",
-                                keyboardType = KeyboardType.Email,
+                                textFieldValue = usernameValue,
+                                textLabel = "Username",
+                                keyboardType = KeyboardType.Text,
                                 keyboardActions = KeyboardActions(
                                     onNext = {
                                         focusManager.moveFocus(FocusDirection.Down)
@@ -104,7 +110,7 @@ fun LogInScreen() {
                                 imeAction = ImeAction.Next
                             )
                             TransparentTextField(
-                                textFieldValue = emailValue,
+                                textFieldValue = passwordValue,
                                 textLabel = "Password",
                                 keyboardType = KeyboardType.Password,
                                 keyboardActions = KeyboardActions(
@@ -146,7 +152,10 @@ fun LogInScreen() {
                                 text = "Log in",
                                 displayProgressBar = false,
                                 onClick = {
-                                    //TODO("Login")
+                                    viewModel.login(usernameValue.value, passwordValue.value)
+                                    if(uiState.isAuthenticated){
+                                        //Saltar a la HOME
+                                    }
                                 }
                             )
                         }
