@@ -43,6 +43,14 @@ fun LogInScreen(
     val focusManager = LocalFocusManager.current
     val uiState = viewModel.uiState
 
+    LaunchedEffect(key1 = uiState, key2 = onNavigateToHomeScreen){
+        if (uiState.isAuthenticated){
+            onNavigateToHomeScreen()
+        }
+    }
+
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -153,11 +161,7 @@ fun LogInScreen(
                                 text = "Log in",
                                 displayProgressBar = false,
                                 onClick = {
-                                    viewModel.login(usernameValue.value, passwordValue.value)
-                                    //Falta chequeo para que solo vaya a la home si termino de logearse
-                                    if (uiState.isAuthenticated){
-                                        onNavigateToHomeScreen()
-                                    }
+                                    var res = viewModel.login(usernameValue.value, passwordValue.value)
                                 }
                             )
                         }
