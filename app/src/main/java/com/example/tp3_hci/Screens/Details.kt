@@ -16,11 +16,12 @@ import com.example.tp3_hci.components.CicleEntry
 
 @Composable
 fun DetailsScreen(
-    onNavigateToCycleDetails: (id:Int) -> Unit
+    onNavigateToCycleDetails: (id:Int) -> Unit,
+    routineId: String
 ) {
     Column() {
         Text(
-            text = stringResource(R.string.details_subtitle),
+            text = stringResource(R.string.details_subtitle)+" (id: $routineId)",
             fontSize = 22.sp,
             fontWeight = FontWeight(500),
             modifier = Modifier.padding(horizontal = 15.dp, vertical = 20.dp),
