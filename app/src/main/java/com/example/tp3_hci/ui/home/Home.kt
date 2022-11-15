@@ -11,11 +11,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.tp3_hci.Model.BottomIcon
 import com.example.tp3_hci.R
 import com.example.tp3_hci.components.LittleCard
@@ -24,6 +27,7 @@ import com.example.tp3_hci.components.RoutineCard
 import com.example.tp3_hci.ui.login.LoginViewModel
 import com.example.tp3_hci.ui.theme.TP3HCITheme
 import com.example.tp3_hci.util.getViewModelFactory
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
@@ -33,9 +37,14 @@ fun HomeScreen(
     viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
 ) {
     val uiState = viewModel.uiState
-//    if (!uiState.isAuthenticated){
-//        onNavigateToLogin()
-//    }
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+
+    LaunchedEffect(key1 = Unit) {
+        lifecycle.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+            launch { if(!uiState.isAuthenticated) onNavigateToLogin() }
+        }
+    }
+
     Column() {
         Text(
             text = stringResource(R.string.home_subtitle),
