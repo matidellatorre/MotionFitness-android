@@ -1,4 +1,4 @@
-package com.example.tp3_hci.ui.routines
+package com.example.tp3_hci.ui.explore
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -10,13 +10,13 @@ import com.example.tp3_hci.data.repository.UserRepository
 import com.example.tp3_hci.util.SessionManager
 import kotlinx.coroutines.launch
 
-class RoutinesViewModel (
+class ExploreViewModel (
     private val sessionManager: SessionManager,
     private val userRepository: UserRepository,
     private val routineRepository: RoutineRepository
 ) : ViewModel() {
 
-    var uiState by mutableStateOf(RoutinesUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
+    var uiState by mutableStateOf(ExploreUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
 
     fun getRoutines() = viewModelScope.launch {
@@ -59,3 +59,4 @@ class RoutinesViewModel (
         }
     }
 }
+
