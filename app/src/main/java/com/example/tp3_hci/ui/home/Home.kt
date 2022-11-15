@@ -24,6 +24,7 @@ import com.example.tp3_hci.R
 import com.example.tp3_hci.components.LittleCard
 import com.example.tp3_hci.components.MainBottomBar
 import com.example.tp3_hci.components.RoutineCard
+import com.example.tp3_hci.ui.home.HomeViewModel
 import com.example.tp3_hci.ui.login.LoginViewModel
 import com.example.tp3_hci.ui.theme.TP3HCITheme
 import com.example.tp3_hci.util.getViewModelFactory
@@ -34,14 +35,19 @@ fun HomeScreen(
     onNavigateToRoutineDetails: (id:Int) -> Unit,
     onNavigateToExecution: (id:Int) -> Unit,
     onNavigateToLogin: () -> Unit,
-    viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
+    onPopStack: (route: String) -> Unit,
+    viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
 ) {
     val uiState = viewModel.uiState
     val lifecycle = LocalLifecycleOwner.current.lifecycle
 
     LaunchedEffect(key1 = Unit) {
-        lifecycle.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
-            launch { if(!uiState.isAuthenticated) onNavigateToLogin() }
+        lifecycle.repeatOnLifecycle(state = Lifecycle.State.CREATED) {
+            launch {
+                onPopStack("login")
+                if(!uiState.isAuthenticated)
+                    onNavigateToLogin()
+            }
         }
     }
 

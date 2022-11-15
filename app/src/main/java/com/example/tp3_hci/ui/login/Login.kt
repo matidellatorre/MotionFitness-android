@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -26,11 +27,14 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.tp3_hci.R
 import com.example.tp3_hci.ui.main.MainViewModel
 import com.example.tp3_hci.util.getViewModelFactory
 import dev.leonardom.loginjetpackcompose.presentation.components.RoundedButton
 import dev.leonardom.loginjetpackcompose.presentation.components.TransparentTextField
+import kotlinx.coroutines.launch
 
 @Composable
 fun LogInScreen(

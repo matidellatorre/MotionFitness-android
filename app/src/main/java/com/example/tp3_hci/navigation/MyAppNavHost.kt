@@ -19,7 +19,8 @@ fun MyAppNavHost(navController: NavHostController){
             HomeScreen(
                 onNavigateToRoutineDetails = { id -> navController.navigate("details/$id")},
                 onNavigateToExecution = { id -> navController.navigate("execution/$id")},
-                onNavigateToLogin = { navController.navigate("login") }
+                onNavigateToLogin = { navController.navigate("login") },
+                onPopStack = { route -> navController.popBackStack(route = route, inclusive = true, saveState = false) }
             )
         }
         composable("routines") {
@@ -52,11 +53,8 @@ fun MyAppNavHost(navController: NavHostController){
         }
         composable("login") {
             LogInScreen(
-                onNavigateToHomeScreen = { navController.navigate("home") {
-                    popUpTo("home")
-                } },
+                onNavigateToHomeScreen = { navController.navigate("home") },
             )
         }
     }
-
 }

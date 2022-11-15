@@ -8,6 +8,7 @@ import androidx.savedstate.SavedStateRegistryOwner
 import com.example.tp3_hci.data.repository.SportRepository
 import com.example.tp3_hci.data.repository.UserRepository
 import com.example.tp3_hci.ui.appBar.MainAppBarViewModel
+import com.example.tp3_hci.ui.home.HomeViewModel
 import com.example.tp3_hci.ui.login.LoginViewModel
 import com.example.tp3_hci.ui.main.MainViewModel
 
@@ -31,6 +32,8 @@ class ViewModelFactory constructor(
                 LoginViewModel(sessionManager, userRepository)
             isAssignableFrom(MainAppBarViewModel::class.java) ->
                 MainAppBarViewModel(sessionManager, userRepository)
+            isAssignableFrom(HomeViewModel::class.java) ->
+                HomeViewModel(sessionManager, userRepository)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
