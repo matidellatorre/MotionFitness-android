@@ -13,12 +13,13 @@ import com.example.tp3_hci.ui.main.MainScreen
 fun MyAppNavHost(navController: NavHostController){
     NavHost(
         navController = navController,
-        startDestination = "login"
+        startDestination = "home"
     ){
         composable("home") {
             HomeScreen(
                 onNavigateToRoutineDetails = { id -> navController.navigate("details/$id")},
-                onNavigateToExecution = { id -> navController.navigate("execution/$id")}
+                onNavigateToExecution = { id -> navController.navigate("execution/$id")},
+                onNavigateToLogin = { navController.navigate("login") }
             )
         }
         composable("routines") {
@@ -51,7 +52,9 @@ fun MyAppNavHost(navController: NavHostController){
         }
         composable("login") {
             LogInScreen(
-                onNavigateToHomeScreen = { navController.navigate("home") }
+                onNavigateToHomeScreen = { navController.navigate("home") {
+                    popUpTo("home")
+                } },
             )
         }
     }

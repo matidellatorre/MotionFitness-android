@@ -19,16 +19,23 @@ import androidx.compose.ui.unit.sp
 import com.example.tp3_hci.Model.BottomIcon
 import com.example.tp3_hci.R
 import com.example.tp3_hci.components.LittleCard
-import com.example.tp3_hci.components.MainAppBar
 import com.example.tp3_hci.components.MainBottomBar
 import com.example.tp3_hci.components.RoutineCard
+import com.example.tp3_hci.ui.login.LoginViewModel
 import com.example.tp3_hci.ui.theme.TP3HCITheme
+import com.example.tp3_hci.util.getViewModelFactory
 
 @Composable
 fun HomeScreen(
     onNavigateToRoutineDetails: (id:Int) -> Unit,
     onNavigateToExecution: (id:Int) -> Unit,
+    onNavigateToLogin: () -> Unit,
+    viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
 ) {
+    val uiState = viewModel.uiState
+//    if (!uiState.isAuthenticated){
+//        onNavigateToLogin()
+//    }
     Column() {
         Text(
             text = stringResource(R.string.home_subtitle),

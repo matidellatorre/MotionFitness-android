@@ -1,4 +1,4 @@
-package com.example.tp3_hci.components
+package com.example.tp3_hci.ui.appBar
 
 import android.content.Context
 import android.graphics.Color
@@ -27,14 +27,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.tp3_hci.Model.BottomIcon
 import com.example.tp3_hci.Model.TopBarInfo
 import com.example.tp3_hci.R
+import com.example.tp3_hci.ui.home.HomeViewModel
+import com.example.tp3_hci.ui.login.LoginViewModel
+import com.example.tp3_hci.util.getViewModelFactory
 
 @Composable
-fun MainAppBar(navController: NavHostController) {
+fun MainAppBar(
+        navController: NavHostController,
+        viewModel: MainAppBarViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory()),
+        onNavigateToLogin: () -> Unit
+) {
     val backStackEntry by navController.currentBackStackEntryAsState()
     var currentRoute = backStackEntry?.destination?.route?: "home"
     var topBarInfoMap by remember { mutableStateOf( hashMapOf<String, TopBarInfo>(
@@ -83,7 +91,7 @@ fun MainAppBar(navController: NavHostController) {
                         Text(text = "Settings")
                         Icon(imageVector = Icons.Default.Settings, contentDescription = "settings")
                     }
-                    DropdownMenuItem(onClick = { Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show() }) {
+                    DropdownMenuItem(onClick = { viewModel.logout() ; onNavigateToLogin() ; showPopUp = false ; Toast.makeText(context, "Logged out", Toast.LENGTH_SHORT).show()  }) {
                         Text(text = "Logout")
                         Icon(imageVector = Icons.Default.Logout, contentDescription = "logout", tint = Red)
                     }

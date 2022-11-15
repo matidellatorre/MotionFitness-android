@@ -16,10 +16,10 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.tp3_hci.R
-import com.example.tp3_hci.components.MainAppBar
 import com.example.tp3_hci.components.MainBottomBar
 import com.example.tp3_hci.data.model.Sport
 import com.example.tp3_hci.navigation.MyAppNavHost
+import com.example.tp3_hci.ui.appBar.MainAppBar
 import com.example.tp3_hci.ui.main.MainViewModel
 import com.example.tp3_hci.ui.theme.TP3HCITheme
 import com.example.tp3_hci.util.getViewModelFactory
@@ -37,7 +37,10 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Scaffold (
                         topBar = {
-                            MainAppBar(navController)
+                            MainAppBar(
+                                navController = navController,
+                                onNavigateToLogin =  { navController.navigate("login") }
+                            )
                         },
                         bottomBar = {
                             MainBottomBar(navController)

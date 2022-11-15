@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tp3_hci.R
 import com.example.tp3_hci.components.CicleEntry
-import com.example.tp3_hci.components.MainAppBar
 
 @Composable
 fun DetailsScreen(
