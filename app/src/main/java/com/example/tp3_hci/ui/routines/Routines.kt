@@ -41,8 +41,8 @@ fun RoutinesScreen(
             launch {
                 if(uiState.canGetAllRoutines)
                     viewModel.getRoutines()
+                if(uiState.canGetCurrentUser)
                     viewModel.getCurrentUser()
-
             }
     }
 
@@ -66,7 +66,7 @@ fun RoutinesScreen(
                 )
             }
         } else {
-            val list = uiState.routines?.orEmpty()
+            val list = uiState.routines?.filter { routine -> routine.user?.username == uiState.currentUser?.username }.orEmpty()
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(15.dp),
                 modifier = Modifier
@@ -78,16 +78,13 @@ fun RoutinesScreen(
                         list?.get(index)?.id.toString()
                     }
                 ) { index ->
-                    if (list?.get(index)?.user?.username==uiState.currentUser?.username) {
-                        RoutineCard(
-                            name = list?.get(index)?.name ?: "Error",
-                            description = list?.get(index)?.detail ?: "",
-                            id = list?.get(index)?.id!!,
-                            onNavigateToRoutineDetails = onNavigateToRoutineDetails,
-                            onNavigateToExecution = onNavigateToExecution
-                        )
-                    }
-
+                    RoutineCard(
+                        name = list?.get(index)?.name ?: "Error",
+                        description = list?.get(index)?.detail ?: "",
+                        id = list?.get(index)?.id!!,
+                        onNavigateToRoutineDetails = onNavigateToRoutineDetails,
+                        onNavigateToExecution = onNavigateToExecution
+                    )
                 }
             }
         }

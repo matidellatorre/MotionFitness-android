@@ -30,19 +30,21 @@ fun ExploreScreen(
     viewModel: ExploreViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
 
 ) {
+
     val uiState = viewModel.uiState
 
     LaunchedEffect(key1 = Unit) {
         launch {
             if(uiState.canGetAllRoutines)
                 viewModel.getRoutines()
+            if(uiState.canGetCurrentUser)
                 viewModel.getCurrentUser()
         }
     }
 
     Column() {
         Text(
-            text = stringResource(R.string.routines_subtitle),
+            text = stringResource(R.string.explore_subtitle),
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp,
             modifier = Modifier.padding(horizontal = 15.dp, vertical = 20.dp)
@@ -60,7 +62,7 @@ fun ExploreScreen(
                 )
             }
         } else {
-            val list = uiState.routines?.orEmpty()
+            val list = uiState.routines?.filter { routine -> routine.user?.username != uiState.currentUser?.username }.orEmpty()
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(15.dp),
                 modifier = Modifier
@@ -72,16 +74,13 @@ fun ExploreScreen(
                         list?.get(index)?.id.toString()
                     }
                 ) { index ->
-                    if (list?.get(index)?.user?.username!=uiState.currentUser?.username) {
-                        RoutineCard(
-                            name = list?.get(index)?.name ?: "Error",
-                            description = list?.get(index)?.detail ?: "",
-                            id = list?.get(index)?.id!!,
-                            onNavigateToRoutineDetails = onNavigateToRoutineDetails,
-                            onNavigateToExecution = onNavigateToExecution
-                        )
-                    }
-
+                    RoutineCard(
+                        name = list?.get(index)?.name ?: "Error",
+                        description = list?.get(index)?.detail ?: "",
+                        id = list?.get(index)?.id!!,
+                        onNavigateToRoutineDetails = onNavigateToRoutineDetails,
+                        onNavigateToExecution = onNavigateToExecution
+                    )
                 }
             }
         }
