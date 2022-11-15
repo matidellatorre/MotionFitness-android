@@ -44,7 +44,7 @@ fun HomeScreen(
     LaunchedEffect(key1 = Unit) {
         lifecycle.repeatOnLifecycle(state = Lifecycle.State.CREATED) {
             launch {
-                onPopStack("login")
+                //onPopStack("login")
                 if(!uiState.isAuthenticated)
                     onNavigateToLogin()
             }

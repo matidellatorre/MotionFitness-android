@@ -12,6 +12,7 @@
     <string name="home_suggested">Suggested trainings</string>
     <string name="home_favourites">Favourite trainings</string>
     <string name="start_routine">START ROUTINE</string>
+    <string name="fetching_message">Loading...</string>
 
     <string name="login">LOGIN</string>
     <string name="logout">LOGOUT</string>
