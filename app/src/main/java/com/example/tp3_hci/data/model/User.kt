@@ -1,5 +1,6 @@
 package com.example.tp3_hci.data.model
 
+import com.example.tp3_hci.data.network.model.NetworkRoutineUser
 import java.util.Date
 
 data class User(

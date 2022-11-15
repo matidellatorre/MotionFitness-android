@@ -25,7 +25,7 @@ class NetworkUser (
     @SerializedName("avatarUrl")
     var avatarUrl: String? = null,
     @SerializedName("metadata")
-    var metadata: NetworkUserMetadata? = null,
+    var metadata: NetworkMetadata? = null,
     @SerializedName("date")
     var date: Date,
     @SerializedName("lastActivity")

@@ -36,15 +36,12 @@ fun RoutinesScreen(
     viewModel: RoutinesViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
 ) {
     val uiState = viewModel.uiState
-    val lifecycle = LocalLifecycleOwner.current.lifecycle
 
     LaunchedEffect(key1 = Unit) {
-        lifecycle.repeatOnLifecycle(state = Lifecycle.State.CREATED) {
             launch {
                 if(uiState.canGetAllRoutines)
                     viewModel.getRoutines()
             }
-        }
     }
 
     Column() {
@@ -75,7 +72,7 @@ fun RoutinesScreen(
                     .padding(horizontal = 15.dp)
             ) {
                 items(
-                    count = 1,
+                    count = list?.size?:0,
                     key = { index ->
                         list?.get(index)?.id.toString()
                     }
