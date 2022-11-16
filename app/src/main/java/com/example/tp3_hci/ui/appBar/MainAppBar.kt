@@ -79,11 +79,11 @@ fun MainAppBar(
                     modifier = Modifier.background(MaterialTheme.colors.background)
                 ) {
                     DropdownMenuItem(onClick = { Toast.makeText(context, "Settings", Toast.LENGTH_SHORT).show() }) {
-                        Text(text = "Settings")
+                        Text(text = "Settings", modifier = Modifier.padding(end = 8.dp))
                         Icon(imageVector = Icons.Default.Settings, contentDescription = "settings")
                     }
                     DropdownMenuItem(onClick = { viewModel.logout() ; onNavigateToLogin() ; showPopUp = false ; Toast.makeText(context, "Logged out", Toast.LENGTH_SHORT).show()  }) {
-                        Text(text = "Logout")
+                        Text(text = "Logout", modifier = Modifier.padding(end = 19.dp))
                         Icon(imageVector = Icons.Default.Logout, contentDescription = "logout", tint = Red)
                     }
                 }
