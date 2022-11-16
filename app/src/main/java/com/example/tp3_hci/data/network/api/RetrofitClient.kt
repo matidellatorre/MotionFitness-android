@@ -54,4 +54,8 @@ object RetrofitClient {
     fun getApiRoutineCycleService(context: Context) : ApiRoutineCycleService {
         return getInstance(context).create(ApiRoutineCycleService::class.java)
     }
+
+    fun getApiCycleExerciseService(context: Context) : ApiCycleExerciseService {
+        return getInstance(context).create(ApiCycleExerciseService::class.java)
+    }
 }

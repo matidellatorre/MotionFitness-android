@@ -1,15 +1,9 @@
 package com.example.tp3_hci
 
 import android.app.Application
-import com.example.tp3_hci.data.network.RoutineCycleRemoteDataSource
-import com.example.tp3_hci.data.network.RoutineRemoteDataSource
-import com.example.tp3_hci.data.network.SportRemoteDataSource
-import com.example.tp3_hci.data.network.UserRemoteDataSource
+import com.example.tp3_hci.data.network.*
 import com.example.tp3_hci.data.network.api.RetrofitClient
-import com.example.tp3_hci.data.repository.RoutineCycleRepository
-import com.example.tp3_hci.data.repository.RoutineRepository
-import com.example.tp3_hci.data.repository.SportRepository
-import com.example.tp3_hci.data.repository.UserRepository
+import com.example.tp3_hci.data.repository.*
 import com.example.tp3_hci.util.SessionManager
 
 class MyApplication : Application() {
@@ -26,6 +20,9 @@ class MyApplication : Application() {
     private val routineCycleRemoteDataSource: RoutineCycleRemoteDataSource
         get() = RoutineCycleRemoteDataSource(RetrofitClient.getApiRoutineCycleService(this))
 
+    private val cycleExerciseRemoteDataSource: CycleExerciseRemoteDataSource
+        get() = CycleExerciseRemoteDataSource(RetrofitClient.getApiCycleExerciseService(this))
+
     val sessionManager: SessionManager
         get() = SessionManager(this)
 
@@ -40,4 +37,7 @@ class MyApplication : Application() {
 
     val routineCycleRepository: RoutineCycleRepository
         get() = RoutineCycleRepository(routineCycleRemoteDataSource)
+
+    val cycleExerciseRepository: CycleExerciseRepository
+        get() = CycleExerciseRepository(cycleExerciseRemoteDataSource)
 }

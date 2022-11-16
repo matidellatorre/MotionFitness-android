@@ -40,7 +40,7 @@ fun MyAppNavHost(navController: NavHostController){
         composable("details/{routineId}") {
             DetailsScreen(
                 onNavigateToCycleDetails = { id -> navController.navigate("details-cycle/$id") },
-                routineId = navController.currentBackStackEntry?.arguments?.getString("routineId")?:"1"
+                routineId = navController.currentBackStackEntry?.arguments?.getString("routineId")?:"-1"
             )
         }
         composable("execution/1") {
@@ -48,8 +48,10 @@ fun MyAppNavHost(navController: NavHostController){
                 onNavigateBack = { navController.navigateUp() }
             )
         }
-        composable("details-cycle") {
-            CycleDetailsScreen()
+        composable("details-cycle/{cycleId}") {
+            CycleDetailsScreen(
+                cycleId = navController.currentBackStackEntry?.arguments?.getString("cycleId")?:"-1"
+            )
         }
         composable("main") {
             MainScreen()
