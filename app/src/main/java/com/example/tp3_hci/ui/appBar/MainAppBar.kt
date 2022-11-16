@@ -45,11 +45,14 @@ fun MainAppBar(
 ) {
     val backStackEntry by navController.currentBackStackEntryAsState()
     var currentRoute = backStackEntry?.destination?.route?: "home"
+    if (currentRoute.contains("details")){
+        currentRoute = "details"
+    }
     var topBarInfoMap by remember { mutableStateOf( hashMapOf<String, TopBarInfo>(
         "home" to TopBarInfo("Home", true, false, false),
         "routines" to TopBarInfo("Routines", false, true, false),
         "explore" to TopBarInfo("Explore", false, false, false),
-        "details/1" to TopBarInfo("Details", false, false, true),
+        "details" to TopBarInfo("Details", false, false, true),
         "details-cycle/1" to TopBarInfo("Details", false, false, true),
             )
         )

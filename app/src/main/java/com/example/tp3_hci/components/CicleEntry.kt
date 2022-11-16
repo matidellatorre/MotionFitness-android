@@ -8,25 +8,19 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.Navigation
 import androidx.navigation.compose.rememberNavController
 import com.example.tp3_hci.navigation.MyAppNavHost
 
 @Composable
 fun CicleEntry (
     title: String,
-    exerciseCount : Int,
     rounds: Int,
     onNavigateToCycleDetails: (id:Int) -> Unit
     ) {
@@ -50,11 +44,6 @@ fun CicleEntry (
                 Text(
                     text = title,
                     fontSize = 22.sp
-                )
-                Text(
-                    text = "$exerciseCount Exercises",
-                    fontSize = 18.sp,
-                    color = Color.Gray
                 )
                 Text(
                     text = "$rounds Rounds",

@@ -1,10 +1,12 @@
 package com.example.tp3_hci
 
 import android.app.Application
+import com.example.tp3_hci.data.network.RoutineCycleRemoteDataSource
 import com.example.tp3_hci.data.network.RoutineRemoteDataSource
 import com.example.tp3_hci.data.network.SportRemoteDataSource
 import com.example.tp3_hci.data.network.UserRemoteDataSource
 import com.example.tp3_hci.data.network.api.RetrofitClient
+import com.example.tp3_hci.data.repository.RoutineCycleRepository
 import com.example.tp3_hci.data.repository.RoutineRepository
 import com.example.tp3_hci.data.repository.SportRepository
 import com.example.tp3_hci.data.repository.UserRepository
@@ -21,6 +23,9 @@ class MyApplication : Application() {
     private val routineRemoteDataSource: RoutineRemoteDataSource
         get() = RoutineRemoteDataSource(RetrofitClient.getApiRoutineService(this))
 
+    private val routineCycleRemoteDataSource: RoutineCycleRemoteDataSource
+        get() = RoutineCycleRemoteDataSource(RetrofitClient.getApiRoutineCycleService(this))
+
     val sessionManager: SessionManager
         get() = SessionManager(this)
 
@@ -32,4 +37,7 @@ class MyApplication : Application() {
 
     val routineRepository: RoutineRepository
         get() = RoutineRepository(routineRemoteDataSource)
+
+    val routineCycleRepository: RoutineCycleRepository
+        get() = RoutineCycleRepository(routineCycleRemoteDataSource)
 }
