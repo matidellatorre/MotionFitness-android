@@ -1,12 +1,8 @@
 package com.example.tp3_hci.ui.appBar
 
-import android.content.Context
-import android.graphics.Color
-import android.media.Image
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -18,23 +14,16 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.tp3_hci.Model.BottomIcon
-import com.example.tp3_hci.Model.TopBarInfo
+import com.example.tp3_hci.ui.model.TopBarInfo
 import com.example.tp3_hci.R
-import com.example.tp3_hci.ui.home.HomeViewModel
-import com.example.tp3_hci.ui.login.LoginViewModel
 import com.example.tp3_hci.util.getViewModelFactory
 
 @Composable
@@ -53,7 +42,6 @@ fun MainAppBar(
         "routines" to TopBarInfo("Routines", false, true, false),
         "explore" to TopBarInfo("Explore", false, false, false),
         "details" to TopBarInfo("Details", false, false, true),
-        "details-cycle/1" to TopBarInfo("Details", false, false, true),
             )
         )
     }

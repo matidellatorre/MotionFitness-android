@@ -1,4 +1,4 @@
-package com.example.tp3_hci.Model
+package com.example.tp3_hci.ui.model
 
 class TopBarInfo (
     val title: String,

@@ -9,7 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.tp3_hci.Model.BottomIcon
+import com.example.tp3_hci.ui.model.BottomIcon
 import com.example.tp3_hci.R
 
 @Composable

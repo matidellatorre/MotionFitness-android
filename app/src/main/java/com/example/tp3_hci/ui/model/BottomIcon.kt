@@ -1,6 +1,5 @@
-package com.example.tp3_hci.Model
+package com.example.tp3_hci.ui.model
 
-import android.graphics.drawable.Icon
 import androidx.compose.ui.graphics.vector.ImageVector
 
 class BottomIcon (
