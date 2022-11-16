@@ -32,11 +32,13 @@ fun MainAppBar(
         viewModel: MainAppBarViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory()),
         onNavigateToLogin: () -> Unit
 ) {
+
     val backStackEntry by navController.currentBackStackEntryAsState()
     var currentRoute = backStackEntry?.destination?.route?: "home"
     if (currentRoute.contains("details")){
         currentRoute = "details"
     }
+
     var topBarInfoMap by remember { mutableStateOf( hashMapOf<String, TopBarInfo>(
         "home" to TopBarInfo("Home", true, false, false),
         "routines" to TopBarInfo("Routines", false, true, false),
@@ -45,6 +47,7 @@ fun MainAppBar(
             )
         )
     }
+
     var currentTopBarInfo = topBarInfoMap.get(currentRoute)
     var showPopUp by remember { mutableStateOf(false) }
     var context = LocalContext.current

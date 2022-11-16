@@ -1,11 +1,12 @@
-package com.example.tp3_hci.Screens
+package com.example.tp3_hci.ui.execution
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,13 +16,43 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tp3_hci.components.Timer
+import com.example.tp3_hci.data.model.CycleContent
+import com.example.tp3_hci.data.model.RoutineCycle
+import com.example.tp3_hci.ui.explore.ExploreViewModel
+import com.example.tp3_hci.ui.explore.canGetAllRoutines
+import com.example.tp3_hci.ui.explore.canGetCurrentUser
+import com.example.tp3_hci.ui.model.TopBarInfo
 import com.example.tp3_hci.ui.theme.Grey2
 import com.example.tp3_hci.ui.theme.GreyGrey
+import com.example.tp3_hci.util.getViewModelFactory
+import kotlinx.coroutines.launch
 
 @Composable
 fun ExecutionScreen(
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    viewModel: ExecutionViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory()),
+    routineId: String
+
 ) {
+
+    val uiState = viewModel.uiState
+
+    var currentCycleIndex by remember { mutableStateOf(0) }
+    var currentExerciseIndex by remember { mutableStateOf(0) }
+
+    //var allExercises by remember { mutableStateOf( HashMap<Int, List<CycleContent>?>() ) }
+
+    LaunchedEffect(key1 = Unit) {
+        launch {
+            if(uiState.canGetData){
+                viewModel.getRoutineCycles(routineId.toInt())
+            }
+        }
+    }
+
+    val cycles = uiState.routineCycles
+    var currentCycle = uiState.routineCycles?.get(currentCycleIndex)
+
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -48,8 +79,9 @@ fun ExecutionScreen(
                     tint = Grey2
                 )
             }
+            //Nombre del ciclo
             Text(
-                text = "Calentamiento",
+                text = currentCycle?.name?:"Cycle",
                 fontSize = 32.sp,
                 fontWeight = FontWeight(500)
             )
@@ -61,7 +93,7 @@ fun ExecutionScreen(
                 color = GreyGrey
             )
             Text(
-                text = "Burpees",
+                text = "Nombre del ejercicio",
                 color = MaterialTheme.colors.primary,
                 fontSize = 28.sp,
                 fontWeight = FontWeight(500)
@@ -75,23 +107,11 @@ fun ExecutionScreen(
                 handleColor = MaterialTheme.colors.primary,
                 inactiveBarColor = GreyGrey,
                 activeBarColor = MaterialTheme.colors.primary,
+                nextFunc = { currentCycleIndex++ },
+                prevFunc = { currentCycleIndex-- },
                 modifier = Modifier
                     .size(280.dp)
             )
-        }
-        Box(
-            modifier = Modifier
-                .padding(bottom = 80.dp)
-        ) {
-            Row (
-                    ) {
-                Button(onClick = { /*TODO*/ }) {
-                    Text(text="boton1")
-                }
-                Button(onClick = { /*TODO*/ }) {
-                    Text(text="boton2")
-                }
-            }
         }
     }
 }

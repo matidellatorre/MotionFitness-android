@@ -59,7 +59,7 @@ fun RoutineCard(
                 horizontalAlignment = Alignment.End,
             ) {
                 Button(
-                    onClick = { onNavigateToExecution(1) },
+                    onClick = { onNavigateToExecution(id) },
                     modifier = Modifier
                         .padding(end = 15.dp, bottom = 5.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),

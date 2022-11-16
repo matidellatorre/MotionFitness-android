@@ -38,6 +38,8 @@ fun Timer(
     inactiveBarColor: Color,
     activeBarColor: Color,
     modifier: Modifier = Modifier,
+    nextFunc: () -> Unit,
+    prevFunc: () -> Unit,
     initialValue: Float = 1f,
     strokeWidth: Dp = 5.dp
     ) {
@@ -119,7 +121,7 @@ fun Timer(
                 .fillMaxWidth()
         ) {
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { prevFunc() },
                 colors = ButtonDefaults.buttonColors(MaterialTheme.colors.secondary),
                 shape = RoundedCornerShape(35.dp)
             ) {
@@ -151,7 +153,7 @@ fun Timer(
                 )
             }
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { nextFunc() },
                 colors = ButtonDefaults.buttonColors(MaterialTheme.colors.secondary),
                 shape = RoundedCornerShape(35.dp)
             ) {
