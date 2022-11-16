@@ -21,26 +21,6 @@ import com.example.tp3_hci.ui.details.canGetAllRoutineCycles
 import com.example.tp3_hci.util.getViewModelFactory
 import kotlinx.coroutines.launch
 
-/*@Composable
-fun CycleDetailsScreen() {
-    Column() {
-        Text(
-            text = stringResource(R.string.details_cycle_subtitle),
-            fontSize = 22.sp,
-            fontWeight = FontWeight(500),
-            modifier = Modifier.padding(horizontal = 15.dp, vertical = 20.dp),
-        )
-        LazyColumn (
-            verticalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            items(100) {
-                ExerciseEntry(title = "Press banca", reps = 10, time = 30)
-            }
-        }
-    }
-}*/
 
 @Composable
 fun CycleDetailsScreen(

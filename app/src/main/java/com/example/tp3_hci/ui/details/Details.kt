@@ -63,11 +63,11 @@ fun DetailsScreen(
                         list?.get(index)?.id.toString()
                     }
                 ) { index ->
-                    val id = list?.get(index)?.id?:0
                     CicleEntry(
                         title = list?.get(index)?.name ?: "Error",
                         rounds = list?.get(index)?.repetitions?:0,
-                        onNavigateToCycleDetails = onNavigateToCycleDetails
+                        onNavigateToCycleDetails = onNavigateToCycleDetails,
+                        cycleId = list?.get(index)?.id?:-1
                     )
                 }
             }

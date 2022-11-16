@@ -22,11 +22,12 @@ import com.example.tp3_hci.navigation.MyAppNavHost
 fun CicleEntry (
     title: String,
     rounds: Int,
-    onNavigateToCycleDetails: (id:Int) -> Unit
+    onNavigateToCycleDetails: (id:Int) -> Unit,
+    cycleId: Int
     ) {
     Card(modifier = Modifier
         .padding(horizontal = 8.dp, vertical = 4.dp)
-        .clickable { onNavigateToCycleDetails(1) },
+        .clickable { onNavigateToCycleDetails(cycleId) },
         backgroundColor = MaterialTheme.colors.background,
         elevation = 5.dp,
         shape = RoundedCornerShape(12.dp)
