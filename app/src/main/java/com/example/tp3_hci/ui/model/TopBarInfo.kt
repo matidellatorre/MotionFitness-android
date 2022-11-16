@@ -4,4 +4,6 @@ class TopBarInfo (
     val title: String,
     val hasAvatar: Boolean,
     val hasSearch: Boolean,
-    val hasBackArrow: Boolean)
+    val hasBackArrow: Boolean,
+    val hasOrderBy: Boolean,
+)

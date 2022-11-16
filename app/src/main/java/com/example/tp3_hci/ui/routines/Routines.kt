@@ -26,6 +26,7 @@ import com.example.tp3_hci.R
 import com.example.tp3_hci.components.RoutineCard
 import com.example.tp3_hci.data.model.Routine
 import com.example.tp3_hci.ui.home.HomeViewModel
+import com.example.tp3_hci.ui.model.OrderBy
 import com.example.tp3_hci.util.getViewModelFactory
 import kotlinx.coroutines.launch
 
@@ -33,14 +34,15 @@ import kotlinx.coroutines.launch
 fun RoutinesScreen(
     onNavigateToRoutineDetails: (id:Int) -> Unit,
     onNavigateToExecution: (id:Int) -> Unit,
+    orderBy: OrderBy,
     viewModel: RoutinesViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
 ) {
     val uiState = viewModel.uiState
 
-    LaunchedEffect(key1 = Unit) {
+    LaunchedEffect(key1 = orderBy) {
             launch {
                 if(uiState.canGetAllRoutines)
-                    viewModel.getRoutines()
+                    viewModel.getRoutines(orderBy.orderBy)
                 if(uiState.canGetCurrentUser)
                     viewModel.getCurrentUser()
             }

@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -21,6 +21,8 @@ import com.example.tp3_hci.data.model.Sport
 import com.example.tp3_hci.navigation.MyAppNavHost
 import com.example.tp3_hci.ui.appBar.MainAppBar
 import com.example.tp3_hci.ui.main.MainViewModel
+import com.example.tp3_hci.ui.model.OrderBy
+import com.example.tp3_hci.ui.routines.RoutinesUiState
 import com.example.tp3_hci.ui.theme.TP3HCITheme
 import com.example.tp3_hci.util.getViewModelFactory
 import kotlin.random.Random
@@ -35,11 +37,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
+                    var orderBy by remember { mutableStateOf(OrderBy("date")) }
+
                     Scaffold (
                         topBar = {
                             MainAppBar(
                                 navController = navController,
-                                onNavigateToLogin =  { navController.navigate("login") }
+                                onNavigateToLogin =  { navController.navigate("login") },
+                                orderBy = orderBy,
                             )
                         },
                         bottomBar = {
@@ -50,7 +55,7 @@ class MainActivity : ComponentActivity() {
                                 .fillMaxSize()
                                 .padding(bottom = paddingValues.calculateBottomPadding()
                                 )) {
-                                MyAppNavHost(navController)
+                                MyAppNavHost(navController, orderBy)
                             }
                         }
                     )

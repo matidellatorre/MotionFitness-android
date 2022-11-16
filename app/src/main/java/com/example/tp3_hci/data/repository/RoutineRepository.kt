@@ -16,9 +16,9 @@ class RoutineRepository (
     // Cache of the latest sports got from the network.
     private var routines: List<Routine> = emptyList()
 
-    suspend fun getRoutines(refresh: Boolean = false): List<Routine> {
+    suspend fun getRoutines(refresh: Boolean = false, orderBy: String): List<Routine> {
         if (refresh || routines.isEmpty()) {
-            val result = remoteDataSource.getRoutines()
+            val result = remoteDataSource.getRoutines(orderBy)
             // Thread-safe write to latestNews
             routinesMutex.withLock {
                 this.routines = result.content.map { it.asModel() }

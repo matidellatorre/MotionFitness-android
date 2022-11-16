@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tp3_hci.R
 import com.example.tp3_hci.components.RoutineCard
+import com.example.tp3_hci.ui.model.OrderBy
 import com.example.tp3_hci.ui.routines.RoutinesViewModel
 import com.example.tp3_hci.ui.routines.canGetAllRoutines
 import com.example.tp3_hci.util.getViewModelFactory
@@ -27,6 +28,7 @@ import kotlinx.coroutines.launch
 fun ExploreScreen(
     onNavigateToRoutineDetails: (id:Int) -> Unit,
     onNavigateToExecution: (id:Int) -> Unit,
+    orderBy: OrderBy,
     viewModel: ExploreViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
 
 ) {
@@ -36,7 +38,7 @@ fun ExploreScreen(
     LaunchedEffect(key1 = Unit) {
         launch {
             if(uiState.canGetAllRoutines)
-                viewModel.getRoutines()
+                viewModel.getRoutines(orderBy.orderBy)
             if(uiState.canGetCurrentUser)
                 viewModel.getCurrentUser()
         }

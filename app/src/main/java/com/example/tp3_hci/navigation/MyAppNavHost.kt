@@ -10,10 +10,11 @@ import com.example.tp3_hci.ui.execution.ExecutionScreen
 import com.example.tp3_hci.ui.explore.ExploreScreen
 import com.example.tp3_hci.ui.login.LogInScreen
 import com.example.tp3_hci.ui.main.MainScreen
+import com.example.tp3_hci.ui.model.OrderBy
 import com.example.tp3_hci.ui.routines.RoutinesScreen
 
 @Composable
-fun MyAppNavHost(navController: NavHostController){
+fun MyAppNavHost(navController: NavHostController, orderBy: OrderBy){
     NavHost(
         navController = navController,
         startDestination = "home"
@@ -29,13 +30,15 @@ fun MyAppNavHost(navController: NavHostController){
         composable("routines") {
             RoutinesScreen(
                 onNavigateToRoutineDetails = { id -> navController.navigate("details/$id")},
-                onNavigateToExecution = { id -> navController.navigate("execution/$id")}
+                onNavigateToExecution = { id -> navController.navigate("execution/$id")},
+                orderBy = orderBy
             )
         }
         composable("explore") {
             ExploreScreen(
                 onNavigateToRoutineDetails = { id -> navController.navigate("details/$id")},
-                onNavigateToExecution = { id -> navController.navigate("execution/$id")}
+                onNavigateToExecution = { id -> navController.navigate("execution/$id")},
+                orderBy = orderBy
             )
         }
         composable("details/{routineId}") {
@@ -47,7 +50,7 @@ fun MyAppNavHost(navController: NavHostController){
         composable("execution/{routineId}") {
             ExecutionScreen(
                 onNavigateBack = { navController.navigateUp() },
-                routineId = navController.currentBackStackEntry?.arguments?.getString("routineId")?:"-1"
+                routineId=navController.currentBackStackEntry?.arguments?.getString("routineId")?:"-1"
             )
         }
         composable("details-cycle/{cycleId}") {

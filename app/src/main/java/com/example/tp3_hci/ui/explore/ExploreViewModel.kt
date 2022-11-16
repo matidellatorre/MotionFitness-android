@@ -19,13 +19,13 @@ class ExploreViewModel (
     var uiState by mutableStateOf(ExploreUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
 
-    fun getRoutines() = viewModelScope.launch {
+    fun getRoutines(orderBy: String) = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,
             message = null
         )
         runCatching {
-            routineRepository.getRoutines(true)
+            routineRepository.getRoutines(true, orderBy)
         }.onSuccess { response ->
             uiState = uiState.copy(
                 isFetching = false,
