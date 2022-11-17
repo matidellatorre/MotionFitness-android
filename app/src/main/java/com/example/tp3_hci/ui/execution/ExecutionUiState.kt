@@ -8,7 +8,7 @@ data class ExecutionUiState(
     val isFetching: Boolean = false,
     val routines: List<Routine>? = null,
     val routineCycles: List<RoutineCycle>? = null,
-    val cycleExercises: List<CycleContent>? = null,
+    val cycleExercises: HashMap<Int, List<CycleContent>> = HashMap<Int, List<CycleContent>>(),
     val message: String? = null
 )
 

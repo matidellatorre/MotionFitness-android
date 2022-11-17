@@ -48,15 +48,14 @@ class ExecutionViewModel (
         uiState = uiState.copy(
             isFetching = true,
             message = null,
-            cycleExercises = null
         )
         runCatching {
             cycleExerciseRepository.getCycleExercises(cycleId, true)
         }.onSuccess { response ->
             uiState = uiState.copy(
                 isFetching = false,
-                cycleExercises = response
             )
+            uiState.cycleExercises?.put(cycleId, response)
         }.onFailure { e ->
             // Handle the error and notify the UI when appropriate.
             uiState = uiState.copy(

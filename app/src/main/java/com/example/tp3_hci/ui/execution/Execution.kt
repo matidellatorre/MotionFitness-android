@@ -1,8 +1,6 @@
 package com.example.tp3_hci.ui.execution
 
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -17,8 +15,6 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.tp3_hci.MainActivity
-import com.example.tp3_hci.MyApplication
 import com.example.tp3_hci.components.Timer
 import com.example.tp3_hci.data.model.CycleContent
 import com.example.tp3_hci.data.model.RoutineCycle
@@ -29,86 +25,92 @@ import com.example.tp3_hci.ui.model.TopBarInfo
 import com.example.tp3_hci.ui.theme.Grey2
 import com.example.tp3_hci.ui.theme.GreyGrey
 import com.example.tp3_hci.util.getViewModelFactory
-import kotlinx.coroutines.*
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 @Composable
 fun ExecutionScreen(
     onNavigateBack: () -> Unit,
+    routineId: String,
     viewModel: ExecutionViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory()),
-    routineId: String
 
 ) {
-
     val uiState = viewModel.uiState
 
     var currentCycleIndex by remember { mutableStateOf(0) }
     var currentExerciseIndex by remember { mutableStateOf(0) }
+    var boca by remember { mutableStateOf(false) }
+    var rivar by remember { mutableStateOf(false) }
+    var finishedThreads by remember { mutableStateOf(0) }
+    val mutex = Mutex()
+
+
+    //var allExercises by remember { mutableStateOf( HashMap<Int, List<CycleContent>?>() ) }
+
+    LaunchedEffect(key1 = Unit) {
+        launch {
+            if(uiState.canGetData){
+                viewModel.getRoutineCycles(routineId.toInt()).invokeOnCompletion {
+                        boca = true
+                }
+            }
+        }
+    }
+
+    LaunchedEffect(key1 = boca) {
+        launch {
+            if(boca){
+                uiState.routineCycles?.forEach { it ->
+                    viewModel.getCycleExercises( it?.id!! )
+                    mutex.withLock {
+                        finishedThreads++
+                    }
+                    Log.i("AAAAAAAAAAAAAAAAAAAAA","pase")
+                }
+            }
+        }
+    }
+
+    LaunchedEffect(key1 = finishedThreads) {
+        launch {
+            if(finishedThreads == uiState.routineCycles?.size){
+                rivar = true
+            }
+        }
+    }
 
     fun nextCycle(){
         if (currentCycleIndex+1 >= uiState.routineCycles.orEmpty().size) {
             onNavigateBack()
         } else {
-            currentCycleIndex++
             currentExerciseIndex=0
+            do {
+                currentCycleIndex++
+            } while (uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(currentCycleIndex)!!.id).orEmpty().size == 0)
         }
     }
 
     fun nextExercise(){
-        if (currentExerciseIndex+1 >= uiState.cycleExercises.orEmpty().size) {
+        if (currentExerciseIndex+1 >= uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(currentCycleIndex)!!.id).orEmpty().size) {
             nextCycle()
         } else {
             currentExerciseIndex++
         }
     }
 
-    var areCyclesLoaded by remember { mutableStateOf(false) }
-    var areExercisesLoaded by remember { mutableStateOf(false) }
+    val cycles = uiState.routineCycles
+    var currentCycle = uiState.routineCycles?.get(currentCycleIndex)
 
-    var currentCycle = uiState.routineCycles?.getOrNull(currentCycleIndex)
-
-    //Cargo los ciclos
-    LaunchedEffect(key1 = Unit) {
-        if (uiState.canGetData) {
-            viewModel.getRoutineCycles(routineId.toInt()).invokeOnCompletion {
-                areCyclesLoaded = true
-            }
-        }
-    }
-
-    //Cargo ejercicios por ciclo
-    LaunchedEffect(key1 = areCyclesLoaded, key2 = currentCycleIndex) {
-        areExercisesLoaded = false
-        if (uiState.canGetData && areCyclesLoaded && uiState.routineCycles != null && uiState.routineCycles.isNotEmpty()) {
-            viewModel.getCycleExercises(
-                uiState.routineCycles.get(currentCycleIndex)!!.id!!
-            ).invokeOnCompletion {
-                areExercisesLoaded = true
-                if (areExercisesLoaded && uiState.cycleExercises.isNullOrEmpty()){
-                    nextCycle()
-                    Log.i("AAAAAAA", currentCycleIndex.toString())
-                }
-            }
-        }
-    }
-
-    // No hay ciclos: salgo
-    if (areCyclesLoaded && uiState.routineCycles==null){
-        // TODO: Toast mensaje
-        onNavigateBack()
-    }
-
-    // si el ciclo esta vacio, salto al proximo
-
-    if (uiState.isFetching || uiState.cycleExercises.isNullOrEmpty()){
-        Text(text = "Loading...")
-    } else {
-        Column (
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .padding(12.dp)
-                .fillMaxHeight(),
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
+    Column (
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .padding(12.dp)
+            .fillMaxHeight(),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        if(rivar) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -141,9 +143,8 @@ fun ExecutionScreen(
                     thickness = 4.dp,
                     color = GreyGrey
                 )
-                //Nombre del ejercicio
                 Text(
-                    text = uiState.cycleExercises?.get(currentExerciseIndex)?.exercise?.name ?: "Exercise",
+                    text = uiState.cycleExercises?.get(uiState.routineCycles!!.get(currentCycleIndex).id)?.get(currentExerciseIndex)?.exercise?.name?: "Sapee",
                     color = MaterialTheme.colors.primary,
                     fontSize = 28.sp,
                     fontWeight = FontWeight(500)
@@ -153,16 +154,18 @@ fun ExecutionScreen(
                 contentAlignment = Alignment.Center,
             ) {
                 Timer(
-                    totalTime = ((uiState.cycleExercises?.get(currentExerciseIndex)?.duration?:5) * 1000).toLong(),
+                    totalTime = 10L * 1000L,
                     handleColor = MaterialTheme.colors.primary,
                     inactiveBarColor = GreyGrey,
                     activeBarColor = MaterialTheme.colors.primary,
                     nextFunc = { nextExercise() },
-                    prevFunc = { currentExerciseIndex-- },
+                    prevFunc = { currentCycleIndex-- },
                     modifier = Modifier
                         .size(280.dp)
                 )
             }
+        } else {
+            Text("Loading....")
         }
     }
 }
