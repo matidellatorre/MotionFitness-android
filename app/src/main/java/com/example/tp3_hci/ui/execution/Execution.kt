@@ -1,6 +1,7 @@
 package com.example.tp3_hci.ui.execution
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -25,7 +26,7 @@ import com.example.tp3_hci.ui.model.TopBarInfo
 import com.example.tp3_hci.ui.theme.Grey2
 import com.example.tp3_hci.ui.theme.GreyGrey
 import com.example.tp3_hci.util.getViewModelFactory
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 @Composable
 fun ExecutionScreen(
@@ -40,78 +41,105 @@ fun ExecutionScreen(
     var currentCycleIndex by remember { mutableStateOf(0) }
     var currentExerciseIndex by remember { mutableStateOf(0) }
 
+    var areCyclesLoaded by remember { mutableStateOf(false) }
+
     //var allExercises by remember { mutableStateOf( HashMap<Int, List<CycleContent>?>() ) }
 
+    //Cargo los ciclos
     LaunchedEffect(key1 = Unit) {
-        launch {
-            if(uiState.canGetData){
-                viewModel.getRoutineCycles(routineId.toInt())
+        if (uiState.canGetData) {
+            viewModel.getRoutineCycles(routineId.toInt()).invokeOnCompletion {
+                areCyclesLoaded = true
             }
         }
     }
-
-    val cycles = uiState.routineCycles
-    var currentCycle = uiState.routineCycles?.get(currentCycleIndex)
-
-    Column (
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .padding(12.dp)
-            .fillMaxHeight(),
-        verticalArrangement = Arrangement.SpaceBetween
-        ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 6.dp)
-                    .padding(top = 3.dp),
-                horizontalArrangement = Arrangement.End
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Cancel,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(35.dp)
-                        .clickable { onNavigateBack() },
-                    tint = Grey2
-                )
-            }
-            //Nombre del ciclo
-            Text(
-                text = currentCycle?.name?:"Cycle",
-                fontSize = 32.sp,
-                fontWeight = FontWeight(500)
-            )
-            Divider(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 50.dp, vertical = 10.dp),
-                thickness = 4.dp,
-                color = GreyGrey
-            )
-            Text(
-                text = "Nombre del ejercicio",
-                color = MaterialTheme.colors.primary,
-                fontSize = 28.sp,
-                fontWeight = FontWeight(500)
+    //Cargo ejercicios por ciclo
+    LaunchedEffect(key1 = areCyclesLoaded, key2 = currentCycleIndex) {
+        if (uiState.canGetData && areCyclesLoaded && uiState.routineCycles != null) {
+            viewModel.getCycleExercises(
+                uiState.routineCycles.get(currentCycleIndex)!!.id!!
             )
         }
-        Box (
-            contentAlignment = Alignment.Center,
+    }
+
+    var currentCycle = uiState.routineCycles?.get(currentCycleIndex)
+
+    if (uiState.isFetching){
+        Text(text = "Loading...")
+    } else {
+        Column (
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .padding(12.dp)
+                .fillMaxHeight(),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 6.dp)
+                        .padding(top = 3.dp),
+                    horizontalArrangement = Arrangement.End
                 ) {
-            Timer(
-                totalTime = 10L * 1000L,
-                handleColor = MaterialTheme.colors.primary,
-                inactiveBarColor = GreyGrey,
-                activeBarColor = MaterialTheme.colors.primary,
-                nextFunc = { currentCycleIndex++ },
-                prevFunc = { currentCycleIndex-- },
-                modifier = Modifier
-                    .size(280.dp)
-            )
+                    Icon(
+                        imageVector = Icons.Default.Cancel,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(35.dp)
+                            .clickable { onNavigateBack() },
+                        tint = Grey2
+                    )
+                }
+                //Nombre del ciclo
+                Text(
+                    text = currentCycle?.name ?: "Cycle",
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight(500)
+                )
+                Divider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 50.dp, vertical = 10.dp),
+                    thickness = 4.dp,
+                    color = GreyGrey
+                )
+                //Nombre del ejercicio
+                Text(
+                    text = uiState.cycleExercises?.get(currentExerciseIndex)?.exercise?.name ?: "Exercise",
+                    color = MaterialTheme.colors.primary,
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight(500)
+                )
+            }
+            Box(
+                contentAlignment = Alignment.Center,
+            ) {
+                Timer(
+                    totalTime = 10L * 1000L,
+                    handleColor = MaterialTheme.colors.primary,
+                    inactiveBarColor = GreyGrey,
+                    activeBarColor = MaterialTheme.colors.primary,
+                    nextFunc = {
+                        if (currentExerciseIndex+1 >= uiState.cycleExercises.orEmpty().size) {
+                            if (currentCycleIndex+1 >= uiState.routineCycles.orEmpty().size) {
+                                onNavigateBack()
+                            } else {
+                                currentCycleIndex++
+                                currentExerciseIndex=0
+                            }
+                        } else {
+                        currentExerciseIndex++
+                        }
+                    },
+                    prevFunc = { currentExerciseIndex-- },
+                    modifier = Modifier
+                        .size(280.dp)
+                )
+            }
         }
     }
 }
+

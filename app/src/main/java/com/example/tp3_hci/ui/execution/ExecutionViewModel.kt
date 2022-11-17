@@ -24,27 +24,7 @@ class ExecutionViewModel (
     var uiState by mutableStateOf(ExecutionUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
 
-    fun getRoutines(orderBy: String) = viewModelScope.launch {
-        uiState = uiState.copy(
-            isFetching = true,
-            message = null
-        )
-        runCatching {
-            routineRepository.getRoutines(true, orderBy = orderBy)
-        }.onSuccess { response ->
-            uiState = uiState.copy(
-                isFetching = false,
-                routines = response
-            )
-        }.onFailure { e ->
-            // Handle the error and notify the UI when appropriate.
-            uiState = uiState.copy(
-                message = e.message,
-                isFetching = false)
-        }
-    }
-
-    fun getRoutineCycles(routineId: Int) = viewModelScope.launch {
+    suspend fun getRoutineCycles(routineId: Int) = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,
             message = null
