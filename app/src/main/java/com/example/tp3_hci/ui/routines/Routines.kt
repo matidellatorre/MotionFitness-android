@@ -24,6 +24,14 @@ fun RoutinesScreen(
 ) {
     val uiState = viewModel.uiState
 
+    LaunchedEffect(key1 = Unit) {
+        launch {
+            if (uiState.canGetAllRoutines) {
+                viewModel.getFavouriteRoutines()
+            }
+        }
+    }
+
     LaunchedEffect(key1 = orderBy) {
         launch {
             if (uiState.canGetAllRoutines) {
@@ -32,13 +40,7 @@ fun RoutinesScreen(
         }
     }
 
-    LaunchedEffect(key1 = orderBy) {
-        launch {
-            if (uiState.canGetAllRoutines) {
-                viewModel.getFavouriteRoutines()
-            }
-        }
-    }
+
 
     LaunchedEffect(key1 = Unit) {
         launch {

@@ -44,9 +44,8 @@ fun HomeScreen(
         }
     }
 
-    LaunchedEffect(key1 = Unit) {
+    LaunchedEffect(key1 = uiState.isFetching) {
         launch {
-            //onPopStack("login")
             if (uiState.canGetFavouriteRoutines)
                 viewModel.getFavouriteRoutines()
         }

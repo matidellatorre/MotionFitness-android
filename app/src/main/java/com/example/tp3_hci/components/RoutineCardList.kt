@@ -32,9 +32,9 @@ fun RoutineCardList(
                 name = list?.get(index)?.name ?: "Error",
                 description = list?.get(index)?.detail ?: "",
                 id = list?.get(index)?.id!!,
-                isFavourite = favouriteList!!.contains(list?.get(index)?.id!!),
+                isFavourite = favouriteList.orEmpty().contains(list?.get(index)?.id!!),
                 hasFavourites = hasFavourites,
-                addFavourite = addFavourite!!,
+                addFavourite = addFavourite?:null,
                 onNavigateToRoutineDetails = onNavigateToRoutineDetails,
                 onNavigateToExecution = onNavigateToExecution
             )

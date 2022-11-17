@@ -68,7 +68,7 @@ class HomeViewModel (
             message = null
         )
         runCatching {
-            favouriteRoutineRepository.getFavouriteRoutines(false)
+            favouriteRoutineRepository.getFavouriteRoutines(true)
         }.onSuccess { response ->
             uiState = uiState.copy(
                 isFetching = false,

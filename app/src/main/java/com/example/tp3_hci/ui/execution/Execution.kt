@@ -44,22 +44,27 @@ fun ExecutionScreen(
     var currentCycleIndex by remember { mutableStateOf(0) }
     var currentExerciseIndex by remember { mutableStateOf(0) }
 
+    fun nextCycle(){
+        if (currentCycleIndex+1 >= uiState.routineCycles.orEmpty().size) {
+            onNavigateBack()
+        } else {
+            currentCycleIndex++
+            currentExerciseIndex=0
+        }
+    }
+
     fun nextExercise(){
         if (currentExerciseIndex+1 >= uiState.cycleExercises.orEmpty().size) {
-            if (currentCycleIndex+1 >= uiState.routineCycles.orEmpty().size) {
-                onNavigateBack()
-            } else {
-                currentCycleIndex++
-                currentExerciseIndex=0
-            }
+            nextCycle()
         } else {
             currentExerciseIndex++
         }
     }
 
     var areCyclesLoaded by remember { mutableStateOf(false) }
+    var areExercisesLoaded by remember { mutableStateOf(false) }
 
-    //var allExercises by remember { mutableStateOf( HashMap<Int, List<CycleContent>?>() ) }
+    var currentCycle = uiState.routineCycles?.getOrNull(currentCycleIndex)
 
     //Cargo los ciclos
     LaunchedEffect(key1 = Unit) {
@@ -72,21 +77,29 @@ fun ExecutionScreen(
 
     //Cargo ejercicios por ciclo
     LaunchedEffect(key1 = areCyclesLoaded, key2 = currentCycleIndex) {
+        areExercisesLoaded = false
         if (uiState.canGetData && areCyclesLoaded && uiState.routineCycles != null && uiState.routineCycles.isNotEmpty()) {
             viewModel.getCycleExercises(
                 uiState.routineCycles.get(currentCycleIndex)!!.id!!
-            )
+            ).invokeOnCompletion {
+                areExercisesLoaded = true
+                if (areExercisesLoaded && uiState.cycleExercises.isNullOrEmpty()){
+                    nextCycle()
+                    Log.i("AAAAAAA", currentCycleIndex.toString())
+                }
+            }
         }
     }
 
+    // No hay ciclos: salgo
     if (areCyclesLoaded && uiState.routineCycles==null){
         // TODO: Toast mensaje
         onNavigateBack()
     }
 
-    var currentCycle = uiState.routineCycles?.getOrNull(currentCycleIndex)
+    // si el ciclo esta vacio, salto al proximo
 
-    if (uiState.isFetching){
+    if (uiState.isFetching || uiState.cycleExercises.isNullOrEmpty()){
         Text(text = "Loading...")
     } else {
         Column (
@@ -129,9 +142,6 @@ fun ExecutionScreen(
                     color = GreyGrey
                 )
                 //Nombre del ejercicio
-                if (areCyclesLoaded && uiState.cycleExercises==null){
-                    nextExercise()
-                }
                 Text(
                     text = uiState.cycleExercises?.get(currentExerciseIndex)?.exercise?.name ?: "Exercise",
                     color = MaterialTheme.colors.primary,
@@ -143,7 +153,7 @@ fun ExecutionScreen(
                 contentAlignment = Alignment.Center,
             ) {
                 Timer(
-                    totalTime = 10L * 1000L,
+                    totalTime = ((uiState.cycleExercises?.get(currentExerciseIndex)?.duration?:5) * 1000).toLong(),
                     handleColor = MaterialTheme.colors.primary,
                     inactiveBarColor = GreyGrey,
                     activeBarColor = MaterialTheme.colors.primary,

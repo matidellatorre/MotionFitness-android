@@ -47,7 +47,8 @@ class ExecutionViewModel (
     fun getCycleExercises(cycleId: Int) = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,
-            message = null
+            message = null,
+            cycleExercises = null
         )
         runCatching {
             cycleExerciseRepository.getCycleExercises(cycleId, true)
