@@ -1,5 +1,6 @@
 package com.example.tp3_hci.ui.execution
 
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
@@ -16,6 +17,8 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.tp3_hci.MainActivity
+import com.example.tp3_hci.MyApplication
 import com.example.tp3_hci.components.Timer
 import com.example.tp3_hci.data.model.CycleContent
 import com.example.tp3_hci.data.model.RoutineCycle
@@ -41,6 +44,19 @@ fun ExecutionScreen(
     var currentCycleIndex by remember { mutableStateOf(0) }
     var currentExerciseIndex by remember { mutableStateOf(0) }
 
+    fun nextExercise(){
+        if (currentExerciseIndex+1 >= uiState.cycleExercises.orEmpty().size) {
+            if (currentCycleIndex+1 >= uiState.routineCycles.orEmpty().size) {
+                onNavigateBack()
+            } else {
+                currentCycleIndex++
+                currentExerciseIndex=0
+            }
+        } else {
+            currentExerciseIndex++
+        }
+    }
+
     var areCyclesLoaded by remember { mutableStateOf(false) }
 
     //var allExercises by remember { mutableStateOf( HashMap<Int, List<CycleContent>?>() ) }
@@ -53,16 +69,22 @@ fun ExecutionScreen(
             }
         }
     }
+
     //Cargo ejercicios por ciclo
     LaunchedEffect(key1 = areCyclesLoaded, key2 = currentCycleIndex) {
-        if (uiState.canGetData && areCyclesLoaded && uiState.routineCycles != null) {
+        if (uiState.canGetData && areCyclesLoaded && uiState.routineCycles != null && uiState.routineCycles.isNotEmpty()) {
             viewModel.getCycleExercises(
                 uiState.routineCycles.get(currentCycleIndex)!!.id!!
             )
         }
     }
 
-    var currentCycle = uiState.routineCycles?.get(currentCycleIndex)
+    if (areCyclesLoaded && uiState.routineCycles==null){
+        // TODO: Toast mensaje
+        onNavigateBack()
+    }
+
+    var currentCycle = uiState.routineCycles?.getOrNull(currentCycleIndex)
 
     if (uiState.isFetching){
         Text(text = "Loading...")
@@ -107,6 +129,9 @@ fun ExecutionScreen(
                     color = GreyGrey
                 )
                 //Nombre del ejercicio
+                if (areCyclesLoaded && uiState.cycleExercises==null){
+                    nextExercise()
+                }
                 Text(
                     text = uiState.cycleExercises?.get(currentExerciseIndex)?.exercise?.name ?: "Exercise",
                     color = MaterialTheme.colors.primary,
@@ -122,18 +147,7 @@ fun ExecutionScreen(
                     handleColor = MaterialTheme.colors.primary,
                     inactiveBarColor = GreyGrey,
                     activeBarColor = MaterialTheme.colors.primary,
-                    nextFunc = {
-                        if (currentExerciseIndex+1 >= uiState.cycleExercises.orEmpty().size) {
-                            if (currentCycleIndex+1 >= uiState.routineCycles.orEmpty().size) {
-                                onNavigateBack()
-                            } else {
-                                currentCycleIndex++
-                                currentExerciseIndex=0
-                            }
-                        } else {
-                        currentExerciseIndex++
-                        }
-                    },
+                    nextFunc = { nextExercise() },
                     prevFunc = { currentExerciseIndex-- },
                     modifier = Modifier
                         .size(280.dp)
