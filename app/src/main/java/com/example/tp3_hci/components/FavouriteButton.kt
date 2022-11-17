@@ -25,7 +25,7 @@ fun FavoriteButton(
         onCheckedChange = {
             if(!isFav) {
                 isFav = true
-                //addFavourite(routineId)
+                addFavourite(routineId)
             }
         }
     ) {

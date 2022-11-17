@@ -92,23 +92,21 @@ fun HomeScreen(
                 )
             )
 
-            val list: List<Routine> =
-                uiState.favourites?.filter { favourite -> favourite.user?.username == uiState.currentUser?.username }
-                    .orEmpty()
-            if (list?.size ?: 0 != 0) {
+            val favourites = uiState.favourites.orEmpty()
+            if (favourites.isNotEmpty()) {
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                 ) {
                     item { Spacer(modifier = Modifier.padding(4.dp)) }
                     items(
-                        count = list?.size ?: 0,
+                        count = favourites.size ?: 0,
                         key = { index ->
-                            list?.get(index)?.id.toString()
+                            favourites.get(index)?.id.toString()
                         }
                     ) { index ->
                         LittleCard(
-                            name = list?.get(index)?.name ?: "Error",
-                            id = list?.get(index)?.id!!,
+                            name = favourites.get(index)?.name ?: "Error",
+                            id = favourites.get(index)?.id!!,
                             onNavigateToRoutineDetails = onNavigateToRoutineDetails,
                         )
                     }
