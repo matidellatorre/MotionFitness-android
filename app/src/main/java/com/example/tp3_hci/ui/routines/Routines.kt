@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.currentComposer
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +25,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.tp3_hci.R
 import com.example.tp3_hci.components.RoutineCard
+import com.example.tp3_hci.components.RoutineCardList
 import com.example.tp3_hci.data.model.Routine
 import com.example.tp3_hci.ui.home.HomeViewModel
 import com.example.tp3_hci.ui.model.OrderBy
@@ -68,27 +70,11 @@ fun RoutinesScreen(
                 )
             }
         } else {
-            val list = uiState.routines?.filter { routine -> routine.user?.username == uiState.currentUser?.username }.orEmpty()
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(15.dp),
-                modifier = Modifier
-                    .padding(horizontal = 15.dp)
-            ) {
-                items(
-                    count = list?.size?:0,
-                    key = { index ->
-                        list?.get(index)?.id.toString()
-                    }
-                ) { index ->
-                    RoutineCard(
-                        name = list?.get(index)?.name ?: "Error",
-                        description = list?.get(index)?.detail ?: "",
-                        id = list?.get(index)?.id!!,
-                        onNavigateToRoutineDetails = onNavigateToRoutineDetails,
-                        onNavigateToExecution = onNavigateToExecution
-                    )
-                }
-            }
+            RoutineCardList(
+                list = uiState.routines?.filter { routine -> routine.user?.username == uiState.currentUser?.username }.orEmpty(),
+                hasFavourites = true,
+                onNavigateToRoutineDetails = onNavigateToRoutineDetails,
+                onNavigateToExecution = onNavigateToExecution)
         }
     }
 }

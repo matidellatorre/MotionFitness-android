@@ -17,7 +17,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.tp3_hci.R
 import com.example.tp3_hci.components.LittleCard
 import com.example.tp3_hci.components.RoutineCard
+import com.example.tp3_hci.data.model.Routine
 import com.example.tp3_hci.ui.home.HomeViewModel
+import com.example.tp3_hci.ui.home.canGetFavouriteRoutines
 import com.example.tp3_hci.util.getViewModelFactory
 import kotlinx.coroutines.launch
 
@@ -36,9 +38,17 @@ fun HomeScreen(
         lifecycle.repeatOnLifecycle(state = Lifecycle.State.CREATED) {
             launch {
                 //onPopStack("login")
-                if(!uiState.isAuthenticated)
+                if (!uiState.isAuthenticated)
                     onNavigateToLogin()
             }
+        }
+    }
+
+    LaunchedEffect(key1 = Unit) {
+        launch {
+            //onPopStack("login")
+            if (uiState.canGetFavouriteRoutines)
+                viewModel.getFavouriteRoutines()
         }
     }
 
@@ -56,15 +66,22 @@ fun HomeScreen(
                 fontWeight = FontWeight(500)
             )
         )
-        Column (
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
             Box(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
-            ){
-                RoutineCard(name = "Piernas", description = "Beast Mode", id=1, onNavigateToRoutineDetails = onNavigateToRoutineDetails, onNavigateToExecution = onNavigateToExecution )
+            ) {
+                RoutineCard(
+                    name = "Piernas",
+                    description = "Beast Mode",
+                    id = 1,
+                    hasFavourites = false,
+                    onNavigateToRoutineDetails = onNavigateToRoutineDetails,
+                    onNavigateToExecution = onNavigateToExecution
+                )
             }
             Text(
                 text = stringResource(R.string.home_favourites),
@@ -74,33 +91,58 @@ fun HomeScreen(
                     fontWeight = FontWeight(500)
                 )
             )
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-            ) {
-                item { Spacer(modifier = Modifier.padding(4.dp)) }
-                items(10) {
-                    LittleCard(name = "Tetee", id=1, onNavigateToRoutineDetails)
+
+            val list: List<Routine> =
+                uiState.favourites?.filter { favourite -> favourite.user?.username == uiState.currentUser?.username }
+                    .orEmpty()
+            if (list?.size ?: 0 != 0) {
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                ) {
+                    item { Spacer(modifier = Modifier.padding(4.dp)) }
+                    items(
+                        count = list?.size ?: 0,
+                        key = { index ->
+                            list?.get(index)?.id.toString()
+                        }
+                    ) { index ->
+                        LittleCard(
+                            name = list?.get(index)?.name ?: "Error",
+                            id = list?.get(index)?.id!!,
+                            onNavigateToRoutineDetails = onNavigateToRoutineDetails,
+                        )
+                    }
+                    item { Spacer(modifier = Modifier.padding(4.dp)) }
                 }
-                item { Spacer(modifier = Modifier.padding(4.dp)) }
-            }
-            Text(
-                text = stringResource(R.string.home_suggested),
-                modifier = Modifier
-                    .padding(12.dp),
-                style = MaterialTheme.typography.h6.copy(
-                    fontWeight = FontWeight(500)
+            } else {
+                Text(
+                    text = "There are no favourite routines yet.",
+                    modifier = Modifier
+                        .padding(12.dp),
+                    style = MaterialTheme.typography.h6.copy(
+                        fontWeight = FontWeight(400),
+                        fontSize = 20.sp
+                    )
                 )
-            )
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-            ) {
-                item { Spacer(modifier = Modifier.padding(4.dp)) }
-                items(10) {
-                    LittleCard(name = "Tetee", id=1, onNavigateToRoutineDetails)
-                }
-                item { Spacer(modifier = Modifier.padding(4.dp)) }
             }
-            Spacer(modifier = Modifier.size(20.dp))
         }
+        Text(
+            text = stringResource(R.string.home_suggested),
+            modifier = Modifier
+                .padding(12.dp),
+            style = MaterialTheme.typography.h6.copy(
+                fontWeight = FontWeight(500)
+            )
+        )
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            item { Spacer(modifier = Modifier.padding(4.dp)) }
+            items(10) {
+                LittleCard(name = "Tetee", id = 1, onNavigateToRoutineDetails)
+            }
+            item { Spacer(modifier = Modifier.padding(4.dp)) }
+        }
+        Spacer(modifier = Modifier.size(20.dp))
     }
 }

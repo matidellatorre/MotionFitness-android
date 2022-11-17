@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tp3_hci.R
 import com.example.tp3_hci.components.RoutineCard
+import com.example.tp3_hci.components.RoutineCardList
 import com.example.tp3_hci.ui.model.OrderBy
 import com.example.tp3_hci.ui.routines.RoutinesViewModel
 import com.example.tp3_hci.ui.routines.canGetAllRoutines
@@ -64,27 +65,12 @@ fun ExploreScreen(
                 )
             }
         } else {
-            val list = uiState.routines?.filter { routine -> routine.user?.username != uiState.currentUser?.username }.orEmpty()
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(15.dp),
-                modifier = Modifier
-                    .padding(horizontal = 15.dp)
-            ) {
-                items(
-                    count = list?.size?:0,
-                    key = { index ->
-                        list?.get(index)?.id.toString()
-                    }
-                ) { index ->
-                    RoutineCard(
-                        name = list?.get(index)?.name ?: "Error",
-                        description = list?.get(index)?.detail ?: "",
-                        id = list?.get(index)?.id!!,
-                        onNavigateToRoutineDetails = onNavigateToRoutineDetails,
-                        onNavigateToExecution = onNavigateToExecution
-                    )
-                }
-            }
+            RoutineCardList(
+                list = uiState.routines?.filter { routine -> routine.user?.username != uiState.currentUser?.username }.orEmpty(),
+                hasFavourites = false,
+                onNavigateToRoutineDetails = onNavigateToRoutineDetails,
+                onNavigateToExecution = onNavigateToExecution,
+            )
         }
     }
 }

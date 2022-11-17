@@ -8,6 +8,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Grade
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,9 +28,10 @@ fun RoutineCard(
     name: String,
     description: String,
     id: Int,
+    hasFavourites: Boolean,
     onNavigateToRoutineDetails: (id:Int) -> Unit,
     onNavigateToExecution: (id:Int) -> Unit,
-){
+) {
     Card(
         modifier = Modifier.clickable { onNavigateToRoutineDetails(id) },
         shape = RoundedCornerShape(7),
@@ -36,14 +39,18 @@ fun RoutineCard(
         Column(
             modifier = Modifier.background(color = MaterialTheme.colors.surface)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.routine_placeholder),
-                contentDescription = "Routine image",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(150.dp),
-                contentScale = ContentScale.FillWidth
-            )
+            Box(contentAlignment = Alignment.TopEnd) {
+                Image(
+                    painter = painterResource(id = R.drawable.routine_placeholder),
+                    contentDescription = "Routine image",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(150.dp),
+                    contentScale = ContentScale.FillWidth
+                )
+                if(hasFavourites)
+                    FavoriteButton(routineId = id, modifier = Modifier.padding(12.dp))
+            }
             Text(
                 name,
                 modifier = Modifier.padding(start = 12.dp, top = 12.dp),
@@ -64,7 +71,7 @@ fun RoutineCard(
                         .padding(end = 15.dp, bottom = 5.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
                     shape = RoundedCornerShape(35.dp)
-                ){
+                ) {
                     Text(
                         text = stringResource(R.string.start_routine),
                         color = Color.White

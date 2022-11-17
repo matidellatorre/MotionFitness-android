@@ -23,6 +23,7 @@ class ViewModelFactory constructor(
     private val routineRepository: RoutineRepository,
     private val routineCycleRepository: RoutineCycleRepository,
     private val cycleExerciseRepository: CycleExerciseRepository,
+    private val favouriteRoutineRepository: FavouriteRoutineRepository,
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle? = null
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
@@ -40,7 +41,7 @@ class ViewModelFactory constructor(
             isAssignableFrom(MainAppBarViewModel::class.java) ->
                 MainAppBarViewModel(sessionManager, userRepository)
             isAssignableFrom(HomeViewModel::class.java) ->
-                HomeViewModel(sessionManager, userRepository)
+                HomeViewModel(sessionManager, userRepository, favouriteRoutineRepository)
             isAssignableFrom(RoutinesViewModel::class.java) ->
                 RoutinesViewModel(sessionManager, userRepository, routineRepository)
             isAssignableFrom(ExploreViewModel::class.java) ->
