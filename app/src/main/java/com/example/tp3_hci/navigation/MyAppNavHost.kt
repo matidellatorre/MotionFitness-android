@@ -1,9 +1,13 @@
 package com.example.tp3_hci.navigation
 
+import android.content.Intent
 import androidx.compose.runtime.*
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import com.example.tp3_hci.Screens.*
 import com.example.tp3_hci.ui.details.DetailsScreen
 import com.example.tp3_hci.ui.execution.ExecutionScreen
@@ -41,13 +45,26 @@ fun MyAppNavHost(navController: NavHostController, orderBy: String){
                 orderBy = orderBy
             )
         }
-        composable("details/{routineId}") {
+        composable(
+            route = "details/{routineId}",
+                deepLinks = listOf(
+                navDeepLink {
+                    uriPattern = "https://motionfitnessitba.com/{routineId}"
+                    action = Intent.ACTION_VIEW
+                }
+                ),
+            arguments = listOf(
+                navArgument("routineId") {
+                    type = NavType.StringType
+                    defaultValue = "-1"
+                }
+            )) {
             DetailsScreen(
                 onNavigateToCycleDetails = { id -> navController.navigate("details-cycle/$id") },
                 routineId = navController.currentBackStackEntry?.arguments?.getString("routineId")?:"-1"
             )
         }
-        composable("execution/{routineId}") {
+        composable(route = "execution/{routineId}"){
             ExecutionScreen(
                 onNavigateBack = { navController.navigateUp() },
                 routineId=navController.currentBackStackEntry?.arguments?.getString("routineId")?:"-1"

@@ -21,15 +21,44 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.TP3HCI">
+            <tools:validation testUrl="https://motionfitnessitba.com" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <data
+                    android:host="motionfitnessitba.com"
+                    android:scheme="https" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.VIEW" />
+            </intent-filter>
+            <intent-filter>
+                <data
+                    android:host="motionfitnessitba.com"
+                    android:scheme="http" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.VIEW" />
             </intent-filter>
 
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="motionfitnessitba.com" />
+            </intent-filter>
         </activity>
     </application>
 
