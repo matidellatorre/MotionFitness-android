@@ -1,27 +1,17 @@
 package com.example.tp3_hci.ui.explore
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tp3_hci.R
-import com.example.tp3_hci.components.RoutineCard
 import com.example.tp3_hci.components.RoutineCardList
-import com.example.tp3_hci.ui.model.OrderBy
-import com.example.tp3_hci.ui.routines.RoutinesViewModel
-import com.example.tp3_hci.ui.routines.canGetAllRoutines
 import com.example.tp3_hci.util.getViewModelFactory
 import kotlinx.coroutines.launch
 

@@ -1,6 +1,5 @@
 package com.example.tp3_hci.components
 
-import android.text.BoringLayout
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,7 +11,9 @@ import com.example.tp3_hci.data.model.Routine
 @Composable
 fun RoutineCardList(
     list: List<Routine>,
+    favouriteList: List<Int>? = null,
     hasFavourites: Boolean,
+    addFavourite: ((Int) -> Unit)? = null,
     onNavigateToRoutineDetails: (id:Int) -> Unit,
     onNavigateToExecution: (id:Int) -> Unit,
 ) {
@@ -31,7 +32,9 @@ fun RoutineCardList(
                 name = list?.get(index)?.name ?: "Error",
                 description = list?.get(index)?.detail ?: "",
                 id = list?.get(index)?.id!!,
+                isFavourite = favouriteList!!.contains(list?.get(index)?.id!!),
                 hasFavourites = hasFavourites,
+                addFavourite = addFavourite!!,
                 onNavigateToRoutineDetails = onNavigateToRoutineDetails,
                 onNavigateToExecution = onNavigateToExecution
             )

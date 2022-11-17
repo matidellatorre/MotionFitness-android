@@ -8,6 +8,7 @@ data class RoutinesUiState(
     val isFetching: Boolean = false,
     val currentUser: User? = null,
     val routines: List<Routine>? = null,
+    val favourites: List<Int>? = null,
     val message: String? = null
 )
 

@@ -14,23 +14,25 @@ fun FavoriteButton(
     routineId: Int,
     modifier: Modifier = Modifier,
     color: Color = Color.White,
+    isFavourite: Boolean,
+    addFavourite: (Int) -> Unit,
 ) {
 
-    var isFavorite by remember { mutableStateOf(false) }
+    var isFav by remember { mutableStateOf(isFavourite) }
 
     IconToggleButton(
-        checked = isFavorite,
+        checked = isFav,
         onCheckedChange = {
-            if(!isFavorite) {
-                isFavorite = true
-
+            if(!isFav) {
+                isFav = true
+                //addFavourite(routineId)
             }
         }
     ) {
         Icon(
             tint = color,
 
-            imageVector = if (isFavorite) {
+            imageVector = if (isFav) {
                 Icons.Filled.Favorite
             } else {
                 Icons.Default.FavoriteBorder

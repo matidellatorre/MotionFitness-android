@@ -1,34 +1,17 @@
 package com.example.tp3_hci.ui.routines
 
-import android.util.Log
-import androidx.compose.foundation.background
-import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.currentComposer
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.repeatOnLifecycle
 import com.example.tp3_hci.R
-import com.example.tp3_hci.components.RoutineCard
 import com.example.tp3_hci.components.RoutineCardList
-import com.example.tp3_hci.data.model.Routine
-import com.example.tp3_hci.ui.home.HomeViewModel
-import com.example.tp3_hci.ui.model.OrderBy
 import com.example.tp3_hci.util.getViewModelFactory
 import kotlinx.coroutines.launch
 
@@ -43,8 +26,10 @@ fun RoutinesScreen(
 
     LaunchedEffect(key1 = orderBy) {
             launch {
-                if(uiState.canGetAllRoutines)
+                if(uiState.canGetAllRoutines) {
                     viewModel.getRoutines(orderBy)
+                    viewModel.getFavouriteRoutines()
+                }
                 if(uiState.canGetCurrentUser)
                     viewModel.getCurrentUser()
             }
@@ -72,7 +57,9 @@ fun RoutinesScreen(
         } else {
             RoutineCardList(
                 list = uiState.routines?.filter { routine -> routine.user?.username == uiState.currentUser?.username }.orEmpty(),
+                favouriteList = uiState.favourites.orEmpty(),
                 hasFavourites = true,
+                addFavourite = { routineId -> viewModel.addFavouriteRoutine(routineId) },
                 onNavigateToRoutineDetails = onNavigateToRoutineDetails,
                 onNavigateToExecution = onNavigateToExecution)
         }

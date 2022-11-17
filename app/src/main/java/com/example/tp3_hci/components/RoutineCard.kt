@@ -28,7 +28,9 @@ fun RoutineCard(
     name: String,
     description: String,
     id: Int,
+    isFavourite: Boolean? = false,
     hasFavourites: Boolean,
+    addFavourite: ((Int) -> Unit)? = null,
     onNavigateToRoutineDetails: (id:Int) -> Unit,
     onNavigateToExecution: (id:Int) -> Unit,
 ) {
@@ -49,7 +51,7 @@ fun RoutineCard(
                     contentScale = ContentScale.FillWidth
                 )
                 if(hasFavourites)
-                    FavoriteButton(routineId = id, modifier = Modifier.padding(12.dp))
+                    FavoriteButton(routineId = id, modifier = Modifier.padding(12.dp), isFavourite = isFavourite!!, addFavourite = addFavourite!!)
             }
             Text(
                 name,
