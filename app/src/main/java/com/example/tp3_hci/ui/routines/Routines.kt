@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 fun RoutinesScreen(
     onNavigateToRoutineDetails: (id:Int) -> Unit,
     onNavigateToExecution: (id:Int) -> Unit,
-    orderBy: OrderBy,
+    orderBy: String,
     viewModel: RoutinesViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
 ) {
     val uiState = viewModel.uiState
@@ -42,7 +42,7 @@ fun RoutinesScreen(
     LaunchedEffect(key1 = orderBy) {
             launch {
                 if(uiState.canGetAllRoutines)
-                    viewModel.getRoutines(orderBy.orderBy)
+                    viewModel.getRoutines(orderBy)
                 if(uiState.canGetCurrentUser)
                     viewModel.getCurrentUser()
             }

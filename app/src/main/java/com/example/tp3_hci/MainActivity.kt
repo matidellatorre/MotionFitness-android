@@ -31,35 +31,40 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            TP3HCITheme {
-                val navController = rememberNavController()
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    var orderBy by remember { mutableStateOf(OrderBy("date")) }
+            MyMotionApp()
+        }
+    }
 
-                    Scaffold (
-                        topBar = {
-                            MainAppBar(
-                                navController = navController,
-                                onNavigateToLogin =  { navController.navigate("login") },
-                                orderBy = orderBy,
-                            )
-                        },
-                        bottomBar = {
-                            MainBottomBar(navController)
-                        },
-                        content = { paddingValues ->
-                            Column(modifier = Modifier
-                                .fillMaxSize()
-                                .padding(bottom = paddingValues.calculateBottomPadding()
-                                )) {
-                                MyAppNavHost(navController, orderBy)
-                            }
+    @Composable
+    private fun MyMotionApp() {
+        TP3HCITheme {
+            val navController = rememberNavController()
+            var orderBy by remember { mutableStateOf("date") }
+
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colors.background
+            ) {
+                Scaffold (
+                    topBar = {
+                        MainAppBar(
+                            navController = navController,
+                            onNavigateToLogin =  { navController.navigate("login") },
+                            onOrderBy = { selection: String -> orderBy = selection },
+                        )
+                    },
+                    bottomBar = {
+                        MainBottomBar(navController)
+                    },
+                    content = { paddingValues ->
+                        Column(modifier = Modifier
+                            .fillMaxSize()
+                            .padding(bottom = paddingValues.calculateBottomPadding()
+                            )) {
+                            MyAppNavHost(navController, orderBy)
                         }
-                    )
-                }
+                    }
+                )
             }
         }
     }

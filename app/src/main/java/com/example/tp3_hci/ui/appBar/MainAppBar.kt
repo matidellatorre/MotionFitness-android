@@ -31,7 +31,7 @@ import com.example.tp3_hci.util.getViewModelFactory
 fun MainAppBar(
     navController: NavHostController,
     onNavigateToLogin: () -> Unit,
-    orderBy: OrderBy,
+    onOrderBy: (String) -> Unit,
     viewModel: MainAppBarViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory()),
 ) {
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -112,26 +112,25 @@ fun MainAppBar(
                         modifier = Modifier.background(MaterialTheme.colors.background)
                     ) {
                         DropdownMenuItem(
-                            onClick = { orderBy.orderBy = "date" ; showPopUpOrder = false })
+                            onClick = { onOrderBy("date") ; showPopUpOrder = false })
                         {
                             Text(text = "Date")
                             Icon(imageVector = Icons.Default.CalendarMonth, contentDescription = "date")
                         }
                         DropdownMenuItem(
-                            onClick = { orderBy.orderBy = "difficulty" ; showPopUpOrder = false }
+                            onClick = { onOrderBy("difficulty") ; showPopUpOrder = false }
                         ) {
                             Text(text = "Difficulty")
                             Icon(imageVector = Icons.Default.Grade, contentDescription = "difficulty", tint = Yellow)
                         }
                         DropdownMenuItem(
-                            onClick = { orderBy.orderBy = "score" ; showPopUpOrder = false }
+                            onClick = { onOrderBy("score") ; showPopUpOrder = false }
                         ) {
                             Text(text = "Score")
                             Icon(imageVector = Icons.Default.Grade, contentDescription = "score", tint = Yellow)
                         }
                         DropdownMenuItem(
-                            onClick = { orderBy.orderBy = "category"
-                                ; showPopUpOrder = false }
+                            onClick = { onOrderBy("category") ; showPopUpOrder = false }
                         ) {
                             Text(text = "Category")
                             Icon(imageVector = Icons.Default.Category, contentDescription = "category", tint = Black)

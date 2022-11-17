@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 fun ExploreScreen(
     onNavigateToRoutineDetails: (id:Int) -> Unit,
     onNavigateToExecution: (id:Int) -> Unit,
-    orderBy: OrderBy,
+    orderBy: String,
     viewModel: ExploreViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
 
 ) {
@@ -38,7 +38,7 @@ fun ExploreScreen(
     LaunchedEffect(key1 = Unit) {
         launch {
             if(uiState.canGetAllRoutines)
-                viewModel.getRoutines(orderBy.orderBy)
+                viewModel.getRoutines(orderBy)
             if(uiState.canGetCurrentUser)
                 viewModel.getCurrentUser()
         }

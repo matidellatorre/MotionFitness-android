@@ -14,7 +14,7 @@ import com.example.tp3_hci.ui.model.OrderBy
 import com.example.tp3_hci.ui.routines.RoutinesScreen
 
 @Composable
-fun MyAppNavHost(navController: NavHostController, orderBy: OrderBy){
+fun MyAppNavHost(navController: NavHostController, orderBy: String){
     NavHost(
         navController = navController,
         startDestination = "home"
