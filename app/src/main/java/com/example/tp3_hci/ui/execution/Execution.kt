@@ -40,6 +40,7 @@ import androidx.compose.ui.platform.LocalContext
 @Composable
 fun ExecutionScreen(
     onNavigateBack: () -> Unit,
+    onNavigateToRate: (id: String) -> Unit,
     routineId: String,
     viewModel: ExecutionViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory()),
 ) {
@@ -59,14 +60,14 @@ fun ExecutionScreen(
     //var allExercises by remember { mutableStateOf( HashMap<Int, List<CycleContent>?>() ) }
     fun nextCycle() {
         if (currentCycleIndex + 1 >= uiState.routineCycles.orEmpty().size) {
-            onNavigateBack()
+            onNavigateToRate(routineId)
         } else {
             currentExerciseIndex = 0
             do {
                 currentCycleIndex++
             } while (currentCycleIndex < uiState.routineCycles.orEmpty().size && uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(currentCycleIndex)!!.id).orEmpty().size == 0)
             if (currentCycleIndex + 1 >= uiState.routineCycles.orEmpty().size)
-                onNavigateBack()
+                onNavigateToRate(routineId)
         }
     }
 

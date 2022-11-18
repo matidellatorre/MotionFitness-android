@@ -15,6 +15,7 @@ import com.example.tp3_hci.ui.explore.ExploreScreen
 import com.example.tp3_hci.ui.login.LogInScreen
 import com.example.tp3_hci.ui.main.MainScreen
 import com.example.tp3_hci.ui.model.OrderBy
+import com.example.tp3_hci.ui.rate.RateScreen
 import com.example.tp3_hci.ui.routines.RoutinesScreen
 import com.example.tp3_hci.ui.settings.SettingsScreen
 
@@ -68,6 +69,7 @@ fun MyAppNavHost(navController: NavHostController, orderBy: String){
         composable(route = "execution/{routineId}"){
             ExecutionScreen(
                 onNavigateBack = { navController.navigateUp() },
+                onNavigateToRate = { id -> navController.navigate("rate/$id") },
                 routineId=navController.currentBackStackEntry?.arguments?.getString("routineId")?:"-1"
             )
         }
@@ -86,6 +88,11 @@ fun MyAppNavHost(navController: NavHostController, orderBy: String){
         }
         composable("settings") {
             SettingsScreen()
+        }
+        composable("rate/{routineId}") {
+            RateScreen(
+                routineId=navController.currentBackStackEntry?.arguments?.getString("routineId")?:"-1"
+            )
         }
     }
 }

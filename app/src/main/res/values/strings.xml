@@ -57,6 +57,7 @@
     <string name="previous">Prev</string>
     <string name="routines">Routines</string>
     <string name="exercises">Exercises</string>
+    <string name="rate">Rate this routine</string>
 
 
 </resources>
