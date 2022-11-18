@@ -7,6 +7,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -14,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.preference.PreferenceManager
 import com.example.tp3_hci.R
 import com.example.tp3_hci.components.LittleCard
 import com.example.tp3_hci.components.RoutineCard
@@ -35,6 +37,10 @@ fun HomeScreen(
 ) {
     val uiState = viewModel.uiState
     val lifecycle = LocalLifecycleOwner.current.lifecycle
+
+    var preferences = PreferenceManager.getDefaultSharedPreferences(LocalContext.current)
+
+    var suggestionsEnabled by remember { mutableStateOf(preferences.getBoolean("suggestions_enabled",true)) }
 
     LaunchedEffect(key1 = Unit) {
         lifecycle.repeatOnLifecycle(state = Lifecycle.State.CREATED) {
@@ -143,35 +149,37 @@ fun HomeScreen(
                 }
             }
         }
-        Text(
-            text = stringResource(R.string.home_suggested),
-            modifier = Modifier
-                .padding(12.dp),
-            style = MaterialTheme.typography.h6.copy(
-                fontWeight = FontWeight(500)
+        if (suggestionsEnabled){
+            Text(
+                text = stringResource(R.string.home_suggested),
+                modifier = Modifier
+                    .padding(12.dp),
+                style = MaterialTheme.typography.h6.copy(
+                    fontWeight = FontWeight(500)
+                )
             )
-        )
-        val suggested = uiState.routines.orEmpty().sortedBy { it.date }.reversed().take(3)
-        if (suggested.isNotEmpty()) {
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-            ) {
-                item { Spacer(modifier = Modifier.padding(4.dp)) }
-                items(
-                    count = suggested.size ?: 0,
-                    key = { index ->
-                        suggested.get(index)?.id.toString()
+            val suggested = uiState.routines.orEmpty().sortedBy { it.date }.reversed().take(3)
+            if (suggested.isNotEmpty()) {
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                ) {
+                    item { Spacer(modifier = Modifier.padding(4.dp)) }
+                    items(
+                        count = suggested.size ?: 0,
+                        key = { index ->
+                            suggested.get(index)?.id.toString()
+                        }
+                    ) { index ->
+                        LittleCard(
+                            name = suggested.get(index)?.name ?: "Error",
+                            id = suggested.get(index)?.id!!,
+                            onNavigateToRoutineDetails = onNavigateToRoutineDetails,
+                        )
                     }
-                ) { index ->
-                    LittleCard(
-                        name = suggested.get(index)?.name ?: "Error",
-                        id = suggested.get(index)?.id!!,
-                        onNavigateToRoutineDetails = onNavigateToRoutineDetails,
-                    )
+                    item { Spacer(modifier = Modifier.padding(4.dp)) }
                 }
-                item { Spacer(modifier = Modifier.padding(4.dp)) }
+                Spacer(modifier = Modifier.size(20.dp))
             }
-            Spacer(modifier = Modifier.size(20.dp))
         }
     }
 }

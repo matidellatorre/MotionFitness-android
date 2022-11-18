@@ -1,6 +1,8 @@
 package com.example.tp3_hci.ui.settings
 
+import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.ApplicationInfo
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -8,19 +10,32 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.preference.PreferenceManager
+import com.example.tp3_hci.MyApplication
 import com.example.tp3_hci.R
+import com.example.tp3_hci.util.SessionManager
 import kotlinx.coroutines.launch
 
 
 @Composable
 fun SettingsScreen() {
 
-    var var1 by remember { mutableStateOf(false) }
+    var preferences = PreferenceManager.getDefaultSharedPreferences(LocalContext.current)
+
+    var suggestionsEnabled by remember { mutableStateOf(preferences.getBoolean("suggestions_enabled",true)) }
     var var2 by remember { mutableStateOf(false) }
+
+
+    LaunchedEffect(key1 = suggestionsEnabled){
+        val editor = preferences.edit()
+        editor.putBoolean("suggestions_enabled", suggestionsEnabled)
+        editor.apply()
+    }
 
     Column(modifier = Modifier
         .padding(16.dp)
@@ -49,7 +64,7 @@ fun SettingsScreen() {
                 modifier = Modifier.padding(horizontal = 10.dp)
             ) {
                 Text(stringResource(id = R.string.settings_enable_suggestions), Modifier.padding(start = 5.dp))
-                Switch(checked = var1, onCheckedChange = { value -> var1 = value}, colors = SwitchDefaults.colors(
+                Switch(checked = suggestionsEnabled, onCheckedChange = { value -> suggestionsEnabled = value }, colors = SwitchDefaults.colors(
                     checkedThumbColor = MaterialTheme.colors.primary,
                     uncheckedThumbColor = Color.LightGray,
                     checkedTrackColor = MaterialTheme.colors.primary,
