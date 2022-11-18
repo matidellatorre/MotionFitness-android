@@ -1,6 +1,7 @@
 package com.example.tp3_hci.ui.execution
 
 import android.content.Context
+import android.preference.PreferenceManager
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
@@ -28,7 +29,6 @@ import com.example.tp3_hci.ui.explore.ExploreViewModel
 import com.example.tp3_hci.ui.explore.canGetAllRoutines
 import com.example.tp3_hci.ui.explore.canGetCurrentUser
 import com.example.tp3_hci.ui.model.TopBarInfo
-import androidx.preference.PreferenceManager
 import com.example.tp3_hci.ui.theme.Grey2
 import com.example.tp3_hci.ui.theme.GreyGrey
 import com.example.tp3_hci.util.getViewModelFactory
@@ -169,7 +169,7 @@ fun ExecutionScreen(
                         tint = Grey2
                     )
                 }
-                if (uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(0)?.id)
+                if (uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(currentCycleIndex)?.id)
                         .orEmpty().size == 0
                 ) {
                     EmptyState(text = stringResource(id = R.string.empty_routine), Icons.Default.HideSource)
