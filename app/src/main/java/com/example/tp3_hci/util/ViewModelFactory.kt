@@ -47,7 +47,7 @@ class ViewModelFactory constructor(
             isAssignableFrom(RoutinesViewModel::class.java) ->
                 RoutinesViewModel(sessionManager, userRepository, routineRepository, favouriteRoutineRepository)
             isAssignableFrom(ExploreViewModel::class.java) ->
-                ExploreViewModel(sessionManager, userRepository, routineRepository)
+                ExploreViewModel(sessionManager, userRepository, routineRepository, reviewRepository)
             isAssignableFrom(DetailsViewModel::class.java) ->
                 DetailsViewModel(sessionManager, userRepository, routineCycleRepository)
             isAssignableFrom(CycleDetailsViewModel::class.java) ->

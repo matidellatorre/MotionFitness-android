@@ -13,11 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.tp3_hci.R
+import com.example.tp3_hci.data.model.Review
 import com.example.tp3_hci.data.model.Routine
 
 @Composable
 fun RoutineCardList(
     list: List<Routine>,
+    hasReviews: Boolean,
+    reviews: HashMap<Int, List<Review>>? = null,
     favouriteList: List<Int>? = null,
     hasFavourites: Boolean,
     addFavourite: ((Int) -> Unit)? = null,
@@ -54,6 +57,8 @@ fun RoutineCardList(
                     isFavourite = favouriteList.orEmpty().contains(list?.get(index)?.id!!),
                     hasFavourites = hasFavourites,
                     addFavourite = addFavourite?:null,
+                    hasReview = hasReviews,
+                    review = reviews.orEmpty().get(index).orEmpty().map { review -> review.score!! }.average().toInt(),
                     onNavigateToRoutineDetails = onNavigateToRoutineDetails,
                     onNavigateToExecution = onNavigateToExecution
                 )

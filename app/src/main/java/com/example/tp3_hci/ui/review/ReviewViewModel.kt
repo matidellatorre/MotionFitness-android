@@ -20,7 +20,7 @@ class ReviewViewModel (
     private val reviewRepository: ReviewRepository,
 ) : ViewModel() {
 
-    var uiState by mutableStateOf(RoutinesUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
+    var uiState by mutableStateOf(ReviewUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
 
     fun addReview(routineId: Int, review: ReviewParam) = viewModelScope.launch {

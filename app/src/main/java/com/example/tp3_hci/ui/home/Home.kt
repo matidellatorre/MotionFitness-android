@@ -97,7 +97,6 @@ fun HomeScreen(
                         description = latestRoutine?.detail!!,
                         id = latestRoutine?.id!!,
                         imgId = R.drawable.routine6,
-                        hasFavourites = false,
                         onNavigateToRoutineDetails = onNavigateToRoutineDetails,
                         onNavigateToExecution = onNavigateToExecution
                     )

@@ -34,8 +34,10 @@ fun RoutineCard(
     description: String,
     id: Int,
     imgId: Int,
-    isFavourite: Boolean? = false,
-    hasFavourites: Boolean,
+    hasReview: Boolean = false,
+    review: Int? = null,
+    isFavourite: Boolean = false,
+    hasFavourites: Boolean = false,
     addFavourite: ((Int) -> Unit)? = null,
     onNavigateToRoutineDetails: (id:Int) -> Unit,
     onNavigateToExecution: (id:Int) -> Unit,
@@ -70,6 +72,9 @@ fun RoutineCard(
                 ){
                     if(hasFavourites)
                         FavoriteButton(routineId = id, modifier = Modifier.padding(12.dp), isFavourite = isFavourite!!, addFavourite = addFavourite!!)
+                    if(hasReview){
+                        Text(text = "Review: "+review.toString(), color = Color.White)
+                    }
                 }
             }
             Text(

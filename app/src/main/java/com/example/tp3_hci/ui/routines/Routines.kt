@@ -69,6 +69,7 @@ fun RoutinesScreen(
         } else {
             RoutineCardList(
                 list = uiState.routines?.filter { routine -> routine.user?.username == uiState.currentUser?.username }.orEmpty(),
+                hasReviews = false,
                 favouriteList = uiState.favourites.orEmpty(),
                 hasFavourites = true,
                 addFavourite = { routineId -> viewModel.addFavouriteRoutine(routineId) },

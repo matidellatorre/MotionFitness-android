@@ -18,7 +18,7 @@ class ReviewRepository(
     // Cache of the latest sports got from the network.
     private var reviews: List<Review> = emptyList()
 
-    suspend fun getReviews(routineId: Int, refresh: Boolean = false): List<Review> {
+    suspend fun getReviews(routineId: Int, refresh: Boolean = true): List<Review> {
         if (refresh || reviews.isEmpty()) {
             val result = remoteDataSource.getReviews(routineId)
             // Thread-safe write to latestNews
