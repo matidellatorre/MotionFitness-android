@@ -46,14 +46,34 @@ fun ExecutionScreen(
     var finishedThreads by remember { mutableStateOf(0) }
     val mutex = Mutex()
 
-
     //var allExercises by remember { mutableStateOf( HashMap<Int, List<CycleContent>?>() ) }
+    fun nextCycle() {
+        if (currentCycleIndex + 1 >= uiState.routineCycles.orEmpty().size) {
+            onNavigateBack()
+        } else {
+            currentExerciseIndex = 0
+            do {
+                currentCycleIndex++
+            } while (currentCycleIndex < uiState.routineCycles.orEmpty().size && uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(currentCycleIndex)!!.id).orEmpty().size == 0)
+            if (currentCycleIndex + 1 >= uiState.routineCycles.orEmpty().size)
+                onNavigateBack()
+        }
+    }
+
+    fun nextExercise() {
+        if (currentExerciseIndex + 1 >= uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(currentCycleIndex)!!.id).orEmpty().size) {
+            nextCycle()
+        } else {
+            currentExerciseIndex++
+        }
+    }
+
 
     LaunchedEffect(key1 = Unit) {
         launch {
-            if(uiState.canGetData){
+            if (uiState.canGetData) {
                 viewModel.getRoutineCycles(routineId.toInt()).invokeOnCompletion {
-                        boca = true
+                    boca = true
                 }
             }
         }
@@ -61,13 +81,13 @@ fun ExecutionScreen(
 
     LaunchedEffect(key1 = boca) {
         launch {
-            if(boca){
+            if (boca) {
                 uiState.routineCycles?.forEach { it ->
-                    viewModel.getCycleExercises( it?.id!! )
+                    viewModel.getCycleExercises(it?.id!!)
                     mutex.withLock {
                         finishedThreads++
                     }
-                    Log.i("AAAAAAAAAAAAAAAAAAAAA","pase")
+                    Log.i("AAAAAAAAAAAAAAAAAAAAA", "pase")
                 }
             }
         }
@@ -75,42 +95,24 @@ fun ExecutionScreen(
 
     LaunchedEffect(key1 = finishedThreads) {
         launch {
-            if(finishedThreads == uiState.routineCycles?.size){
+            if (finishedThreads == uiState.routineCycles?.size) {
                 rivar = true
             }
         }
     }
 
-    fun nextCycle(){
-        if (currentCycleIndex+1 >= uiState.routineCycles.orEmpty().size) {
-            onNavigateBack()
-        } else {
-            currentExerciseIndex=0
-            do {
-                currentCycleIndex++
-            } while (uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(currentCycleIndex)!!.id).orEmpty().size == 0)
-        }
-    }
-
-    fun nextExercise(){
-        if (currentExerciseIndex+1 >= uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(currentCycleIndex)!!.id).orEmpty().size) {
-            nextCycle()
-        } else {
-            currentExerciseIndex++
-        }
-    }
 
     val cycles = uiState.routineCycles
-    var currentCycle = uiState.routineCycles?.get(currentCycleIndex)
+    var currentCycle = uiState.routineCycles?.getOrNull(currentCycleIndex)
 
-    Column (
+    Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(12.dp)
             .fillMaxHeight(),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        if(rivar) {
+        if (rivar) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -144,7 +146,7 @@ fun ExecutionScreen(
                     color = GreyGrey
                 )
                 Text(
-                    text = uiState.cycleExercises?.get(uiState.routineCycles!!.get(currentCycleIndex).id)?.get(currentExerciseIndex)?.exercise?.name?: "Sapee",
+                    text = uiState.cycleExercises?.getOrDefault(uiState.routineCycles!!.getOrNull(currentCycleIndex)?.id?:-1, null)?.get(currentExerciseIndex)?.exercise?.name ?: "Titulo por defecto",
                     color = MaterialTheme.colors.primary,
                     fontSize = 28.sp,
                     fontWeight = FontWeight(500)
