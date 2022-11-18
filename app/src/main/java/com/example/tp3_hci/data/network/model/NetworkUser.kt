@@ -27,11 +27,11 @@ class NetworkUser (
     @SerializedName("metadata")
     var metadata: NetworkMetadata? = null,
     @SerializedName("date")
-    var date: Date,
+    var date: Date? = null,
     @SerializedName("lastActivity")
     var lastActivity: Date? = null,
     @SerializedName("verified")
-    var verified: Boolean
+    var verified: Boolean? = null,
 ) {
 
     fun asModel() : User {

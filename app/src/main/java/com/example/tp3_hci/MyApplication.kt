@@ -26,6 +26,9 @@ class MyApplication : Application() {
     private val cycleExerciseRemoteDataSource: CycleExerciseRemoteDataSource
         get() = CycleExerciseRemoteDataSource(RetrofitClient.getApiCycleExerciseService(this))
 
+    private val reviewRemoteDataSource: ReviewRemoteDataSource
+        get() = ReviewRemoteDataSource(RetrofitClient.getApiReviewService(this))
+
     val sessionManager: SessionManager
         get() = SessionManager(this)
 
@@ -46,4 +49,7 @@ class MyApplication : Application() {
 
     val favouriteRoutineRepository: FavouriteRoutineRepository
         get() = FavouriteRoutineRepository(favouriteRemoteDataSource)
+
+    val reviewRepository: ReviewRepository
+        get() = ReviewRepository(reviewRemoteDataSource)
 }

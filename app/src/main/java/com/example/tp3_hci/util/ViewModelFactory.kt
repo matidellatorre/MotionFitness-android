@@ -24,6 +24,7 @@ class ViewModelFactory constructor(
     private val routineCycleRepository: RoutineCycleRepository,
     private val cycleExerciseRepository: CycleExerciseRepository,
     private val favouriteRoutineRepository: FavouriteRoutineRepository,
+    private val reviewRepository: ReviewRepository,
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle? = null
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
@@ -52,6 +53,8 @@ class ViewModelFactory constructor(
                 CycleDetailsViewModel(sessionManager, userRepository, cycleExerciseRepository)
             isAssignableFrom(ExecutionViewModel::class.java) ->
                 ExecutionViewModel(sessionManager, userRepository, routineRepository, routineCycleRepository, cycleExerciseRepository)
+            isAssignableFrom(ReviewViewModel::class.java) ->
+                ReviewViewModel()
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
