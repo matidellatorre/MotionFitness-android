@@ -16,6 +16,7 @@ import com.example.tp3_hci.ui.login.LogInScreen
 import com.example.tp3_hci.ui.main.MainScreen
 import com.example.tp3_hci.ui.model.OrderBy
 import com.example.tp3_hci.ui.routines.RoutinesScreen
+import com.example.tp3_hci.ui.settings.SettingsScreen
 
 @Composable
 fun MyAppNavHost(navController: NavHostController, orderBy: String){
@@ -82,6 +83,9 @@ fun MyAppNavHost(navController: NavHostController, orderBy: String){
             LogInScreen(
                 onNavigateToHomeScreen = { navController.navigate("home") },
             )
+        }
+        composable("settings") {
+            SettingsScreen()
         }
     }
 }

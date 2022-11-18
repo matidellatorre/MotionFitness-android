@@ -18,6 +18,7 @@
     <string name="empty_routines">There are no routines to show</string>
     <string name="empty_favourites">There are no favourite routines yet</string>
 
+    <string name="settings_enable_suggestions">Show suggested routines</string>
 
     <string name="login">LOGIN</string>
     <string name="logout">LOGOUT</string>

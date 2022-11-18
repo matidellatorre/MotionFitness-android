@@ -31,6 +31,7 @@ import com.example.tp3_hci.util.getViewModelFactory
 fun MainAppBar(
     navController: NavHostController,
     onNavigateToLogin: () -> Unit,
+    onNavigateToSettings: () -> Unit,
     onOrderBy: (String) -> Unit,
     viewModel: MainAppBarViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory()),
 ) {
@@ -44,6 +45,7 @@ fun MainAppBar(
         "routines" to TopBarInfo("Routines", false, false, false, true),
         "explore" to TopBarInfo("Explore", false, false, false, true),
         "details" to TopBarInfo("Details", false, false, true, false),
+        "settings" to TopBarInfo("Settings", false, false, true, false),
     )
     )
     }
@@ -81,7 +83,7 @@ fun MainAppBar(
                         onDismissRequest = { showPopUp = false },
                         modifier = Modifier.background(MaterialTheme.colors.background)
                     ) {
-                        DropdownMenuItem(onClick = { Toast.makeText(context, "Settings", Toast.LENGTH_SHORT).show() }) {
+                        DropdownMenuItem(onClick = { onNavigateToSettings() ; showPopUp = false }) {
                             Text(text = "Settings", modifier = Modifier.padding(end = 7.dp))
                             Icon(imageVector = Icons.Default.Settings, contentDescription = "settings")
                         }

@@ -52,6 +52,7 @@ class MainActivity : ComponentActivity() {
                         MainAppBar(
                             navController = navController,
                             onNavigateToLogin =  { navController.navigate("login") },
+                            onNavigateToSettings = { navController.navigate("settings") },
                             onOrderBy = { selection: String -> orderBy = selection },
                         )
                     },
