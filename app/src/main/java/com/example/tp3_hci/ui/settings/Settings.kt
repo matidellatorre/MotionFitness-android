@@ -28,12 +28,17 @@ fun SettingsScreen() {
     var preferences = PreferenceManager.getDefaultSharedPreferences(LocalContext.current)
 
     var suggestionsEnabled by remember { mutableStateOf(preferences.getBoolean("suggestions_enabled",true)) }
-    var var2 by remember { mutableStateOf(false) }
-
+    var advancesExecEnabled by remember { mutableStateOf(preferences.getBoolean("advanced_exec_enabled",false)) }
 
     LaunchedEffect(key1 = suggestionsEnabled){
         val editor = preferences.edit()
         editor.putBoolean("suggestions_enabled", suggestionsEnabled)
+        editor.apply()
+    }
+
+    LaunchedEffect(key1 = advancesExecEnabled){
+        val editor = preferences.edit()
+        editor.putBoolean("advanced_exec_enabled", advancesExecEnabled)
         editor.apply()
     }
 
@@ -85,8 +90,8 @@ fun SettingsScreen() {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(horizontal = 10.dp)
             ) {
-                Text("Feature 2")
-                Switch(checked = var2, onCheckedChange = { value -> var2 = value},
+                Text(stringResource(id = R.string.settings_enable_advanced), Modifier.padding(start = 5.dp))
+                Switch(checked = advancesExecEnabled, onCheckedChange = { value -> advancesExecEnabled = value},
                     colors = SwitchDefaults.colors(
                     checkedThumbColor = MaterialTheme.colors.primary,
                     uncheckedThumbColor = Color.LightGray,

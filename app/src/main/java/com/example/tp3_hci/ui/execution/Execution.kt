@@ -27,6 +27,7 @@ import com.example.tp3_hci.ui.explore.ExploreViewModel
 import com.example.tp3_hci.ui.explore.canGetAllRoutines
 import com.example.tp3_hci.ui.explore.canGetCurrentUser
 import com.example.tp3_hci.ui.model.TopBarInfo
+import androidx.preference.PreferenceManager
 import com.example.tp3_hci.ui.theme.Grey2
 import com.example.tp3_hci.ui.theme.GreyGrey
 import com.example.tp3_hci.util.getViewModelFactory
@@ -34,6 +35,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun ExecutionScreen(
@@ -49,6 +51,10 @@ fun ExecutionScreen(
     var rivar by remember { mutableStateOf(false) }
     var finishedThreads by remember { mutableStateOf(0) }
     val mutex = Mutex()
+
+    var preferences = PreferenceManager.getDefaultSharedPreferences(LocalContext.current)
+    var advancedModeEnabled by remember { mutableStateOf(preferences.getBoolean("advanced_exec_enabled",false)) }
+
 
     //var allExercises by remember { mutableStateOf( HashMap<Int, List<CycleContent>?>() ) }
     fun nextCycle() {

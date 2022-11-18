@@ -38,6 +38,7 @@
 
 
     <string name="settings_enable_suggestions">Show suggested routines</string>
+    <string name="settings_enable_advanced">Advanced routine mode</string>
 
     <string name="login">LOGIN</string>
     <string name="logout">LOGOUT</string>
