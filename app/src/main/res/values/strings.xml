@@ -12,7 +12,12 @@
     <string name="home_suggested">Suggested trainings</string>
     <string name="home_favourites">Favourite trainings</string>
     <string name="start_routine">START ROUTINE</string>
-    <string name="fetching_message">Loading...</string>
+    <string name="loading_message">Loading...</string>
+    <string name="empty_routine">This routine has no cycles</string>
+    <string name="empty_cycle">This cycle has no exercises</string>
+    <string name="empty_routines">There are no routines to show</string>
+    <string name="empty_favourites">There are no favourite routines yet</string>
+
 
     <string name="login">LOGIN</string>
     <string name="logout">LOGOUT</string>
@@ -22,4 +27,5 @@
     <string name="add_sport">ADD SPORT</string>
     <string name="modify_sport">MODIFY SPORT</string>
     <string name="delete_sport">DELETE SPORT</string>
+
 </resources>

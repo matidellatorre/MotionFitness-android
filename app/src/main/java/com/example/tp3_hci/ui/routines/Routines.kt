@@ -40,8 +40,6 @@ fun RoutinesScreen(
         }
     }
 
-
-
     LaunchedEffect(key1 = Unit) {
         launch {
             if (uiState.canGetCurrentUser)
@@ -64,7 +62,7 @@ fun RoutinesScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = stringResource(id = R.string.fetching_message),
+                    text = stringResource(id = R.string.loading_message),
                     fontSize = 16.sp
                 )
             }

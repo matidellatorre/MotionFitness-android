@@ -50,7 +50,7 @@ fun ExploreScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = stringResource(id = R.string.fetching_message),
+                    text = stringResource(id = R.string.loading_message),
                     fontSize = 16.sp
                 )
             }

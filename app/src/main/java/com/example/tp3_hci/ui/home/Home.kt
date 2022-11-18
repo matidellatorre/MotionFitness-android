@@ -20,6 +20,7 @@ import com.example.tp3_hci.components.RoutineCard
 import com.example.tp3_hci.data.model.Routine
 import com.example.tp3_hci.ui.home.HomeViewModel
 import com.example.tp3_hci.ui.home.canGetFavouriteRoutines
+import com.example.tp3_hci.ui.theme.Grey2
 import com.example.tp3_hci.util.getViewModelFactory
 import kotlinx.coroutines.launch
 
@@ -112,15 +113,22 @@ fun HomeScreen(
                     item { Spacer(modifier = Modifier.padding(4.dp)) }
                 }
             } else {
-                Text(
-                    text = "There are no favourite routines yet.",
+                Row(
                     modifier = Modifier
-                        .padding(12.dp),
-                    style = MaterialTheme.typography.h6.copy(
-                        fontWeight = FontWeight(400),
-                        fontSize = 20.sp
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                    ){
+                    Text(
+                        text = stringResource(id = R.string.empty_favourites),
+                        modifier = Modifier
+                            .padding(12.dp),
+                        style = MaterialTheme.typography.h3.copy(
+                            fontWeight = FontWeight(300),
+                            fontSize = 20.sp,
+                            color = Grey2
+                        )
                     )
-                )
+                }
             }
         }
         Text(

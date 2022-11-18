@@ -69,7 +69,7 @@ fun MainAppBar(
                         Image(
                             painter = painterResource(R.drawable.bg),
                             contentDescription = "profile picture",
-                            contentScale = ContentScale.Crop,            // crop the image if it's not a square
+                            contentScale = ContentScale.Crop,
                             modifier = Modifier
                                 .size(40.dp)
                                 .clip(CircleShape)
@@ -82,11 +82,11 @@ fun MainAppBar(
                         modifier = Modifier.background(MaterialTheme.colors.background)
                     ) {
                         DropdownMenuItem(onClick = { Toast.makeText(context, "Settings", Toast.LENGTH_SHORT).show() }) {
-                            Text(text = "Settings")
+                            Text(text = "Settings", modifier = Modifier.padding(end = 7.dp))
                             Icon(imageVector = Icons.Default.Settings, contentDescription = "settings")
                         }
                         DropdownMenuItem(onClick = { viewModel.logout() ; onNavigateToLogin() ; showPopUp = false ; Toast.makeText(context, "Logged out", Toast.LENGTH_SHORT).show()  }) {
-                            Text(text = "Logout")
+                            Text(text = "Log out", modifier = Modifier.padding(end = 7.dp))
                             Icon(imageVector = Icons.Default.Logout, contentDescription = "logout", tint = Red)
                         }
                     }
@@ -114,25 +114,25 @@ fun MainAppBar(
                         DropdownMenuItem(
                             onClick = { onOrderBy("date") ; showPopUpOrder = false })
                         {
-                            Text(text = "Date")
+                            Text(text = "Date", modifier = Modifier.padding(end = 5.dp))
                             Icon(imageVector = Icons.Default.CalendarMonth, contentDescription = "date")
                         }
                         DropdownMenuItem(
                             onClick = { onOrderBy("difficulty") ; showPopUpOrder = false }
                         ) {
-                            Text(text = "Difficulty")
-                            Icon(imageVector = Icons.Default.Grade, contentDescription = "difficulty", tint = Yellow)
+                            Text(text = "Difficulty", modifier = Modifier.padding(end = 5.dp))
+                            Icon(imageVector = Icons.Default.SupervisorAccount, contentDescription = "difficulty")
                         }
                         DropdownMenuItem(
                             onClick = { onOrderBy("score") ; showPopUpOrder = false }
                         ) {
-                            Text(text = "Score")
-                            Icon(imageVector = Icons.Default.Grade, contentDescription = "score", tint = Yellow)
+                            Text(text = "Score", modifier = Modifier.padding(end = 5.dp))
+                            Icon(imageVector = Icons.Default.TrendingUp, contentDescription = "score")
                         }
                         DropdownMenuItem(
                             onClick = { onOrderBy("category") ; showPopUpOrder = false }
                         ) {
-                            Text(text = "Category")
+                            Text(text = "Category", modifier = Modifier.padding(end = 5.dp))
                             Icon(imageVector = Icons.Default.Category, contentDescription = "category", tint = Black)
                         }
                     }

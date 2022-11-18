@@ -3,6 +3,9 @@ package com.example.tp3_hci.Screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DisabledByDefault
+import androidx.compose.material.icons.filled.HideSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -13,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tp3_hci.R
 import com.example.tp3_hci.components.CicleEntry
+import com.example.tp3_hci.components.EmptyState
 import com.example.tp3_hci.components.ExerciseEntry
 import com.example.tp3_hci.ui.cycleDetails.CycleDetailsViewModel
 import com.example.tp3_hci.ui.cycleDetails.canGetAllCycleExercises
@@ -39,7 +43,7 @@ fun CycleDetailsScreen(
     Column() {
         //Titulo
         Text(
-            text = stringResource(R.string.details_cycle_subtitle)+" (id: $cycleId)",
+            text = stringResource(R.string.details_cycle_subtitle),
             fontSize = 22.sp,
             fontWeight = FontWeight(500),
             modifier = Modifier.padding(horizontal = 15.dp, vertical = 20.dp),
@@ -52,27 +56,32 @@ fun CycleDetailsScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = stringResource(id = R.string.fetching_message),
+                    text = stringResource(id = R.string.loading_message),
                     fontSize = 16.sp
                 )
             }
         } else {
             val list = uiState.cycleExercises?.orEmpty()
-            LazyColumn(
-                verticalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                items(
-                    count = list?.size?:0,
-                    key = { index -> index }
-                ) { index ->
-                    ExerciseEntry(
-                        title = list?.get(index)?.exercise?.name ?: "Error",
-                        reps = list?.get(index)?.repetitions?:0,
-                        time = list?.get(index)?.duration?:0,
-                    )
+            if (list==null || list.isEmpty()){
+                EmptyState(text = stringResource(id = R.string.empty_cycle), imgVector = Icons.Default.HideSource)
+            } else {
+                LazyColumn(
+                    verticalArrangement = Arrangement.SpaceEvenly,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    items(
+                        count = list?.size?:0,
+                        key = { index -> index }
+                    ) { index ->
+                        ExerciseEntry(
+                            title = list?.get(index)?.exercise?.name ?: "Error",
+                            reps = list?.get(index)?.repetitions?:0,
+                            time = list?.get(index)?.duration?:0,
+                        )
+                    }
                 }
             }
+            
         }
     }
 }
