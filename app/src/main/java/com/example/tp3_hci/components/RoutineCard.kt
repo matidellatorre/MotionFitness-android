@@ -55,7 +55,9 @@ fun RoutineCard(
     val context = LocalContext.current
 
     Card(
-        modifier = Modifier.clickable { onNavigateToRoutineDetails(id) },
+        modifier = Modifier
+            .padding(8.dp)
+            .clickable { onNavigateToRoutineDetails(id) },
         shape = RoundedCornerShape(7),
     ) {
         Column(

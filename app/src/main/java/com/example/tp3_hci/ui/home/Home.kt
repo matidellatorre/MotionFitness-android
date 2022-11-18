@@ -77,7 +77,7 @@ fun HomeScreen(
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp,
             modifier = Modifier
-                .padding(horizontal = 15.dp, vertical = 20.dp),
+                .padding(horizontal = 16.dp, vertical = 20.dp),
             style = MaterialTheme.typography.h6.copy(
                 fontWeight = FontWeight(500)
             )
@@ -88,7 +88,7 @@ fun HomeScreen(
         ) {
             Box(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 8.dp)
             ) {
                 if (!uiState.isFetching && uiState.routines.orEmpty().isNotEmpty()){
                     var latestRoutine = uiState.routines?.get(uiState.routines.size-1)

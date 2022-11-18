@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.HideSource
 import androidx.compose.runtime.*
@@ -38,10 +40,10 @@ fun RoutineCardList(
             EmptyState(text = stringResource(id = R.string.empty_routines), imgVector = Icons.Default.HideSource)
         }
     } else {
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(15.dp),
+        LazyVerticalGrid(
             modifier = Modifier
-                .padding(horizontal = 15.dp),
+                .padding(horizontal = 8.dp),
+            columns = GridCells.Adaptive(300.dp)
         ) {
             items(
                 count = list?.size?:0,
