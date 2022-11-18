@@ -17,12 +17,14 @@ import androidx.compose.ui.graphics.PointMode
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.tp3_hci.R
 import com.example.tp3_hci.ui.theme.Grey2
 import com.example.tp3_hci.ui.theme.GreyGrey
 import kotlinx.coroutines.delay
@@ -140,7 +142,7 @@ fun Timer(
                 colors = ButtonDefaults.buttonColors(MaterialTheme.colors.secondary),
                 shape = RoundedCornerShape(35.dp)
             ) {
-                Text(text = "PREV", color = Color.White)
+                Text(stringResource(R.string.previous), color = Color.White)
             }
             Button(
                 enabled = value != 0F,
@@ -162,9 +164,9 @@ fun Timer(
                 shape = RoundedCornerShape(35.dp)
             ) {
                 Text(
-                    text = if (isTimerRunning && currentTime >= 0L) "PAUSE"
-                    else if (!isTimerRunning && currentTime >= 0L) "START"
-                    else "RESTART",
+                    text = if (isTimerRunning && currentTime >= 0L) stringResource(R.string.pause)
+                    else if (!isTimerRunning && currentTime >= 0L) stringResource(R.string.start)
+                    else stringResource(R.string.start),
                     color = Color.White
                 )
             }
@@ -173,7 +175,7 @@ fun Timer(
                 colors = ButtonDefaults.buttonColors(MaterialTheme.colors.secondary),
                 shape = RoundedCornerShape(35.dp)
             ) {
-                Text(text = "NEXT", color = Color.White)
+                Text(text = stringResource(id = R.string.next), color = Color.White)
             }
         }
     }

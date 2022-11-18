@@ -52,5 +52,6 @@
     <string name="routines">Rutinas</string>
     <string name="exercises">Ejercicios</string>
     <string name="settings_enable_advanced">Modo de rutina avanzado</string>
+    <string name="restart">Reiniciar</string>
 
 </resources>
