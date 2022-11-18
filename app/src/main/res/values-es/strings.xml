@@ -44,5 +44,6 @@
     <string name="welcome_subtitle">Iniciar sesión en Motion</string>
     <string name="log_in">Iniciar sesión</string>
     <string name="app_features">Características</string>
+    <string name="no_cycles">rutina sin ciclos</string>
 
 </resources>

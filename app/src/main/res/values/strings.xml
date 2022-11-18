@@ -33,6 +33,7 @@
     <string name="welcome_subtitle">Log in to your Motion account</string>
     <string name="log_in">Log in</string>
     <string name="app_features">App features</string>
+    <string name="no_cycles">Routine has no cycles</string>
 
 
 

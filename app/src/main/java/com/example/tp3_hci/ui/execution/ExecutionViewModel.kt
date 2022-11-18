@@ -64,11 +64,4 @@ class ExecutionViewModel (
                 isFetching = false)
         }
     }
-
-
-
-
-
-
-
 }

@@ -1,6 +1,8 @@
 package com.example.tp3_hci.ui.execution
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -10,11 +12,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.tp3_hci.R
 import com.example.tp3_hci.components.Timer
 import com.example.tp3_hci.data.model.CycleContent
 import com.example.tp3_hci.data.model.RoutineCycle
@@ -35,10 +40,9 @@ fun ExecutionScreen(
     onNavigateBack: () -> Unit,
     routineId: String,
     viewModel: ExecutionViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory()),
-
 ) {
     val uiState = viewModel.uiState
-
+    val context = LocalContext.current
     var currentCycleIndex by remember { mutableStateOf(0) }
     var currentExerciseIndex by remember { mutableStateOf(0) }
     var boca by remember { mutableStateOf(false) }
@@ -68,6 +72,7 @@ fun ExecutionScreen(
         }
     }
 
+    val msg = stringResource(id = R.string.no_cycles)
 
     LaunchedEffect(key1 = Unit) {
         launch {
@@ -83,7 +88,7 @@ fun ExecutionScreen(
         launch {
             if (boca) {
                 uiState.routineCycles?.forEach { it ->
-                    viewModel.getCycleExercises(it?.id!!).join()
+                    viewModel.getCycleExercises(it?.id!!)
                     mutex.withLock {
                         finishedThreads++
                     }
@@ -100,17 +105,9 @@ fun ExecutionScreen(
         }
     }
 
-    LaunchedEffect(key1 = rivar) {
-        launch {
-            if (rivar) {
-                if (currentExerciseIndex + 1 >= uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(currentCycleIndex)!!.id).orEmpty().size)
-                    nextCycle()
-            }
-        }
-    }
-
     val cycles = uiState.routineCycles
     var currentCycle = uiState.routineCycles?.getOrNull(currentCycleIndex)
+
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -139,39 +136,51 @@ fun ExecutionScreen(
                         tint = Grey2
                     )
                 }
-                //Nombre del ciclo
-                Text(
-                    text = currentCycle?.name ?: "Cycle",
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight(500)
-                )
-                Divider(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 50.dp, vertical = 10.dp),
-                    thickness = 4.dp,
-                    color = GreyGrey
-                )
-                Text(
-                    text = uiState.cycleExercises?.getOrDefault(uiState.routineCycles!!.getOrNull(currentCycleIndex)?.id?:-1, null)?.get(currentExerciseIndex)?.exercise?.name ?: "Titulo por defecto",
-                    color = MaterialTheme.colors.primary,
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight(500)
-                )
-            }
-            Box(
-                contentAlignment = Alignment.Center,
-            ) {
-                Timer(
-                    totalTime = 10L * 1000L,
-                    handleColor = MaterialTheme.colors.primary,
-                    inactiveBarColor = GreyGrey,
-                    activeBarColor = MaterialTheme.colors.primary,
-                    nextFunc = { nextExercise() },
-                    prevFunc = { currentCycleIndex-- },
-                    modifier = Modifier
-                        .size(280.dp)
-                )
+                if (uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(0)?.id)
+                        .orEmpty().size == 0
+                ) {
+                    Text(
+                        text = "This routine has no exercises",
+                    )
+                } else {
+                    //Nombre del ciclo
+                    Text(
+                        text = currentCycle?.name ?: "Cycle",
+                        fontSize = 32.sp,
+                        fontWeight = FontWeight(500)
+                    )
+                    Divider(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 50.dp, vertical = 10.dp),
+                        thickness = 4.dp,
+                        color = GreyGrey
+                    )
+                    Text(
+                        text = uiState.cycleExercises?.getOrDefault(
+                            uiState.routineCycles!!.getOrNull(
+                                currentCycleIndex
+                            )?.id ?: -1, null
+                        )?.get(currentExerciseIndex)?.exercise?.name ?: "Titulo por defecto",
+                        color = MaterialTheme.colors.primary,
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight(500)
+                    )
+                    Box(
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Timer(
+                            totalTime = 10L * 1000L,
+                            handleColor = MaterialTheme.colors.primary,
+                            inactiveBarColor = GreyGrey,
+                            activeBarColor = MaterialTheme.colors.primary,
+                            nextFunc = { nextExercise() },
+                            prevFunc = { currentCycleIndex-- },
+                            modifier = Modifier
+                                .size(280.dp)
+                        )
+                    }
+                }
             }
         } else {
             Text("Loading....")
