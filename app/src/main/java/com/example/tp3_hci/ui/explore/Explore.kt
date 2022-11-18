@@ -35,10 +35,11 @@ fun ExploreScreen(
     //-----
     LaunchedEffect(key1 = Unit) {
         launch {
-            if(uiState.canGetAllRoutines)
+            if (uiState.canGetAllRoutines) {
                 viewModel.getCurrentUser()
                 viewModel.getRoutines(orderBy).invokeOnCompletion {
                     boca = true
+                }
             }
         }
     }
@@ -66,7 +67,7 @@ fun ExploreScreen(
 
     //-----
 
-    if (rivar){
+    if (rivar) {
         Column() {
             Text(
                 text = stringResource(R.string.explore_subtitle),
@@ -88,7 +89,8 @@ fun ExploreScreen(
                 }
             } else {
                 RoutineCardList(
-                    list = uiState.routines?.filter { routine -> routine.user?.username != uiState.currentUser?.username }.orEmpty(),
+                    list = uiState.routines?.filter { routine -> routine.user?.username != uiState.currentUser?.username }
+                        .orEmpty(),
                     hasReviews = true,
                     reviews = uiState.reviews,
                     hasFavourites = false,
@@ -98,6 +100,5 @@ fun ExploreScreen(
             }
         }
     }
-
 }
 

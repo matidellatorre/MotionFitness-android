@@ -72,8 +72,7 @@ class ExploreViewModel (
             uiState = uiState.copy(
                 isFetching = false,
             )
-            if(response.size > 0)
-                uiState.reviews?.put(routineId, response)
+            uiState.reviews?.put(routineId, response)
         }.onFailure { e ->
             // Handle the error and notify the UI when appropriate.
             uiState = uiState.copy(
