@@ -4,8 +4,11 @@ import android.content.Context
 import android.preference.PreferenceManager
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
@@ -38,6 +41,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import androidx.compose.ui.platform.LocalContext
 import com.example.tp3_hci.components.EmptyState
+import com.example.tp3_hci.components.LittleCard
 
 @Composable
 fun ExecutionScreen(
@@ -169,12 +173,14 @@ fun ExecutionScreen(
                         tint = Grey2
                     )
                 }
-                if (uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(currentCycleIndex)?.id)
-                        .orEmpty().size == 0
-                ) {
-                    EmptyState(text = stringResource(id = R.string.empty_routine), Icons.Default.HideSource)
-                } else {
+
+                if(!advancedModeEnabled){
                     //Nombre del ciclo
+                    if (uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(currentCycleIndex)?.id)
+                            .orEmpty().size == 0
+                    ) {
+                        EmptyState(text = stringResource(id = R.string.empty_routine), Icons.Default.HideSource)
+                    } else {
                     Text(
                         text = currentCycle?.name ?: "Cycle",
                         fontSize = 32.sp,
@@ -225,8 +231,95 @@ fun ExecutionScreen(
                             strokeWidth = 10.dp
                         )
                     }
+                    }
+                } else {
+                    //Nombre del ciclo
+                    Column(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .background(Color.Red),
+                        verticalArrangement = Arrangement.SpaceBetween,
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = currentCycle?.name ?: "Cycle",
+                                fontSize = 32.sp,
+                                fontWeight = FontWeight(500)
+                            )
+                            Divider(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 50.dp, vertical = 10.dp),
+                                thickness = 4.dp,
+                                color = GreyGrey
+                            )
+                            LazyColumn(
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                            ) {
+                                var list = uiState.cycleExercises?.get(
+                                    uiState.routineCycles!!.getOrNull(currentCycleIndex)?.id!!
+                                ).orEmpty()
+                                items(
+                                    count = list.size,
+                                    key = { index -> list.get(index).exercise.name!! }
+                                ) { index ->
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(16.dp),
+                                        horizontalArrangement = Arrangement.SpaceAround
+                                    ) {
+                                        Text(
+                                            text = list.get(index).exercise.name!!,
+                                            style = MaterialTheme.typography.h5
+                                        )
+                                        Text(
+                                            text = "Reps: " + list.get(index).repetitions,
+                                            style = MaterialTheme.typography.h5
+                                        )
+                                        Text(
+                                            text = "Time: " + list.get(index).duration,
+                                            style = MaterialTheme.typography.h5
+                                        )
+                                    }
+                                }
+                            }
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceEvenly
+                            ) {
+                                Button(
+                                    onClick = { currentCycleIndex-- },
+                                    colors = ButtonDefaults.buttonColors(MaterialTheme.colors.secondary),
+                                    shape = RoundedCornerShape(35.dp)
+                                ) {
+                                    Text(
+                                        text = stringResource(id = R.string.previous),
+                                        color = Color.White
+                                    )
+                                }
+                                Button(
+                                    onClick = { currentCycleIndex++ },
+                                    colors = ButtonDefaults.buttonColors(MaterialTheme.colors.secondary),
+                                    shape = RoundedCornerShape(35.dp)
+                                ) {
+                                    Text(
+                                        text = stringResource(id = R.string.next),
+                                        color = Color.White
+                                    )
+                                }
+                            }
+                        }
+                    }
                 }
             }
+
         } else {
             Text(text = stringResource(R.string.loading_message))
         }
