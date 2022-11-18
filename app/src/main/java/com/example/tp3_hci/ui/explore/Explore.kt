@@ -97,6 +97,7 @@ fun ExploreScreen(
                     onNavigateToRoutineDetails = onNavigateToRoutineDetails,
                     onNavigateToExecution = onNavigateToExecution,
                 )
+                Spacer(modifier = Modifier.size(20.dp))
             }
         }
     }

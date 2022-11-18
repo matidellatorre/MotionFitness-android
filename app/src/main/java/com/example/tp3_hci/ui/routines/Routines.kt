@@ -75,6 +75,7 @@ fun RoutinesScreen(
                 addFavourite = { routineId -> viewModel.addFavouriteRoutine(routineId) },
                 onNavigateToRoutineDetails = onNavigateToRoutineDetails,
                 onNavigateToExecution = onNavigateToExecution)
+            Spacer(modifier = Modifier.size(20.dp))
         }
     }
 }
