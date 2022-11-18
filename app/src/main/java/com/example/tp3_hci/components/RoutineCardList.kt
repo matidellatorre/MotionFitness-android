@@ -58,7 +58,7 @@ fun RoutineCardList(
                     hasFavourites = hasFavourites,
                     addFavourite = addFavourite?:null,
                     hasReview = hasReviews,
-                    review = reviews.orEmpty().get(index).orEmpty().map { review -> review.score!! }.average().toInt(),
+                    review = reviews.orEmpty().get(list.get(index).id).orEmpty().map { review -> review.score!! }.average().toInt(),
                     onNavigateToRoutineDetails = onNavigateToRoutineDetails,
                     onNavigateToExecution = onNavigateToExecution
                 )
