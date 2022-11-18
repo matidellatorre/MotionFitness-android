@@ -41,7 +41,7 @@ class ViewModelFactory constructor(
             isAssignableFrom(MainAppBarViewModel::class.java) ->
                 MainAppBarViewModel(sessionManager, userRepository)
             isAssignableFrom(HomeViewModel::class.java) ->
-                HomeViewModel(sessionManager, userRepository, favouriteRoutineRepository)
+                HomeViewModel(sessionManager, userRepository, routineRepository, favouriteRoutineRepository)
             isAssignableFrom(RoutinesViewModel::class.java) ->
                 RoutinesViewModel(sessionManager, userRepository, routineRepository, favouriteRoutineRepository)
             isAssignableFrom(ExploreViewModel::class.java) ->

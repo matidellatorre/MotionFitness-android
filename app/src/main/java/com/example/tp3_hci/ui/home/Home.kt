@@ -20,6 +20,7 @@ import com.example.tp3_hci.components.RoutineCard
 import com.example.tp3_hci.data.model.Routine
 import com.example.tp3_hci.ui.home.HomeViewModel
 import com.example.tp3_hci.ui.home.canGetFavouriteRoutines
+import com.example.tp3_hci.ui.home.canGetRoutines
 import com.example.tp3_hci.ui.theme.Grey2
 import com.example.tp3_hci.util.getViewModelFactory
 import kotlinx.coroutines.launch
@@ -45,7 +46,14 @@ fun HomeScreen(
         }
     }
 
-    LaunchedEffect(key1 = uiState.isFetching) {
+    LaunchedEffect(key1 = Unit) {
+        launch {
+            if (uiState.canGetRoutines)
+                viewModel.getRoutines("date")
+        }
+    }
+
+    LaunchedEffect(key1 = Unit) {
         launch {
             if (uiState.canGetFavouriteRoutines)
                 viewModel.getFavouriteRoutines()
@@ -74,14 +82,18 @@ fun HomeScreen(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
             ) {
-                RoutineCard(
-                    name = "Piernas",
-                    description = "Beast Mode",
-                    id = 1,
-                    hasFavourites = false,
-                    onNavigateToRoutineDetails = onNavigateToRoutineDetails,
-                    onNavigateToExecution = onNavigateToExecution
-                )
+                if (!uiState.isFetching && uiState.routines.orEmpty().isNotEmpty()){
+                    var latestRoutine = uiState.routines?.get(uiState.routines.size-1)
+                    RoutineCard(
+                        name = latestRoutine?.name!!,
+                        description = latestRoutine?.detail!!,
+                        id = latestRoutine?.id!!,
+                        hasFavourites = false,
+                        onNavigateToRoutineDetails = onNavigateToRoutineDetails,
+                        onNavigateToExecution = onNavigateToExecution
+                    )
+                }
+
             }
             Text(
                 text = stringResource(R.string.home_favourites),

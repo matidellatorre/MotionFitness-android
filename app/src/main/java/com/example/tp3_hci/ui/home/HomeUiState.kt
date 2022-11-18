@@ -7,9 +7,11 @@ data class HomeUiState(
     val isAuthenticated: Boolean = false,
     val isFetching: Boolean = false,
     val currentUser: User? = null,
+    val routines: List<Routine>? = null,
     val favourites: List<Routine>? = null,
     val message: String? = null
 )
 
 val HomeUiState.canGetCurrentUser: Boolean get() = isAuthenticated
 val HomeUiState.canGetFavouriteRoutines: Boolean get() = isAuthenticated
+val HomeUiState.canGetRoutines: Boolean get() = isAuthenticated

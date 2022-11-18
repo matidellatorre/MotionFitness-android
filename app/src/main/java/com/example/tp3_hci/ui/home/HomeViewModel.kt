@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 class HomeViewModel (
     private val sessionManager: SessionManager,
     private val userRepository: UserRepository,
+    private val routineRepository: RoutineRepository,
     private val favouriteRoutineRepository: FavouriteRoutineRepository,
 ) : ViewModel() {
 
@@ -73,6 +74,26 @@ class HomeViewModel (
             uiState = uiState.copy(
                 isFetching = false,
                 favourites = response
+            )
+        }.onFailure { e ->
+            // Handle the error and notify the UI when appropriate.
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false)
+        }
+    }
+
+    fun getRoutines(orderBy: String) = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            routineRepository.getRoutines(true, orderBy = orderBy)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                routines = response
             )
         }.onFailure { e ->
             // Handle the error and notify the UI when appropriate.

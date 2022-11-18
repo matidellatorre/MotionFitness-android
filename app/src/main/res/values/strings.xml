@@ -8,9 +8,9 @@
     <string name="explore_subtitle">Routines from the community</string>
     <string name="details_subtitle">Routine cycles</string>
     <string name="details_cycle_subtitle">Cycle exercises</string>
-    <string name="home_subtitle">Today\'s training</string>
-    <string name="home_suggested">Suggested trainings</string>
-    <string name="home_favourites">Favourite trainings</string>
+    <string name="home_subtitle">Latest routine</string>
+    <string name="home_suggested">Suggested</string>
+    <string name="home_favourites">Favourites</string>
     <string name="start_routine">START ROUTINE</string>
     <string name="loading_message">Loading...</string>
     <string name="empty_routine">This routine has no cycles</string>
