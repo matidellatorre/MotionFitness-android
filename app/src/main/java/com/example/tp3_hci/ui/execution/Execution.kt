@@ -157,33 +157,46 @@ fun ExecutionScreen(
                         color = GreyGrey
                     )
                     Text(
-                        text = uiState.cycleExercises?.getOrDefault(
-                            uiState.routineCycles!!.getOrNull(
-                                currentCycleIndex
-                            )?.id ?: -1, null
-                        )?.get(currentExerciseIndex)?.exercise?.name ?: "Titulo por defecto",
+                        text = uiState.cycleExercises?.getOrDefault(uiState.routineCycles!!.getOrNull(currentCycleIndex)?.id ?: -1, null)?.get(currentExerciseIndex)?.exercise?.name ?: "Titulo por defecto",
                         color = MaterialTheme.colors.primary,
                         fontSize = 28.sp,
                         fontWeight = FontWeight(500)
+                    )
+                    val reps: String
+                    val numReps: Int = uiState.cycleExercises?.getOrDefault(uiState.routineCycles!!.getOrNull(currentCycleIndex)?.id ?: -1, null)?.get(currentExerciseIndex)?.repetitions?:0
+                    if(numReps == 0){
+                        reps = "--"
+                    } else {
+                        reps = numReps.toString()
+                    }
+                    Text(
+                        text = "Reps: " + reps,
+                        color = Grey2,
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight(600),
+                        modifier = Modifier
+                                .padding(top = 6.dp)
                     )
                     Box(
                         contentAlignment = Alignment.Center,
                     ) {
                         Timer(
-                            totalTime = 10L * 1000L,
+                            totalTime = uiState.cycleExercises.getOrDefault(uiState.routineCycles!!.getOrNull(currentCycleIndex)?.id ?: -1, null)
+                                ?.get(currentExerciseIndex)?.duration?.times(1000L) ?: 0,
                             handleColor = MaterialTheme.colors.primary,
                             inactiveBarColor = GreyGrey,
                             activeBarColor = MaterialTheme.colors.primary,
                             nextFunc = { nextExercise() },
                             prevFunc = { currentCycleIndex-- },
                             modifier = Modifier
-                                .size(280.dp)
+                                .size(280.dp),
+                            strokeWidth = 10.dp
                         )
                     }
                 }
             }
         } else {
-            Text("Loading....")
+            Text(text = stringResource(R.string.loading_message))
         }
     }
 }

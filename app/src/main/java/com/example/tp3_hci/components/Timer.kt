@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.example.tp3_hci.ui.theme.Grey2
 import com.example.tp3_hci.ui.theme.GreyGrey
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -49,12 +50,24 @@ fun Timer(
     var value by remember {
         mutableStateOf(initialValue)
     }
+
     var currentTime by remember {
         mutableStateOf(totalTime)
     }
+
     var isTimerRunning by remember {
         mutableStateOf(false)
     }
+
+    LaunchedEffect(key1 = totalTime){
+        currentTime = totalTime
+        isTimerRunning = false
+        if(totalTime != 0L)
+            value = currentTime / totalTime.toFloat()
+        else
+            value = 0F
+    }
+
     LaunchedEffect(key1 = currentTime, key2 = isTimerRunning) {
         if(currentTime > 0 && isTimerRunning) {
             delay(1000L)
@@ -111,7 +124,7 @@ fun Timer(
                     text = " s",
                     fontSize = 50.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Grey2
+                    color = Color.Black
                 )
             }
         }
@@ -128,6 +141,7 @@ fun Timer(
                 Text(text = "PREV", color = Color.White)
             }
             Button(
+                enabled = value != 0F,
                 onClick = {
                     if (currentTime <= 0L) {
                         currentTime = totalTime
