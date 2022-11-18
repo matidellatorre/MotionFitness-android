@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.HideSource
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -24,6 +24,9 @@ fun RoutineCardList(
     onNavigateToRoutineDetails: (id:Int) -> Unit,
     onNavigateToExecution: (id:Int) -> Unit,
 ) {
+
+    var imgIds by remember { mutableStateOf(listOf(R.drawable.routine1, R.drawable.routine2, R.drawable.routine3, R.drawable.routine4, R.drawable.routine5, R.drawable.routine6, R.drawable.routine7, R.drawable.routine8 )) }
+
     if (list==null || list.isEmpty()){
         Box (
             contentAlignment = Alignment.Center,
@@ -47,6 +50,7 @@ fun RoutineCardList(
                     name = list?.get(index)?.name ?: "Error",
                     description = list?.get(index)?.detail ?: "",
                     id = list?.get(index)?.id!!,
+                    imgId = imgIds[index%8],
                     isFavourite = favouriteList.orEmpty().contains(list?.get(index)?.id!!),
                     hasFavourites = hasFavourites,
                     addFavourite = addFavourite?:null,

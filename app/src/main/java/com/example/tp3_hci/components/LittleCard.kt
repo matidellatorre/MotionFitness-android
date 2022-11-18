@@ -21,6 +21,7 @@ import com.example.tp3_hci.R
 fun LittleCard(
     name: String,
     id: Int,
+    imgId: Int,
     //description: String,
     onNavigateToRoutineDetails: (id:Int) -> Unit
 ){
@@ -32,7 +33,7 @@ fun LittleCard(
         shape = RoundedCornerShape(10.dp)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.routine_placeholder),
+            painter = painterResource(id = imgId),
             contentDescription = "Routine image",
             modifier = Modifier
                 .fillMaxHeight(),

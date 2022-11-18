@@ -14,7 +14,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Grade
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,6 +33,7 @@ fun RoutineCard(
     name: String,
     description: String,
     id: Int,
+    imgId: Int,
     isFavourite: Boolean? = false,
     hasFavourites: Boolean,
     addFavourite: ((Int) -> Unit)? = null,
@@ -56,7 +57,7 @@ fun RoutineCard(
         ) {
             Box(contentAlignment = Alignment.TopEnd) {
                 Image(
-                    painter = painterResource(id = R.drawable.routine_placeholder),
+                    painter = painterResource(id = imgId),
                     contentDescription = "Routine image",
                     modifier = Modifier
                         .fillMaxWidth()

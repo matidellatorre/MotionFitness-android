@@ -38,6 +38,8 @@ fun HomeScreen(
     val uiState = viewModel.uiState
     val lifecycle = LocalLifecycleOwner.current.lifecycle
 
+    var imgIds by remember { mutableStateOf(listOf(R.drawable.routine1, R.drawable.routine2, R.drawable.routine3, R.drawable.routine4, R.drawable.routine5, R.drawable.routine6, R.drawable.routine7, R.drawable.routine8 )) }
+
     var preferences = PreferenceManager.getDefaultSharedPreferences(LocalContext.current)
 
     var suggestionsEnabled by remember { mutableStateOf(preferences.getBoolean("suggestions_enabled",true)) }
@@ -94,6 +96,7 @@ fun HomeScreen(
                         name = latestRoutine?.name!!,
                         description = latestRoutine?.detail!!,
                         id = latestRoutine?.id!!,
+                        imgId = R.drawable.routine6,
                         hasFavourites = false,
                         onNavigateToRoutineDetails = onNavigateToRoutineDetails,
                         onNavigateToExecution = onNavigateToExecution
@@ -125,6 +128,7 @@ fun HomeScreen(
                         LittleCard(
                             name = favourites.get(index)?.name ?: "Error",
                             id = favourites.get(index)?.id!!,
+                            imgId = imgIds[index],
                             onNavigateToRoutineDetails = onNavigateToRoutineDetails,
                         )
                     }
@@ -173,6 +177,7 @@ fun HomeScreen(
                         LittleCard(
                             name = suggested.get(index)?.name ?: "Error",
                             id = suggested.get(index)?.id!!,
+                            imgId = imgIds[(index+4)%8],
                             onNavigateToRoutineDetails = onNavigateToRoutineDetails,
                         )
                     }
