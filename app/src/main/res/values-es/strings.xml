@@ -54,5 +54,6 @@
     <string name="settings_enable_advanced">Modo de rutina avanzado</string>
     <string name="restart">Reiniciar</string>
     <string name="rate">Puntúa esta rutina</string>
+    <string name="public_warning">Esta puntuación será pública</string>
 
 </resources>

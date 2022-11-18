@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
+import androidx.compose.material.icons.filled.HideSource
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,6 +37,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import androidx.compose.ui.platform.LocalContext
+import com.example.tp3_hci.components.EmptyState
 
 @Composable
 fun ExecutionScreen(
@@ -170,9 +172,7 @@ fun ExecutionScreen(
                 if (uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(0)?.id)
                         .orEmpty().size == 0
                 ) {
-                    Text(
-                        text = "This routine has no exercises",
-                    )
+                    EmptyState(text = stringResource(id = R.string.empty_routine), Icons.Default.HideSource)
                 } else {
                     //Nombre del ciclo
                     Text(

@@ -59,5 +59,7 @@
     <string name="exercises">Exercises</string>
     <string name="rate">Rate this routine</string>
 
+    <string name="public_warning">This rating will be public</string>
+
 
 </resources>

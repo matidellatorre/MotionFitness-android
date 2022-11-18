@@ -14,6 +14,7 @@ import com.example.tp3_hci.ui.explore.ExploreViewModel
 import com.example.tp3_hci.ui.home.HomeViewModel
 import com.example.tp3_hci.ui.login.LoginViewModel
 import com.example.tp3_hci.ui.main.MainViewModel
+import com.example.tp3_hci.ui.review.ReviewViewModel
 import com.example.tp3_hci.ui.routines.RoutinesViewModel
 
 class ViewModelFactory constructor(
@@ -54,7 +55,7 @@ class ViewModelFactory constructor(
             isAssignableFrom(ExecutionViewModel::class.java) ->
                 ExecutionViewModel(sessionManager, userRepository, routineRepository, routineCycleRepository, cycleExerciseRepository)
             isAssignableFrom(ReviewViewModel::class.java) ->
-                ReviewViewModel()
+                ReviewViewModel(reviewRepository)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
