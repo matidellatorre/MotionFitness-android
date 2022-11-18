@@ -25,7 +25,7 @@ class Routine (
             score = score,
             isPublic = isPublic,
             difficulty = difficulty,
-            user = user?.asModel()
+            user = user?.asNetworkModel()
         )
     }
 }

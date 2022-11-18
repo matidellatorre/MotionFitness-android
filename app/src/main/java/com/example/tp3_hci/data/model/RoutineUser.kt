@@ -1,7 +1,7 @@
 package com.example.tp3_hci.data.model
 
 import com.example.tp3_hci.data.network.model.NetworkRoutineUser
-import java.util.*
+import java.util.Date
 
 data class RoutineUser (
     var id: Int?,
@@ -11,7 +11,7 @@ data class RoutineUser (
     var date: Date?,
     var lastActivity: Date?
 ) {
-    fun asModel() : NetworkRoutineUser {
+    fun asNetworkModel() : NetworkRoutineUser {
         return NetworkRoutineUser(
             id = id,
             username = username,

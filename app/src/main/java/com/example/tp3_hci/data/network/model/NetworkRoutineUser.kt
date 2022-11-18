@@ -2,7 +2,7 @@ package com.example.tp3_hci.data.network.model
 
 import com.example.tp3_hci.data.model.RoutineUser
 import com.google.gson.annotations.SerializedName
-import java.util.*
+import java.util.Date
 
 class NetworkRoutineUser (
     @SerializedName("id"           ) var id           : Int?    = null,
