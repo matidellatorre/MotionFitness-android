@@ -72,6 +72,30 @@ fun ExecutionScreen(
         }
     }
 
+    fun previousCycle() {
+        if (currentCycleIndex - 1 < 0) {
+            return
+        } else {
+            var i=1
+            while (currentCycleIndex-i >= 0 && uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(currentCycleIndex-i)!!.id).orEmpty().size == 0){
+                i++
+            }
+            //Encontró un cyclo
+            if (currentCycleIndex-i >= 0) {
+                currentCycleIndex -= i
+                currentExerciseIndex =  uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(currentCycleIndex)!!.id).orEmpty().size-1
+            }
+        }
+    }
+
+    fun previousExercise() {
+        if (currentExerciseIndex - 1 < 0) {
+            previousCycle()
+        } else {
+            currentExerciseIndex--
+        }
+    }
+
     val msg = stringResource(id = R.string.no_cycles)
 
     LaunchedEffect(key1 = Unit) {
@@ -187,7 +211,8 @@ fun ExecutionScreen(
                             inactiveBarColor = GreyGrey,
                             activeBarColor = MaterialTheme.colors.primary,
                             nextFunc = { nextExercise() },
-                            prevFunc = { currentCycleIndex-- },
+                            prevFunc = { previousExercise() },
+                            hasPrev = currentCycleIndex > 0 || currentExerciseIndex > 0,
                             modifier = Modifier
                                 .size(280.dp),
                             strokeWidth = 10.dp

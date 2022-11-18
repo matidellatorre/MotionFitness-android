@@ -41,6 +41,7 @@ fun Timer(
     modifier: Modifier = Modifier,
     nextFunc: () -> Unit,
     prevFunc: () -> Unit,
+    hasPrev: Boolean,
     initialValue: Float = 1f,
     strokeWidth: Dp = 5.dp
     ) {
@@ -134,6 +135,7 @@ fun Timer(
                 .fillMaxWidth()
         ) {
             Button(
+                enabled = hasPrev,
                 onClick = { prevFunc() },
                 colors = ButtonDefaults.buttonColors(MaterialTheme.colors.secondary),
                 shape = RoundedCornerShape(35.dp)
