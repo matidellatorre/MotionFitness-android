@@ -55,7 +55,8 @@ class ExecutionViewModel (
             uiState = uiState.copy(
                 isFetching = false,
             )
-            uiState.cycleExercises?.put(cycleId, response)
+            if(response.size > 0)
+                uiState.cycleExercises?.put(cycleId, response)
         }.onFailure { e ->
             // Handle the error and notify the UI when appropriate.
             uiState = uiState.copy(

@@ -83,11 +83,10 @@ fun ExecutionScreen(
         launch {
             if (boca) {
                 uiState.routineCycles?.forEach { it ->
-                    viewModel.getCycleExercises(it?.id!!)
+                    viewModel.getCycleExercises(it?.id!!).join()
                     mutex.withLock {
                         finishedThreads++
                     }
-                    Log.i("AAAAAAAAAAAAAAAAAAAAA", "pase")
                 }
             }
         }
@@ -101,6 +100,14 @@ fun ExecutionScreen(
         }
     }
 
+    LaunchedEffect(key1 = rivar) {
+        launch {
+            if (rivar) {
+                if (currentExerciseIndex + 1 >= uiState.cycleExercises.get(uiState.routineCycles!!.getOrNull(currentCycleIndex)!!.id).orEmpty().size)
+                    nextCycle()
+            }
+        }
+    }
 
     val cycles = uiState.routineCycles
     var currentCycle = uiState.routineCycles?.getOrNull(currentCycleIndex)
