@@ -49,16 +49,20 @@ fun ExerciseEntry (
                     text = title,
                     fontSize = 22.sp
                 )
-                Text(
-                    text = "$reps repetitions",
-                    fontSize = 18.sp,
-                    color = Color.Gray
-                )
-                Text(
-                    text = "$time seconds",
-                    fontSize = 18.sp,
-                    color = Color.Gray
-                )
+                if (reps>0){
+                    Text(
+                        text = "$reps repetitions",
+                        fontSize = 18.sp,
+                        color = Color.Gray
+                    )
+                }
+                if (time>0){
+                    Text(
+                        text = "$time seconds",
+                        fontSize = 18.sp,
+                        color = Color.Gray
+                    )
+                }
             }
         }
     }

@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Motion</string>
+    <string name="home_top_text">Principal</string>
+    <string name="details_top_text">Detalles</string>
+    <string name="explore_top_text">Explorar</string>
+    <string name="routines_top_text">Rutinas</string>
+    <string name="routines_subtitle">Tus rutinas</string>
+    <string name="explore_subtitle">Rutinas de la comunidad</string>
+    <string name="details_subtitle">Ciclos en esta rutina</string>
+    <string name="details_cycle_subtitle">Ejercicios en este ciclo</string>
+    <string name="home_subtitle">Última rutina</string>
+    <string name="home_suggested">Sugeridas</string>
+    <string name="home_favourites">Favoritas</string>
+    <string name="start_routine">COMENZAR RUTINA</string>
+    <string name="loading_message">Cargando...</string>
+    <string name="empty_routine">Esta rutina no tiene ciclos</string>
+    <string name="empty_cycle">Este ciclo no tiene ejercicios</string>
+    <string name="empty_routines">No hay rutinas para mostrar</string>
+    <string name="empty_favourites">Todavía no tienes rutinas favoritas</string>
+
+    <string name="settings_enable_suggestions">Mostrar rutinas sugeridas</string>
+
+    <string name="login">LOGIN</string>
+    <string name="logout">LOGOUT</string>
+    <string name="get_current_user">GET CURRENT USER</string>
+    <string name="get_all_sports">GET ALL SPORTS</string>
+    <string name="get_current_sport">GET CURRENT SPORT</string>
+    <string name="add_sport">ADD SPORT</string>
+    <string name="modify_sport">MODIFY SPORT</string>
+    <string name="delete_sport">DELETE SPORT</string>
+    <string name="top_title_home">Principal</string>
+    <string name="top_title_routines">Rutinas</string>
+    <string name="top_title_explore">Explore</string>
+    <string name="popup_settings">Configuración</string>
+    <string name="popup_logout">Cerrar sesión</string>
+    <string name="order_by">Ordenar</string>
+    <string name="date">Fecha</string>
+    <string name="difficulty">Dificultad</string>
+    <string name="score">Puntuación</string>
+    <string name="category">Categoría</string>
+    <string name="username">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="welcome_message">Bienvenido!</string>
+    <string name="welcome_subtitle">Iniciar sesión en Motion</string>
+    <string name="log_in">Iniciar sesión</string>
+    <string name="app_features">Características</string>
+
+</resources>

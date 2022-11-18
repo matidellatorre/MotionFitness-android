@@ -41,7 +41,7 @@ fun SettingsScreen() {
         .padding(16.dp)
         .fillMaxWidth()) {
         Text(
-            text = "App features",
+            text = stringResource(id = R.string.app_features),
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp,
             modifier = Modifier

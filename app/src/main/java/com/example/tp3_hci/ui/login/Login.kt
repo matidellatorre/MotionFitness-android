@@ -20,6 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -86,12 +87,13 @@ fun LogInScreen(
                             .padding(16.dp),
                         verticalArrangement = Arrangement.SpaceEvenly
                     ) {
-                        Text("Welcome back!",
+                        Text(
+                            stringResource(id = R.string.welcome_message),
                             style = MaterialTheme.typography.h4.copy(
                                 fontWeight = FontWeight.Medium
                             )
                         )
-                        Text("Log in to your Motion account",
+                        Text(stringResource(id = R.string.welcome_subtitle),
                             style = MaterialTheme.typography.h5.copy(
                                 color = MaterialTheme.colors.primary
                             )
@@ -105,7 +107,7 @@ fun LogInScreen(
                         ) {
                             TransparentTextField(
                                 textFieldValue = usernameValue,
-                                textLabel = "Username",
+                                textLabel = stringResource(id = R.string.username),
                                 keyboardType = KeyboardType.Text,
                                 keyboardActions = KeyboardActions(
                                     onNext = {
@@ -116,12 +118,11 @@ fun LogInScreen(
                             )
                             TransparentTextField(
                                 textFieldValue = passwordValue,
-                                textLabel = "Password",
+                                textLabel = stringResource(id = R.string.password),
                                 keyboardType = KeyboardType.Password,
                                 keyboardActions = KeyboardActions(
                                     onDone = {
                                         focusManager.clearFocus()
-                                        //TODO("Login")
                                     }
                                 ),
                                 imeAction = ImeAction.Done,
@@ -154,7 +155,7 @@ fun LogInScreen(
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             RoundedButton(
-                                text = "Log in",
+                                text = stringResource(id = R.string.log_in),
                                 displayProgressBar = false,
                                 onClick = {
                                     viewModel.login(usernameValue.value, passwordValue.value).invokeOnCompletion {

@@ -17,6 +17,24 @@
     <string name="empty_cycle">This cycle has no exercises</string>
     <string name="empty_routines">There are no routines to show</string>
     <string name="empty_favourites">There are no favourite routines yet</string>
+    <string name="top_title_home">Home</string>
+    <string name="top_title_routines">Routines</string>
+    <string name="top_title_explore">Explore</string>
+    <string name="popup_settings">Settings</string>
+    <string name="popup_logout">Log out</string>
+    <string name="order_by">Order by</string>
+    <string name="date">Date</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="score">Score</string>
+    <string name="category">Category</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="welcome_message">Welcome back!</string>
+    <string name="welcome_subtitle">Log in to your Motion account</string>
+    <string name="log_in">Log in</string>
+    <string name="app_features">App features</string>
+
+
 
     <string name="settings_enable_suggestions">Show suggested routines</string>
 

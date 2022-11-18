@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color.Companion.Yellow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -40,12 +41,18 @@ fun MainAppBar(
     if (currentRoute.contains("details")){
         currentRoute = "details"
     }
+    val home = stringResource(id = R.string.top_title_home)
+    val routines = stringResource(id = R.string.top_title_routines)
+    val explore = stringResource(id = R.string.explore_top_text)
+    val details = stringResource(id = R.string.details_top_text)
+    val settings = stringResource(id = R.string.popup_settings)
+
     var topBarInfoMap by remember { mutableStateOf( hashMapOf<String, TopBarInfo>(
-        "home" to TopBarInfo("Home", true, false, false, false),
-        "routines" to TopBarInfo("Routines", false, false, false, true),
-        "explore" to TopBarInfo("Explore", false, false, false, true),
-        "details" to TopBarInfo("Details", false, false, true, false),
-        "settings" to TopBarInfo("Settings", false, false, true, false),
+        "home" to TopBarInfo(home, true, false, false, false),
+        "routines" to TopBarInfo(routines, false, false, false, true),
+        "explore" to TopBarInfo(explore, false, false, false, true),
+        "details" to TopBarInfo(details, false, false, true, false),
+        "settings" to TopBarInfo(settings, false, false, true, false),
     )
     )
     }
@@ -70,7 +77,7 @@ fun MainAppBar(
                     Box(modifier = Modifier.padding(end=6.dp)){
                         Image(
                             painter = painterResource(R.drawable.bg),
-                            contentDescription = "profile picture",
+                            contentDescription = "Profile picture",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
                                 .size(40.dp)
@@ -84,22 +91,22 @@ fun MainAppBar(
                         modifier = Modifier.background(MaterialTheme.colors.background)
                     ) {
                         DropdownMenuItem(onClick = { onNavigateToSettings() ; showPopUp = false }) {
-                            Text(text = "Settings", modifier = Modifier.padding(end = 7.dp))
+                            Text(text = stringResource(id = R.string.popup_settings), modifier = Modifier.padding(end = 7.dp))
                             Icon(imageVector = Icons.Default.Settings, contentDescription = "settings")
                         }
                         DropdownMenuItem(onClick = { viewModel.logout() ; onNavigateToLogin() ; showPopUp = false ; Toast.makeText(context, "Logged out", Toast.LENGTH_SHORT).show()  }) {
-                            Text(text = "Log out", modifier = Modifier.padding(end = 7.dp))
+                            Text(text = stringResource(id = R.string.popup_logout), modifier = Modifier.padding(end = 7.dp))
                             Icon(imageVector = Icons.Default.Logout, contentDescription = "logout", tint = Red)
                         }
                     }
                 } else if (currentTopBarInfo.hasOrderBy) {
                     Row(
                         modifier = Modifier
-                            .padding(end=6.dp)
+                            .padding(end = 6.dp)
                             .clickable { showPopUpOrder = !showPopUpOrder }
                     ){
                         Text(
-                            text = "OrderBy",
+                            text = stringResource(id = R.string.order_by),
                             modifier = Modifier
                                 .padding(end = 6.dp)
                         )
@@ -116,25 +123,25 @@ fun MainAppBar(
                         DropdownMenuItem(
                             onClick = { onOrderBy("date") ; showPopUpOrder = false })
                         {
-                            Text(text = "Date", modifier = Modifier.padding(end = 5.dp))
+                            Text(text = stringResource(id = R.string.date), modifier = Modifier.padding(end = 5.dp))
                             Icon(imageVector = Icons.Default.CalendarMonth, contentDescription = "date")
                         }
                         DropdownMenuItem(
                             onClick = { onOrderBy("difficulty") ; showPopUpOrder = false }
                         ) {
-                            Text(text = "Difficulty", modifier = Modifier.padding(end = 5.dp))
+                            Text(text = stringResource(id = R.string.difficulty), modifier = Modifier.padding(end = 5.dp))
                             Icon(imageVector = Icons.Default.SupervisorAccount, contentDescription = "difficulty")
                         }
                         DropdownMenuItem(
                             onClick = { onOrderBy("score") ; showPopUpOrder = false }
                         ) {
-                            Text(text = "Score", modifier = Modifier.padding(end = 5.dp))
+                            Text(text = stringResource(id = R.string.score), modifier = Modifier.padding(end = 5.dp))
                             Icon(imageVector = Icons.Default.TrendingUp, contentDescription = "score")
                         }
                         DropdownMenuItem(
                             onClick = { onOrderBy("category") ; showPopUpOrder = false }
                         ) {
-                            Text(text = "Category", modifier = Modifier.padding(end = 5.dp))
+                            Text(text = stringResource(id = R.string.category), modifier = Modifier.padding(end = 5.dp))
                             Icon(imageVector = Icons.Default.Category, contentDescription = "category", tint = Black)
                         }
                     }
