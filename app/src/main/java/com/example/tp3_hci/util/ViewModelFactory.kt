@@ -55,7 +55,7 @@ class ViewModelFactory constructor(
             isAssignableFrom(ExecutionViewModel::class.java) ->
                 ExecutionViewModel(sessionManager, userRepository, routineRepository, routineCycleRepository, cycleExerciseRepository)
             isAssignableFrom(ReviewViewModel::class.java) ->
-                ReviewViewModel(reviewRepository)
+                ReviewViewModel(sessionManager, reviewRepository)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

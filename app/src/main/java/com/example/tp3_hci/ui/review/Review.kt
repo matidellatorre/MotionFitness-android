@@ -13,14 +13,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tp3_hci.R
+import com.example.tp3_hci.data.model.ReviewParam
+import com.example.tp3_hci.ui.routines.RoutinesViewModel
+import com.example.tp3_hci.util.getViewModelFactory
 import com.gowtham.ratingbar.RatingBar
 import com.gowtham.ratingbar.RatingBarConfig
 import com.gowtham.ratingbar.RatingBarStyle
 
 @Composable
 fun ReviewScreen(
-    routineId: String
+    onNavigateToHome: () -> Unit,
+    routineId: String,
+    viewModel: ReviewViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
+
 ) {
+
+    var uiState = viewModel.uiState
+
     val zero = 0
     var rating by remember { mutableStateOf(zero.toFloat()) }
 
@@ -61,7 +70,7 @@ fun ReviewScreen(
                         }
                     )
                     Button(
-                        onClick = {  },
+                        onClick = { viewModel.addReview(routineId.toInt(), ReviewParam((rating*2).toInt(),"")) ; onNavigateToHome() },
                         modifier = Modifier
                             .padding(vertical = 40.dp),
                         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),

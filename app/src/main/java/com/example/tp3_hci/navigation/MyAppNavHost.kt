@@ -68,7 +68,7 @@ fun MyAppNavHost(navController: NavHostController, orderBy: String){
         composable(route = "execution/{routineId}"){
             ExecutionScreen(
                 onNavigateBack = { navController.navigateUp() },
-                onNavigateToRate = { id -> navController.navigate("rate/$id") },
+                onNavigateToRate = { id -> navController.navigate("review/$id") },
                 routineId=navController.currentBackStackEntry?.arguments?.getString("routineId")?:"-1"
             )
         }
@@ -88,9 +88,10 @@ fun MyAppNavHost(navController: NavHostController, orderBy: String){
         composable("settings") {
             SettingsScreen()
         }
-        composable("rate/{routineId}") {
+        composable("review/{routineId}") {
             ReviewScreen(
-                routineId=navController.currentBackStackEntry?.arguments?.getString("routineId")?:"-1"
+                routineId=navController.currentBackStackEntry?.arguments?.getString("routineId")?:"-1",
+                onNavigateToHome = { navController.navigate("home") }
             )
         }
     }
