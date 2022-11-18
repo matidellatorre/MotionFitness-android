@@ -3,6 +3,7 @@ package com.example.tp3_hci.components
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.media.Image
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,6 +27,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tp3_hci.R
+import com.gowtham.ratingbar.RatingBar
+import com.gowtham.ratingbar.RatingBarConfig
+import com.gowtham.ratingbar.RatingBarStyle
 import dev.leonardom.loginjetpackcompose.presentation.components.RoundedButton
 
 @Composable
@@ -73,7 +77,14 @@ fun RoutineCard(
                     if(hasFavourites)
                         FavoriteButton(routineId = id, modifier = Modifier.padding(12.dp), isFavourite = isFavourite!!, addFavourite = addFavourite!!)
                     if(hasReview){
-                        Text(text = "Review: "+review.toString(), color = Color.White)
+                        RatingBar(
+                            value = review!!.toInt().toFloat()/2,
+                            config = RatingBarConfig()
+                                .style(RatingBarStyle.HighLighted)
+                                .hideInactiveStars(true),
+                            onValueChange = {},
+                            onRatingChanged = {}
+                        )
                     }
                 }
             }
