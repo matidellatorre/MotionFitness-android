@@ -236,30 +236,36 @@ fun ExecutionScreen(
                     //Nombre del ciclo
                     Column(
                         modifier = Modifier
-                            .fillMaxHeight()
-                            .background(Color.Red),
+                            .fillMaxHeight(),
                         verticalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Column(
-                            modifier = Modifier
-                                .fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally
+                            modifier = Modifier.fillMaxHeight(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.SpaceEvenly
                         ) {
-                            Text(
-                                text = currentCycle?.name ?: "Cycle",
-                                fontSize = 32.sp,
-                                fontWeight = FontWeight(500)
-                            )
-                            Divider(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 50.dp, vertical = 10.dp),
-                                thickness = 4.dp,
-                                color = GreyGrey
-                            )
+                            Box(){
+                                Column(
+                                    modifier = Modifier,
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(
+                                        text = currentCycle?.name ?: "Cycle",
+                                        fontSize = 32.sp,
+                                        fontWeight = FontWeight(500)
+                                    )
+                                    Divider(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 50.dp, vertical = 10.dp),
+                                        thickness = 4.dp,
+                                        color = GreyGrey
+                                    )
+                                }
+                            }
                             LazyColumn(
                                 modifier = Modifier
-                                    .fillMaxWidth(),
+                                    .size(500.dp),
                             ) {
                                 var list = uiState.cycleExercises?.get(
                                     uiState.routineCycles!!.getOrNull(currentCycleIndex)?.id!!
@@ -294,8 +300,15 @@ fun ExecutionScreen(
                                     .fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceEvenly
                             ) {
+                                fun nextC(){
+                                    if (currentCycleIndex+1==uiState.routineCycles!!.size){
+                                        onNavigateToRate(routineId)
+                                    } else {
+                                        currentCycleIndex++;
+                                    }
+                                }
                                 Button(
-                                    onClick = { currentCycleIndex-- },
+                                    onClick = { if (currentCycleIndex>0) currentCycleIndex--},
                                     colors = ButtonDefaults.buttonColors(MaterialTheme.colors.secondary),
                                     shape = RoundedCornerShape(35.dp)
                                 ) {
@@ -304,8 +317,9 @@ fun ExecutionScreen(
                                         color = Color.White
                                     )
                                 }
+
                                 Button(
-                                    onClick = { currentCycleIndex++ },
+                                    onClick = { nextC() },
                                     colors = ButtonDefaults.buttonColors(MaterialTheme.colors.secondary),
                                     shape = RoundedCornerShape(35.dp)
                                 ) {
