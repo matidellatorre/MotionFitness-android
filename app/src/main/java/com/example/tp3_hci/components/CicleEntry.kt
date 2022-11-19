@@ -13,10 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
+import com.example.tp3_hci.R
 import com.example.tp3_hci.navigation.MyAppNavHost
+import kotlin.math.round
 
 @Composable
 fun CicleEntry (
@@ -47,7 +50,7 @@ fun CicleEntry (
                     fontSize = 22.sp
                 )
                 Text(
-                    text = "$rounds Rounds",
+                    text = rounds.toString() + " " + stringResource(id = R.string.rounds),
                     fontSize = 18.sp,
                     color = Color.Gray
                 )

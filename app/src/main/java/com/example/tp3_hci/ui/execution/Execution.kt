@@ -279,11 +279,11 @@ fun ExecutionScreen(
                                             style = MaterialTheme.typography.h5
                                         )
                                         Text(
-                                            text = "Reps: " + list.get(index).repetitions,
+                                            text = stringResource(id = R.string.reps) + list.get(index).repetitions,
                                             style = MaterialTheme.typography.h5
                                         )
                                         Text(
-                                            text = "Time: " + list.get(index).duration,
+                                            text = stringResource(id = R.string.time) + list.get(index).duration,
                                             style = MaterialTheme.typography.h5
                                         )
                                     }

@@ -55,5 +55,10 @@
     <string name="restart">Reiniciar</string>
     <string name="rate">Puntúa esta rutina</string>
     <string name="public_warning">Esta puntuación será pública</string>
+    <string name="rounds">rondas</string>
+    <string name="seconds">segundos</string>
+    <string name="reps">"Reps: "</string>
+    <string name="time">Tiempo:</string>
+    <string name="repetitions">repeticiones</string>
 
 </resources>

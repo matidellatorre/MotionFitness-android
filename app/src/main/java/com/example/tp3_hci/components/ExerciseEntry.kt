@@ -16,11 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.Navigation
 import androidx.navigation.compose.rememberNavController
+import com.example.tp3_hci.R
 import com.example.tp3_hci.navigation.MyAppNavHost
 
 @Composable
@@ -51,14 +53,14 @@ fun ExerciseEntry (
                 )
                 if (reps>0){
                     Text(
-                        text = "$reps repetitions",
+                        text = reps.toString() + " " + stringResource(id = R.string.repetitions),
                         fontSize = 18.sp,
                         color = Color.Gray
                     )
                 }
                 if (time>0){
                     Text(
-                        text = "$time seconds",
+                        text = time.toString() + " " + stringResource(id = R.string.seconds),
                         fontSize = 18.sp,
                         color = Color.Gray
                     )
