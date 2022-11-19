@@ -142,6 +142,16 @@ fun ExecutionScreen(
         }
     }
 
+    val toastError = Toast.makeText(LocalContext.current, uiState.message, Toast.LENGTH_SHORT)
+
+    LaunchedEffect(key1 = uiState.message){
+        launch {
+            if(uiState.message != null){
+                toastError.show()
+            }
+        }
+    }
+
     val cycles = uiState.routineCycles
     var currentCycle = uiState.routineCycles?.getOrNull(currentCycleIndex)
 

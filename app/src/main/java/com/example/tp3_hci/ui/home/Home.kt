@@ -1,5 +1,6 @@
 package com.example.tp3_hci.Screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
@@ -65,6 +66,16 @@ fun HomeScreen(
         launch {
             if (uiState.canGetFavouriteRoutines)
                 viewModel.getFavouriteRoutines()
+        }
+    }
+
+    val toastError = Toast.makeText(LocalContext.current, uiState.message, Toast.LENGTH_SHORT)
+
+    LaunchedEffect(key1 = uiState.message){
+        launch {
+            if(uiState.message != null){
+                toastError.show()
+            }
         }
     }
 

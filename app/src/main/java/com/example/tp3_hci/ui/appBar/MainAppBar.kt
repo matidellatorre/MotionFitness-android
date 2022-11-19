@@ -27,6 +27,7 @@ import com.example.tp3_hci.ui.model.TopBarInfo
 import com.example.tp3_hci.R
 import com.example.tp3_hci.ui.model.OrderBy
 import com.example.tp3_hci.util.getViewModelFactory
+import kotlinx.coroutines.launch
 
 @Composable
 fun MainAppBar(
@@ -52,14 +53,22 @@ fun MainAppBar(
         "routines" to TopBarInfo(routines, false, false, false, true),
         "explore" to TopBarInfo(explore, false, false, false, true),
         "details" to TopBarInfo(details, false, false, true, false),
-        "settings" to TopBarInfo(settings, false, false, true, false),
-    )
-    )
+        "settings" to TopBarInfo(settings, false, false, true, false),))
     }
     var currentTopBarInfo = topBarInfoMap.get(currentRoute)
     var showPopUp by remember { mutableStateOf(false) }
     var showPopUpOrder by remember { mutableStateOf(false) }
     var context = LocalContext.current
+
+    val toastError = Toast.makeText(context, viewModel.uiState.message, Toast.LENGTH_SHORT)
+
+    LaunchedEffect(key1 = viewModel.uiState.message){
+        launch {
+            if(viewModel.uiState.message != null){
+                toastError.show()
+            }
+        }
+    }
 
     if(currentTopBarInfo != null){
         TopAppBar(

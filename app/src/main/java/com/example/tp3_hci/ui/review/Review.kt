@@ -1,6 +1,7 @@
 package com.example.tp3_hci.ui.review
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -8,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -19,6 +21,7 @@ import com.example.tp3_hci.util.getViewModelFactory
 import com.gowtham.ratingbar.RatingBar
 import com.gowtham.ratingbar.RatingBarConfig
 import com.gowtham.ratingbar.RatingBarStyle
+import kotlinx.coroutines.launch
 
 @Composable
 fun ReviewScreen(
@@ -27,11 +30,19 @@ fun ReviewScreen(
     viewModel: ReviewViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
 
 ) {
-
     var uiState = viewModel.uiState
 
     val zero = 0
     var rating by remember { mutableStateOf(zero.toFloat()) }
+    val toastError = Toast.makeText(LocalContext.current, uiState.message, Toast.LENGTH_SHORT)
+
+    LaunchedEffect(key1 = uiState.message){
+        launch {
+            if(uiState.message != null){
+                toastError.show()
+            }
+        }
+    }
 
     Column(
         modifier = Modifier.fillMaxWidth(),
