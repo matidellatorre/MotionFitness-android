@@ -1,6 +1,7 @@
 package com.example.tp3_hci.ui.login
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
@@ -47,6 +49,15 @@ fun LogInScreen(
     var passwordVisibility by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
     val uiState = viewModel.uiState
+    val toastError = Toast.makeText(LocalContext.current, uiState.message, Toast.LENGTH_SHORT)
+
+    LaunchedEffect(key1 = uiState.message){
+        launch {
+            if(uiState.message != null){
+                toastError.show()
+            }
+        }
+    }
 
     Box(
         modifier = Modifier
